@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import {useDispatch} from 'react-redux';
 
 function AdminAddClient () {
+
+    const dispatch = useDispatch();
 
     //client object
     const [newClient, setNewClient] = useState({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
@@ -32,8 +35,13 @@ function AdminAddClient () {
     //handleSubmit form
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('handle submit clicked');
-        console.log(newClient);
+        // console.log('handle submit clicked');
+        // console.log(newClient);
+        dispatch({
+            type: 'ADD_CLIENT',
+            payload: newClient
+        })
+        setNewClient({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
 
     }//end of handleSubmit
 
@@ -49,57 +57,64 @@ function AdminAddClient () {
                     First Name
                     <input
                     type="text"
-                    placeholder="name"
+                    placeholder="First Name"
                     onChange={handleFirstName}
+                    value={newClient.firstName}
                     />
                 </label>
                 <label>
                     Last Name
                     <input
                     type="text"
-                    placeholder="name"
+                    placeholder="Last Name"
                     onChange={handleLastName}
+                    value={newClient.lastName}
                     />
                 </label>
                 <label>
                     Address
                     <input
                     type="text"
-                    placeholder="name"
+                    placeholder="Address"
                     onChange={handleAddress}
+                    value={newClient.address}
                     />
                 </label>
                 <label>
                     City
                     <input
                     type="text"
-                    placeholder="name"
+                    placeholder="City"
                     onChange={handleCity}
+                    value={newClient.city}
                     />
                 </label>
                 <label>
                     State
                     <input
                     type="text"
-                    placeholder="name"
+                    placeholder="State"
                     onChange={handleState}
+                    value={newClient.state}
                     />
                 </label>
                 <label>
                     Zip
                     <input
                     type="number"
-                    placeholder="name"
+                    placeholder="Zip"
                     onChange={handleZip}
+                    value={newClient.zip}
                     />
                 </label>
                 <label>
                     Bio
-                <textarea 
-                type="text"
-                placeholder="Notes"
-                onChange={handleBio}
-                />
+                    <textarea 
+                    type="text"
+                    placeholder="Bio"
+                    onChange={handleBio}
+                    value={newClient.bio}
+                    />
                 </label>
                 <button>Cancel</button>
                 <button

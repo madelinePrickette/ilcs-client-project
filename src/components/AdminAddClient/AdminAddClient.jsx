@@ -2,39 +2,63 @@ import React, { useState } from 'react';
 
 function AdminAddClient () {
 
-    //form input fields 
-    const [notes, setNotes] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [zip, setZip] = useState(0);
-    const [bio, setBio] = useState('');
-
     //client object
-    const [newClient, setNewClient] = useState({});
+    const [newClient, setNewClient] = useState({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
 
-    //functions
+    //setting input functions:
+    const handleFirstName = (event) => {
+        setNewClient({...newClient, firstName: event.target.value})
+    }
+    const handleLastName = (event) => {
+        setNewClient({...newClient, lastName: event.target.value})
+    }
+    const handleAddress = (event) => {
+        setNewClient({...newClient, address: event.target.value})
+    }
+    const handleCity = (event) => {
+        setNewClient({...newClient, city: event.target.value})
+    }
+    const handleState = (event) => {
+        setNewClient({...newClient, state: event.target.value})
+    }
+    const handleZip = (event) => {
+        setNewClient({...newClient, zip: event.target.value})
+    }
+    const handleBio = (event) => {
+        setNewClient({...newClient, bio: event.target.value})
+    }
+    
 
     //handleSubmit form
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('handle submit clicked')
+        console.log('handle submit clicked');
+        console.log(newClient);
 
     }//end of handleSubmit
 
 
 
-
+    
 
     return(
         <>
             <h2>Add New Client</h2>
             <form onSubmit={handleSubmit}>
                 <label>
-                    Name
+                    First Name
                     <input
                     type="text"
                     placeholder="name"
+                    onChange={handleFirstName}
+                    />
+                </label>
+                <label>
+                    Last Name
+                    <input
+                    type="text"
+                    placeholder="name"
+                    onChange={handleLastName}
                     />
                 </label>
                 <label>
@@ -42,6 +66,7 @@ function AdminAddClient () {
                     <input
                     type="text"
                     placeholder="name"
+                    onChange={handleAddress}
                     />
                 </label>
                 <label>
@@ -49,6 +74,7 @@ function AdminAddClient () {
                     <input
                     type="text"
                     placeholder="name"
+                    onChange={handleCity}
                     />
                 </label>
                 <label>
@@ -56,6 +82,7 @@ function AdminAddClient () {
                     <input
                     type="text"
                     placeholder="name"
+                    onChange={handleState}
                     />
                 </label>
                 <label>
@@ -63,6 +90,7 @@ function AdminAddClient () {
                     <input
                     type="number"
                     placeholder="name"
+                    onChange={handleZip}
                     />
                 </label>
                 <label>
@@ -70,6 +98,7 @@ function AdminAddClient () {
                 <textarea 
                 type="text"
                 placeholder="Notes"
+                onChange={handleBio}
                 />
                 </label>
                 <button>Cancel</button>

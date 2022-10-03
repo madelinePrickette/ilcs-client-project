@@ -6,7 +6,7 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
-  const [clearance_level, setClearanceLevel] = useState();
+  const [clearance_level, setClearanceLevel] = useState(0);
   const [email, setEmail] = useState('');
   const [pic, setPic] = useState('');
   const [user_active, setUserActive] = useState(true);

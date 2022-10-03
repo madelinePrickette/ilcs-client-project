@@ -7,6 +7,8 @@
     "node": "16.x"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@sendgrid/mail": "^7.7.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie-session": "^2.0.0",

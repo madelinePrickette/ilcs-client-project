@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AdminAddClient from '../AdminAddClient/AdminAddClient'
 
 import './App.css';
 
@@ -66,6 +67,13 @@ function App() {
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/add-client"
+          >
+            <AdminAddClient />
           </ProtectedRoute>
 
           <Route
@@ -116,6 +124,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
+        
       </div>
     </Router>
   );

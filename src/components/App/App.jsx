@@ -22,6 +22,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AdminEmployeesView from '../AdminEmployeesView/AdminEmployeesView';
 import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
+import EditEmployee from '../EditEmployee/EditEmployee';
 
 import './App.css';
 
@@ -73,13 +74,21 @@ function App() {
             <AdminEmployeesView />
           </Route>
 
-          <Route
+          <ProtectedRoute
             // shows AboutPage at all times (logged in or not)
             exact
             path="/employee/:employeeid"
           >
             <EmployeeDetails />
-          </Route>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // shows AboutPage at all times (logged in or not)
+            exact
+            path="/editemployee/:employeeid"
+          >
+            <EditEmployee />
+          </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.

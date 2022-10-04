@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 function EditEmployee() {
   const params = useParams();
@@ -45,6 +46,10 @@ function EditEmployee() {
             )
           })}
         </div>
+      </div>
+      <div style={{textAlign: 'center'}} className="clientEditBottom">
+        <Button variant="contained">Cancel</Button>
+        <Button variant="contained">Submit</Button>
       </div>
     </div>
   );

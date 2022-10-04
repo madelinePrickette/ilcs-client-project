@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
   employeedetails,
   clientlist,
   clockInData, // will have all geo location data.
-  adminAllTimesheetsReducer
+  adminAllTimesheetsReducer,
   clientInfoClockIn, // will hold client name, address, and bio for clock in screen.
 });
 

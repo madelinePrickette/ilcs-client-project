@@ -6,7 +6,16 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-  // GET route code here
+  const queryText = `SELECT * FROM "client"`;
+
+  pool.query(queryText)
+    .then(response => {
+      console.log('get client data from server is', response.rows)
+      res.send(response.rows)
+    }).catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
 });
 
 /**

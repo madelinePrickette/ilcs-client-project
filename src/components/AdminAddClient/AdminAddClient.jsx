@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import {useDispatch} from 'react-redux';
+import  {useHistory} from 'react-router-dom';
+
 
 function AdminAddClient () {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     //client object
     const [newClient, setNewClient] = useState({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
@@ -29,6 +32,11 @@ function AdminAddClient () {
     }
     const handleBio = (event) => {
         setNewClient({...newClient, bio: event.target.value})
+    }
+
+    //cancel button route
+    const  handleCancel = () => {
+        history.push('/all-clients');
     }
     
 
@@ -60,6 +68,7 @@ function AdminAddClient () {
                     placeholder="First Name"
                     onChange={handleFirstName}
                     value={newClient.firstName}
+                    required
                     />
                 </label>
                 <label>
@@ -69,6 +78,7 @@ function AdminAddClient () {
                     placeholder="Last Name"
                     onChange={handleLastName}
                     value={newClient.lastName}
+                    required
                     />
                 </label>
                 <label>
@@ -78,6 +88,7 @@ function AdminAddClient () {
                     placeholder="Address"
                     onChange={handleAddress}
                     value={newClient.address}
+                    required
                     />
                 </label>
                 <label>
@@ -87,6 +98,7 @@ function AdminAddClient () {
                     placeholder="City"
                     onChange={handleCity}
                     value={newClient.city}
+                    required
                     />
                 </label>
                 <label>
@@ -96,6 +108,7 @@ function AdminAddClient () {
                     placeholder="State"
                     onChange={handleState}
                     value={newClient.state}
+                    required
                     />
                 </label>
                 <label>
@@ -105,6 +118,7 @@ function AdminAddClient () {
                     placeholder="Zip"
                     onChange={handleZip}
                     value={newClient.zip}
+                    required
                     />
                 </label>
                 <label>
@@ -114,9 +128,14 @@ function AdminAddClient () {
                     placeholder="Bio"
                     onChange={handleBio}
                     value={newClient.bio}
+                    required
                     />
                 </label>
-                <button>Cancel</button>
+                <button
+                onClick={handleCancel}
+                >
+                    Cancel
+                </button>
                 <button
                 type="submit">
                     Submit

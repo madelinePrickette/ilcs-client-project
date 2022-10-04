@@ -2,10 +2,12 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
-router.get('/', (req, res) => {
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
+
+
+router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText =
   `
   SELECT "client".client_first_name, "client".client_last_name, "client".client_id FROM "client"
@@ -24,13 +26,6 @@ router.get('/', (req, res) => {
     console.log('error in EmployeeDashboard.jsx', err);
   });
 
-});
-
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
 });
 
 module.exports = router;

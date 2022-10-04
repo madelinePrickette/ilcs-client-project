@@ -124,3 +124,8 @@ input {
 .employeedetails {
   display: inline;
 }
+
+.clientEditTop {
+  width: 100%;
+  display: inline-flex
+}

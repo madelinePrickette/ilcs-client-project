@@ -1,17 +1,23 @@
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 
 function EmployeeDetails() {
+
+  const history = useHistory();
   const params = useParams();
   const dispatch = useDispatch();
   const employeeInfo = useSelector((store) => store.employeedetails);
-  const clientList = useSelector(store => store.clientlist);
+  const employeeClientList = useSelector(store => store.clientlist.employeeClientList);
+
+  const clickEdit = () => {
+    history.push(`/editemployee/${params.employeeid}`)
+  }
 
   useEffect(() => {
     dispatch({ type: "FETCH_CURRENT_EMPLOYEE", payload: params.employeeid });
-    dispatch({ type: "FETCH_CLIENT_LIST", payload: params.employeeid });
+    dispatch({ type: "FETCH_EMPLOYEE_CLIENT_LIST", payload: params.employeeid });
   }, []);
 
   return (
@@ -26,12 +32,12 @@ function EmployeeDetails() {
             {employeeInfo.first_name}
             {employeeInfo.last_name}
           </h2>
-          <Button variant="contained">Edit Employee</Button>
+          <Button onClick={clickEdit} variant="contained">Edit Employee</Button>
           <Button variant="contained">View All</Button>
         </div>
         <div className="clientListDiv">
           <h1>Clients</h1>
-          {clientList.map(client => {
+          {employeeClientList.map(client => {
             return (
               <h3 key={client.client_id}>{client.client_first_name} {client.client_last_name}</h3>
             )

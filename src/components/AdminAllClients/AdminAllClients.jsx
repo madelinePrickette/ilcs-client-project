@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import  {useHistory} from 'react-router-dom';
-import AdminAddClient from '../AdminAddClient/AdminAddClient';
 import AdminClientItem from '../AdminClientItem/AdminClientItem';
 
 
 function AdminAllClients() {
+
+    const clientList = useSelector(store => store.adminClients)
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -22,6 +23,8 @@ function AdminAllClients() {
 
     } //end of handleAddClient
 
+    console.log('client list', clientList);
+
     return(
         <>
             <h2>Clients</h2>
@@ -32,11 +35,15 @@ function AdminAllClients() {
                         <th>Address</th>
                     </tr>
                 </thead>
-                    
                 <tbody>
-                    
-                    <AdminClientItem />
-                    
+                    {clientList && clientList.map( client => {
+                        return (
+                        <AdminClientItem 
+                        key={client.client_id} 
+                        client={client}
+                        />
+                        )
+                    })}
                 </tbody>
             </table>
             <button

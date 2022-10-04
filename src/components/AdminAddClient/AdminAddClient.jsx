@@ -50,6 +50,7 @@ function AdminAddClient () {
             payload: newClient
         })
         setNewClient({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
+        history.push('/all-clients');
 
     }//end of handleSubmit
 

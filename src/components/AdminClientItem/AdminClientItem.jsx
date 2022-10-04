@@ -2,20 +2,12 @@ import { useState } from 'react';
 import {useDispatch} from 'react-redux';
 import  {useHistory} from 'react-router-dom';
 
-function AdminClientItem () {
+function AdminClientItem ({client}) {
 
     return(
         <>
             <tr>
-                <td>
-                    hello
-                </td>
-                <td>
-                    hi
-                </td>
-                <td>
-                    button
-                </td>
+                <td>{client.client_first_name}</td>
             </tr>
         </>
     );

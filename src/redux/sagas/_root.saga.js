@@ -2,6 +2,7 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
+import EmployeeClientsSaga from './EmployeeDashboard.saga';
 import adminEmployeeViewSaga from './adminemployeeview.saga';
 import employeeDetails from './employeedetails.saga';
 import clientList from './clientlist.saga'
@@ -19,6 +20,7 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    EmployeeClientsSaga(),
     adminEmployeeViewSaga(),
     employeeDetails(),
     clientList(),

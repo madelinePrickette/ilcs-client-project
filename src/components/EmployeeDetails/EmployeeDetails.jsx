@@ -33,7 +33,7 @@ function EmployeeDetails() {
           <h1>Clients</h1>
           {clientList.map(client => {
             return (
-              <h3>{client.client_first_name} {client.client_last_name}</h3>
+              <h3 key={client.client_id}>{client.client_first_name} {client.client_last_name}</h3>
             )
           })}
         </div>

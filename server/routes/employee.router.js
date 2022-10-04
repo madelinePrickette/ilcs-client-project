@@ -22,5 +22,22 @@ router.post('/clockIn', (req, res) => {
         })
 })
 
+router.post('/clockIn/client', (req, res) => {
+    console.log('server client id', req.body.clientId);
+    const queryText = `SELECT * FROM "client"
+    WHERE client_id = $1;`;
+    const queryValues = [ req.body.clientId ];
+
+    pool.query(queryText, queryValues)
+    .then( result => {
+        res.send(result.rows[0]);
+        console.log('results!', result.rows[0]);
+        // res.sendStatus(201);
+    }).catch( err => {
+        console.log( err );
+        res.sendStatus(500);
+    })
+})
+
 
 module.exports = router;

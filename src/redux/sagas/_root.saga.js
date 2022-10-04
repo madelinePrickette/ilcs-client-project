@@ -2,9 +2,11 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
+import EmployeeClientsSaga from './EmployeeDashboard.saga';
 import adminEmployeeViewSaga from './adminemployeeview.saga';
 import employeeDetails from './employeedetails.saga';
 import clientList from './clientlist.saga'
+import employeeClockInSaga from './employeeClockIn.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -18,8 +20,10 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    EmployeeClientsSaga(),
     adminEmployeeViewSaga(),
     employeeDetails(),
     clientList(),
+    employeeClockInSaga(),
   ]);
 }

@@ -15,7 +15,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
+import EmployeeDashboard from '../EmployeeDashboard/EmployeeDashboard';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -23,8 +23,10 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import AdminEmployeesView from '../AdminEmployeesView/AdminEmployeesView';
 import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
 import EditEmployee from '../EditEmployee/EditEmployee';
+import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 
 import './App.css';
+// import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
 
 function App() {
   const dispatch = useDispatch();
@@ -97,9 +99,9 @@ function App() {
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path="/user"
+            path="/employeeDashboard"
           >
-            <UserPage />
+            <EmployeeDashboard />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -110,6 +112,14 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/employeeClockIn/:id"
+          >
+            <EmployeeClockIn />
+          </ProtectedRoute>
+
           <Route
             exact
             path="/login"
@@ -117,7 +127,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/employeeDashboard" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -131,7 +141,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/employeeDashboard" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -139,6 +149,20 @@ function App() {
           </Route>
 
           <Route
+            exact
+            path="/home"
+          >
+            {user.id ?
+              // If the user is already logged in, 
+              // redirect them to the /user page
+              <Redirect to="/employeeDashboard" />
+              :
+              // Otherwise, show the Landing page
+              <LandingPage />
+            }
+          </Route>
+
+                    <Route
             exact
             path="/home"
           >

@@ -20,6 +20,8 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AdminAddClient from '../AdminAddClient/AdminAddClient';
+import AdminAllClients from '../AdminAllClients/AdminAllClients';
 import AdminEmployeesView from '../AdminEmployeesView/AdminEmployeesView';
 import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
 import EditEmployee from '../EditEmployee/EditEmployee';
@@ -111,6 +113,20 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/add-client"
+          >
+            <AdminAddClient />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/all-clients"
+          >
+            <AdminAllClients />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
@@ -182,6 +198,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
+        
       </div>
     </Router>
     </ThemeProvider>

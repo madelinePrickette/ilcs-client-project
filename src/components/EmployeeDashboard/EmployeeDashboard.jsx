@@ -25,7 +25,6 @@ function EmployeeDashboard() {
   return (
     <div className="container">
       <h2>Welcome, {user.first_name} {user.last_name}</h2>
-      <p>[CLIENTS HERE]</p>
       <ul>
         {employeesClientList.map((client) =>
           <li key={client.client_id}>{client.client_first_name} {client.client_last_name}</li>

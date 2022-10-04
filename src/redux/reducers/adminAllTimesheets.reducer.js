@@ -1,4 +1,4 @@
-const adminAllTimesheets = (state = [], action) => {
+const adminAllTimesheetsReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_ADMIN_ALL_TIMESHEETS':
         return action.payload;
@@ -8,3 +8,5 @@ const adminAllTimesheets = (state = [], action) => {
         return state;
     }
   };
+
+  export default adminAllTimesheetsReducer;

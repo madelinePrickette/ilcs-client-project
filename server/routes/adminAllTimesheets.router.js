@@ -10,8 +10,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     
     const queryText =
     `
-    SELECT * FROM "timesheet";
-    `
+    SELECT * FROM "timesheet"
+    JOIN "client"
+    ON "timesheet".t_client_id = "client".client_id
+    JOIN "user"
+    ON "timesheet".t_user_id = "user".id;
+    `;
 
     pool.query(queryText)
     .then( (result) => {

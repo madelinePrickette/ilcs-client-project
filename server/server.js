@@ -9,12 +9,15 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
+
+const adminClients = require('./routes/adminClients.router');
 const EmployeeDashboard = require('./routes/EmployeeDashboard.router')
 const adminEmployeesViewRouter = require('./routes/adminemployeesview.router');
 const currentEmployeeRouter = require('./routes/currentemployee.router');
 const clientListRouter = require('./routes/clientlist.router');
 const employeeRouter = require('./routes/employee.router')
 const adminAllTimesheets = require('./routes/adminAllTimesheets.router')
+
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,12 +32,14 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+app.use('/api/adminClients', adminClients);
 app.use('/api/EmployeeDashboard', EmployeeDashboard);
 app.use('/api/adminemployeesview', adminEmployeesViewRouter);
 app.use('/api/currentemployee', currentEmployeeRouter);
 app.use('/api/clientlist', clientListRouter);
 app.use('/api/employee', employeeRouter);
 app.use('/api/adminAllTimesheets', adminAllTimesheets);
+app.use('/api/employeeClockIn', employeeRouter);
 
 // Serve static files
 app.use(express.static('build'));

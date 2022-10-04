@@ -1,8 +1,13 @@
-const clientListReducer = (state = [], action) => {
+const clientListReducer = (
+  state = { employeeClientList: [], clientList: [] },
+  action
+) => {
   switch (action.type) {
-    case 'SET_CLIENT_LIST':
-      return action.payload;
-    case 'UNSET_CLIENT_LIST':
+    case "SET_EMPLOYEE_CLIENT_LIST":
+      return { ...state, employeeClientList: action.payload };
+    case "SET_CLIENT_LIST":
+      return { ...state, clientList: action.payload };
+    case "UNSET_CLIENT_LIST":
       return [];
     default:
       return state;

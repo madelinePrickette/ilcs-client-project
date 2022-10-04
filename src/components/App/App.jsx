@@ -20,13 +20,16 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AdminAddClient from '../AdminAddClient/AdminAddClient';
+import AdminAllClients from '../AdminAllClients/AdminAllClients';
 import AdminEmployeesView from '../AdminEmployeesView/AdminEmployeesView';
 import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
+import EditEmployee from '../EditEmployee/EditEmployee';
 import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 import AdminAllTimesheets from '../AdminAllTimesheets/AdminAllTimesheets';
 
 import './App.css';
-import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
+// import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
 
 function App() {
   const dispatch = useDispatch();
@@ -76,13 +79,21 @@ function App() {
             <AdminEmployeesView />
           </Route>
 
-          <Route
+          <ProtectedRoute
             // shows AboutPage at all times (logged in or not)
             exact
             path="/employee/:employeeid"
           >
             <EmployeeDetails />
-          </Route>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // shows AboutPage at all times (logged in or not)
+            exact
+            path="/editemployee/:employeeid"
+          >
+            <EditEmployee />
+          </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -103,11 +114,25 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/add-client"
+          >
+            <AdminAddClient />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/all-clients"
+          >
+            <AdminAllClients />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/employee/clockIn"
+            path="/employeeClockIn/:id"
           >
             <EmployeeClockIn />
           </ProtectedRoute>
@@ -187,6 +212,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
+        
       </div>
     </Router>
     </ThemeProvider>

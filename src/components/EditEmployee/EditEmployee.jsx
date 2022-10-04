@@ -9,8 +9,11 @@ function EditEmployee() {
   const dispatch = useDispatch();
 
   const unassignClient = (clientID) => {
-    console.log(clientID);
-    dispatch({ type: 'UNASSIGN_CLIENT', payload: clientID })
+    dispatch({ type: 'UNASSIGN_CLIENT', payload: {client: Number(clientID), employee: Number(params.employeeid)} })
+  }
+
+  const assignClient = (clientID) => {
+    dispatch({ type: 'ASSIGN_CLIENT', payload: {client: Number(clientID), employee: Number(params.employeeid)} })
   }
 
   useEffect(() => {
@@ -37,7 +40,7 @@ function EditEmployee() {
             return (
               <div key={client.client_id}>
                 {client.j_user_id == params.employeeid && <h1 onClick={() => {unassignClient(client.client_id)}} style={{backgroundColor: 'red'}}>{client.client_first_name}</h1>}
-                {client.j_user_id != params.employeeid && <h1 >{client.client_first_name}</h1>}
+                {client.j_user_id != params.employeeid && <h1 onClick={() => {assignClient(client.client_id)}}>{client.client_first_name}</h1>}
               </div>
             )
           })}

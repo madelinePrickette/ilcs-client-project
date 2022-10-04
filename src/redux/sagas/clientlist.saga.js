@@ -22,9 +22,31 @@ function* fetchClientList() {
   }
 }
 
+function* unassignClient(action) {
+  try {
+
+    yield axios.post(`/api/clientlist/unassign/`, action.payload);
+    yield put({type: 'FETCH_CLIENT_LIST'})
+  } catch (error) {
+    console.log('Error in unassignClient', error)
+  }
+}
+
+function* assignClient(action) {
+  try {
+
+    yield axios.post(`/api/clientlist/assign/`, action.payload);
+    yield put({type: 'FETCH_CLIENT_LIST'})
+  } catch (error) {
+    console.log('Error in unassignClient', error)
+  }
+}
+
 function* clientListSaga() {
   yield takeEvery('FETCH_EMPLOYEE_CLIENT_LIST', fetchEmployeeClientList);
   yield takeEvery('FETCH_CLIENT_LIST', fetchClientList);
+  yield takeLatest('UNASSIGN_CLIENT', unassignClient);
+  yield takeLatest('ASSIGN_CLIENT', assignClient);
 }
 
 export default clientListSaga;

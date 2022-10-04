@@ -8,15 +8,15 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const queryText =
   `
-  SELECT * FROM "client"
+  SELECT "client".client_first_name, "client".client_last_name, "client".client_id FROM "client"
   JOIN "user_client"
   ON "client".client_id = "user_client".j_client_id
   JOIN "user"
   ON "user_client".j_user_id = "user".id
-  WHERE "user".id = 4;
+  WHERE "user".id = $1;
   `;
 
-  pool.query(queryText)
+  pool.query(queryText, [req.user.id])
   .then( (result) => {
     console.log('Getting this employee clients...', result.rows)
     res.send(result.rows)

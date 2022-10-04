@@ -1,4 +1,4 @@
-const EmployeeClientsReducer = (state = {}, action) => {
+const EmployeeClientsReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_EMPLOYEES_CLIENTS':
         return action.payload;
@@ -6,3 +6,5 @@ const EmployeeClientsReducer = (state = {}, action) => {
         return state;
     }
   };
+
+export default EmployeeClientsReducer;

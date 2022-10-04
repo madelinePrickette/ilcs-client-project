@@ -32,7 +32,7 @@ app.use('/api/EmployeeDashboard', EmployeeDashboard);
 app.use('/api/adminemployeesview', adminEmployeesViewRouter);
 app.use('/api/currentemployee', currentEmployeeRouter);
 app.use('/api/clientlist', clientListRouter);
-app.use('/api/employee', employeeRouter);
+app.use('/api/employeeClockIn', employeeRouter);
 
 // Serve static files
 app.use(express.static('build'));

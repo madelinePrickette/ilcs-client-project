@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* employeeClockIn(action) {
     try {
-        axios.post('/api/employee/clockIn', action.payload)
+        axios.post('/api/employeeClockIn', action.payload)
     } catch (error) {
         console.log('Error with user clock in:', error);
     }
@@ -12,7 +12,7 @@ function* employeeClockIn(action) {
 function* clientInfoClockIn(action) {
     try {
         console.log('action payload in reducer before server', action.payload);
-        const response = yield axios.post(`/api/employee/clockIn/client`, action.payload );
+        const response = yield axios.post(`/api/employeeClockIn/client`, action.payload );
         console.log('response is', response)
         yield put({ type: 'SET_CLIENT_INFO_CLOCK_IN', payload: response.data})
     } catch (error) {

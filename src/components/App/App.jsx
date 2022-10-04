@@ -25,7 +25,7 @@ import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
 import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 
 import './App.css';
-import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
+// import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
 
 function App() {
   const dispatch = useDispatch();
@@ -106,7 +106,7 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/employee/clockIn"
+            path="/employeeClockIn"
           >
             <EmployeeClockIn />
           </ProtectedRoute>

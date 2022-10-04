@@ -22,11 +22,12 @@ router.post('/', (req, res) => {
         })
 })
 
-router.post('/client', (req, res) => {
-    console.log('server client id', req.body.clientId);
+router.get('/client/:id', (req, res) => {
+    console.log(req.params);
+    console.log('server client id', req.params.id);
     const queryText = `SELECT * FROM "client"
     WHERE client_id = $1;`;
-    const queryValues = [ req.body.clientId ];
+    const queryValues = [ req.params.id ];
 
     pool.query(queryText, queryValues)
     .then( result => {

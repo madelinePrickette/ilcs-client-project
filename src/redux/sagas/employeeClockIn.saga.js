@@ -12,7 +12,7 @@ function* employeeClockIn(action) {
 function* clientInfoClockIn(action) {
     try {
         console.log('action payload in reducer before server', action.payload);
-        const response = yield axios.post(`/api/employeeClockIn/client`, action.payload );
+        const response = yield axios.get(`/api/employeeClockIn/client/${action.payload}`);
         console.log('response is', response)
         yield put({ type: 'SET_CLIENT_INFO_CLOCK_IN', payload: response.data})
     } catch (error) {

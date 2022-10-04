@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 function EmployeeClockIn() {
 
+    const history = useHistory();
+
+    let {id} = useParams();
+    console.log(id);
     useEffect( () => {
-        getClientInfo();
+        getClientInfo(id);
     }, [])
 
-    const getClientInfo = () => {
+    const getClientInfo = (client_id) => {
+        console.log("client id", client_id);
         dispatch({
             type: 'CLIENT_INFO_CLOCK_IN',
-            payload: {clientId: 1 }
+            payload: client_id
         })
     }
 
@@ -30,6 +37,7 @@ function EmployeeClockIn() {
                 type: "EMPLOYEE_CLOCK_IN",
                 payload: { location: "(" + position.coords.latitude + ", " + position.coords.longitude + ")" , clientId: 22 }
             });
+            history.push('/employeeDashboard')
           });
     }
 

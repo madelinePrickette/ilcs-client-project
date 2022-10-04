@@ -22,8 +22,10 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AdminEmployeesView from '../AdminEmployeesView/AdminEmployeesView';
 import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
+import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 
 import './App.css';
+import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
 
 function App() {
   const dispatch = useDispatch();
@@ -101,6 +103,14 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/employee/clockIn"
+          >
+            <EmployeeClockIn />
+          </ProtectedRoute>
+
           <Route
             exact
             path="/login"
@@ -130,6 +140,20 @@ function App() {
           </Route>
 
           <Route
+            exact
+            path="/home"
+          >
+            {user.id ?
+              // If the user is already logged in, 
+              // redirect them to the /user page
+              <Redirect to="/user" />
+              :
+              // Otherwise, show the Landing page
+              <LandingPage />
+            }
+          </Route>
+
+                    <Route
             exact
             path="/home"
           >

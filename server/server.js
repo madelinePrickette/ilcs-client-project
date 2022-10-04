@@ -9,9 +9,11 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
+
 const adminEmployeesViewRouter = require('./routes/adminemployeesview.router');
 const currentEmployeeRouter = require('./routes/currentemployee.router');
 const clientListRouter = require('./routes/clientlist.router');
+const employeeRouter = require('./routes/employee.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/adminemployeesview', adminEmployeesViewRouter);
 app.use('/api/currentemployee', currentEmployeeRouter);
 app.use('/api/clientlist', clientListRouter);
+app.use('/api/employee', employeeRouter);
 
 // Serve static files
 app.use(express.static('build'));

@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { createTheme, ThemeProvider } from "@material-ui/core/";
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -19,19 +20,37 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AdminEmployeesView from '../AdminEmployeesView/AdminEmployeesView';
+import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
+import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 
 import './App.css';
+import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
 
 function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#1FBED6",
+      },
+      secondary: {
+        main: "#ffffff",
+      },
+    },
+    tab: {
+      color: "#ffffff",
+    },
+  });
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Nav />
@@ -48,6 +67,22 @@ function App() {
             <AboutPage />
           </Route>
 
+          <Route
+            // shows AboutPage at all times (logged in or not)
+            exact
+            path="/employeesview"
+          >
+            <AdminEmployeesView />
+          </Route>
+
+          <Route
+            // shows AboutPage at all times (logged in or not)
+            exact
+            path="/employee/:employeeid"
+          >
+            <EmployeeDetails />
+          </Route>
+
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
@@ -55,7 +90,7 @@ function App() {
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path="/EmployeeDashboard"
+            path="/employeeDashboard"
           >
             <EmployeeDashboard />
           </ProtectedRoute>
@@ -68,6 +103,14 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/employee/clockIn"
+          >
+            <EmployeeClockIn />
+          </ProtectedRoute>
+
           <Route
             exact
             path="/login"
@@ -75,7 +118,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/EmployeeDashboard" />
+              <Redirect to="/employeeDashboard" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -89,7 +132,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/EmployeeDashboard" />
+              <Redirect to="/employeeDashboard" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -103,7 +146,21 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/EmployeeDashboard" />
+              <Redirect to="/employeeDashboard" />
+              :
+              // Otherwise, show the Landing page
+              <LandingPage />
+            }
+          </Route>
+
+                    <Route
+            exact
+            path="/home"
+          >
+            {user.id ?
+              // If the user is already logged in, 
+              // redirect them to the /user page
+              <Redirect to="/user" />
               :
               // Otherwise, show the Landing page
               <LandingPage />
@@ -118,6 +175,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 

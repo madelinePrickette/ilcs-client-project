@@ -11,6 +11,7 @@ import clockInData from './employeeClockIn.reducer';
 import adminAllTimesheetsReducer from './adminAllTimesheets.reducer';
 import clientInfoClockIn from './clientInfoClockIn.reducer';
 import employeeClockInStatus from './employeeClockInStatus.reducer';
+import employeeAllTimesheets from './employeeAllTimesheets.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   clockInData, // will have all geo location data.
   adminAllTimesheetsReducer,
   clientInfoClockIn, // will hold client name, address, and bio for clock in screen.
-  employeeClockInStatus, //will hold all of the info on the open timesheets where user has not clocked out.
+  employeeClockInStatus, // will hold all of the info on the open timesheets where user has not clocked out.
+  employeeAllTimesheets, // will hold all of the timesheet submissions for a specific user.
 });
 
 export default rootReducer;

@@ -10,7 +10,7 @@ function EmployeeClockIn() {
     const history = useHistory();
 
     let {id} = useParams();
-    console.log(id);
+
     useEffect( () => {
         getClientInfo(id);
     }, [])
@@ -69,6 +69,7 @@ function EmployeeClockIn() {
     }
 
     if (userInfo.client_id == clientInfo.client_id) {
+        // need to com back and require input on this.
         return (
             <div>
                 <h1>Employee Log In</h1>

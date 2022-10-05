@@ -1,5 +1,6 @@
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
+// import EmployeeTimesheetsView from '../../components/EmployeeTimesheetsView/EmployeeTimesheetsView';
 
 function* employeeClockIn(action) {
     try {
@@ -39,7 +40,7 @@ function* employeeClockInSaga() {
     yield takeEvery('EMPLOYEE_CLOCK_IN', employeeClockIn);
     yield takeEvery('CLIENT_INFO_CLOCK_IN', clientInfoClockIn);
     yield takeEvery('GET_USER_STATUS', checkClockedIn);
-    yield takeEvery('EMPLOYEE_CLOCK_OUT', employeeClockOut)
+    yield takeEvery('EMPLOYEE_CLOCK_OUT', employeeClockOut);
 }
 
 export default employeeClockInSaga;

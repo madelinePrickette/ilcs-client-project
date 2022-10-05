@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
 function EditEmployee() {
+  const history = useHistory();
   const params = useParams();
   const employeeInfo = useSelector((store) => store.employeedetails);
   const clientList = useSelector(store => store.clientlist.clientList)
@@ -15,6 +16,10 @@ function EditEmployee() {
 
   const assignClient = (clientID) => {
     dispatch({ type: 'ASSIGN_CLIENT', payload: {client: Number(clientID), employee: Number(params.employeeid)} })
+  }
+
+  const clickCancel = () => {
+    history.push(`/employee/${params.employeeid}`)
   }
 
   useEffect(() => {
@@ -48,7 +53,7 @@ function EditEmployee() {
         </div>
       </div>
       <div style={{textAlign: 'center'}} className="clientEditBottom">
-        <Button variant="contained">Cancel</Button>
+        <Button onClick={clickCancel} variant="contained">Cancel</Button>
         <Button variant="contained">Submit</Button>
       </div>
     </div>

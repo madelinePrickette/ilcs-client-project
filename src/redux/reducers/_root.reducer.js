@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
   clockInData, // will have all geo location data.
   adminAllTimesheetsReducer,
   clientInfoClockIn, // will hold client name, address, and bio for clock in screen.
-  employeeClockInStatus, //will hold all of the info on the open timesheets where user has not clocked out.
+  employeeClockInStatus //will hold all of the info on the open timesheets where user has not clocked out.
 });
 
 export default rootReducer;

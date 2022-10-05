@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import  {useHistory} from 'react-router-dom';
 import AdminClientItem from '../AdminClientItem/AdminClientItem';
+import './AdminAllClients.css';
 
 //MUI Dialog imports
 import Button from '@material-ui/core/Button';
@@ -51,6 +52,7 @@ function AdminAllClients() {
                         <AdminClientItem 
                         key={client.client_id} 
                         client={client}
+                        // className="hide-row"
                         />
                         )
                     })}

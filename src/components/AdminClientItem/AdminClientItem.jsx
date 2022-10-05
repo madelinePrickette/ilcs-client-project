@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {useDispatch} from 'react-redux';
 import  {useHistory} from 'react-router-dom';
+import './AdminClientItem.css';
 
 //MUI Dialog imports
 import Button from '@material-ui/core/Button';
@@ -43,24 +44,44 @@ function AdminClientItem ({client}) {
         console.log('this is client id', clientId);
     return(
         <>
-            <tr>
-                <td>{client.client_first_name}</td>
-                <td>{client.client_last_name}</td>
-                <td>{client.address}</td>
-                <td>{client.city}</td>
-                <td>{client.state}</td>
-                <td>{client.zip}</td>
-                <td>{client.bio}</td>
-                <td><button>edit</button></td>
-                <td>
-                    <button
-                    onClick={handleClickOpen}
-                    >
-                        delete
-                    </button>
-                </td>
+            {client.client_active ?
 
-            </tr>
+                <tr>
+                    <td>{client.client_first_name}</td>
+                    <td>{client.client_last_name}</td>
+                    <td>{client.address}</td>
+                    <td>{client.city}</td>
+                    <td>{client.state}</td>
+                    <td>{client.zip}</td>
+                    <td>{client.bio}</td>
+                    <td><button>edit</button></td>
+                    <td>
+                        <button
+                        onClick={handleClickOpen}
+                        >
+                            delete
+                        </button>
+                    </td>
+                </tr>
+                :
+                <tr className="hide-row">
+                    <td>{client.client_first_name}</td>
+                    <td>{client.client_last_name}</td>
+                    <td>{client.address}</td>
+                    <td>{client.city}</td>
+                    <td>{client.state}</td>
+                    <td>{client.zip}</td>
+                    <td>{client.bio}</td>
+                    <td><button>edit</button></td>
+                    <td>
+                        <button
+                        onClick={handleClickOpen}
+                        >
+                            delete
+                        </button>
+                    </td>
+                </tr>
+            }
 
             <Dialog
             open={open}

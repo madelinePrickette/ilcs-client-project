@@ -1,4 +1,4 @@
-const emplpoyeeClockInStatus = (state = {}, action) => {
+const employeeClockInStatus = (state = {}, action) => {
     switch (action.type) {
       case 'SET_USER_STATUS':
         return action.payload;
@@ -9,4 +9,4 @@ const emplpoyeeClockInStatus = (state = {}, action) => {
     }
   };
   
-  export default emplpoyeeClockInStatus;
+  export default employeeClockInStatus;

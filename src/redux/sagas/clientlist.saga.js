@@ -15,7 +15,6 @@ function* fetchEmployeeClientList(action) {
 function* fetchClientList() {
   try {
     const response = yield axios.get(`/api/clientlist/`);
-    yield console.log('response is', response.data)
     yield put({ type: 'SET_CLIENT_LIST', payload: response.data });
   } catch (error) {
     console.log('Error in fetchClientList saga', error);
@@ -24,7 +23,6 @@ function* fetchClientList() {
 
 function* unassignClient(action) {
   try {
-
     yield axios.post(`/api/clientlist/unassign/`, action.payload);
     yield put({type: 'FETCH_CLIENT_LIST'})
   } catch (error) {
@@ -34,7 +32,6 @@ function* unassignClient(action) {
 
 function* assignClient(action) {
   try {
-
     yield axios.post(`/api/clientlist/assign/`, action.payload);
     yield put({type: 'FETCH_CLIENT_LIST'})
   } catch (error) {

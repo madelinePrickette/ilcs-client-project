@@ -8,7 +8,7 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText = `INSERT INTO "timesheet" ( "t_user_id", "t_client_id", "clock_in", "loc_1", "is_clocked_in", "notification")
     VALUES ($1, $2, current_timestamp, $3, true, false);`;
     const queryValues = [req.user.id, req.body.clientId, req.body.location];
@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
         })
 })
 
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
     const queryText = `UPDATE "timesheet"
     SET "clock_out" = current_timestamp,
     "loc_2" = $1,
@@ -41,7 +41,7 @@ router.put('/', (req, res) => {
         })
 })
 
-router.get('/client/:id', (req, res) => {
+router.get('/client/:id', rejectUnauthenticated, (req, res) => {
     console.log(req.params);
     console.log('server client id', req.params.id);
     const queryText = `SELECT * FROM "client"
@@ -59,7 +59,7 @@ router.get('/client/:id', (req, res) => {
     })
 })
 
-router.get('/user', (req, res) => {
+router.get('/user', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "timesheet"
     JOIN "client"
     ON "timesheet".t_client_id = "client".client_id

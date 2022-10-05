@@ -72,6 +72,7 @@ function EmployeeClockIn() {
         return (
             <div>
                 <h1>Employee Log In</h1>
+                <p>Clocked in at: {userInfo.clock_in}</p>
                 <p>Type of work</p>
                 <button onClick={() => workType('PCA')}>PCA</button>
                 <button onClick={() => workType('HSA')}>HSA</button>

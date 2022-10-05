@@ -9,7 +9,7 @@ const {
  * GET route 
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM "client"`;
+  const queryText = `SELECT * FROM "client" ORDER BY "client".client_id; `;
 
   pool.query(queryText)
     .then(response => {

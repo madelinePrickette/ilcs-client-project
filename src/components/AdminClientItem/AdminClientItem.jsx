@@ -15,6 +15,11 @@ function AdminClientItem ({client}) {
         //useStates
         const [open, setOpen] = useState(false);
 
+        //variables
+        const clientId = client.client_id
+
+        const dispatch = useDispatch();
+
         const handleClickOpen = () => {
             setOpen(true);
             console.log('handle click clicked');
@@ -24,7 +29,18 @@ function AdminClientItem ({client}) {
             setOpen(false);
             console.log('handle close');
           };
+        
+        const handleDelete = () => {
+            setOpen(false);
+            console.log('close');
+            dispatch({
+                type: 'DELETE_CLIENT',
+                payload: clientId
+            })
+            
 
+        }//end of handleDelete function
+        console.log('this is client id', clientId);
     return(
         <>
             <tr>
@@ -45,7 +61,7 @@ function AdminClientItem ({client}) {
                 </td>
 
             </tr>
-            
+
             <Dialog
             open={open}
             onClose={handleClose}
@@ -56,7 +72,7 @@ function AdminClientItem ({client}) {
                
                 <DialogActions>
                 <Button onClick={handleClose}>Disagree</Button>
-                <Button onClick={handleClose} autoFocus>
+                <Button onClick={handleDelete} autoFocus>
                     Agree
                 </Button>
                 </DialogActions>

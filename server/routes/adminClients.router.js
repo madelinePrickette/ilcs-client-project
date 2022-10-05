@@ -1,11 +1,14 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 /**
- * GET route template
+ * GET route 
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM "client"`;
 
   pool.query(queryText)
@@ -19,9 +22,9 @@ router.get('/', (req, res) => {
 });
 
 /**
- * POST route template
+ * POST route 
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('req.body in post', req.body);
     //make new client active by passing them 
     const active = true;
@@ -46,5 +49,28 @@ router.post('/', (req, res) => {
       res.sendStatus(500)
     })
 });
+
+/**
+ * Put route 
+ */
+ router.put('/:id', rejectUnauthenticated, (req, res) => {
+  const id = req.params.id
+  console.log('here is params:', id)
+  const queryText = `
+  UPDATE "client"
+  SET "client_active" = FALSE
+  WHERE client_id = $1
+  ;`;
+
+  pool.query(queryText, [id] )
+    .then(response => {
+      // console.log(response)
+      res.sendStatus(200)})
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
+});
+
 
 module.exports = router;

@@ -56,7 +56,9 @@ function AdminAllClients() {
                     })}
                 </tbody>
             </table>
-            <button>
+            <button
+            onClick={handleAddClient}
+            >
                 Add Client
             </button>
         </>

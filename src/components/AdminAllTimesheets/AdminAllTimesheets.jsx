@@ -7,10 +7,13 @@ function AdminAllTimesheets() {
 
     useEffect(() => {
         fetchAdminAllTimesheets();
+        fetchEmployeeList();
     }, []);
 
     const dispatch = useDispatch();
-    const adminAllTimesheets = useSelector((store) => store.adminAllTimesheetsReducer)
+    const adminAllTimesheets = useSelector((store) => store.adminAllTimesheetsReducer);
+    const employeeList = useSelector((store) => store.adminemployeesview)
+    const [filter, setFilter] = useState({dateFrom: 'now ', dateTo: 'now', userId: 4});
 
     const fetchAdminAllTimesheets = () => {
         console.log('dispatching to adminAllTimesheets...')
@@ -19,10 +22,57 @@ function AdminAllTimesheets() {
         })
     }
 
+    const fetchEmployeeList = () => {
+        console.log('fetching employee list...');
+        dispatch({
+            type: 'FETCH_EMPLOYEES_LIST'
+        })
+    }
+
+    const handleFilterSubmit = (event) => {
+        event.preventDefault();
+        console.log('filtering...');
+
+        dispatch({
+            type: ' FETCH_FILTER',
+            payload: filter
+        })
+    }
+
+    const handleDateFromSelection = (event) => {
+        setFilter({...filter, dateFrom: event.target.value})
+    }
+
+    const handleDateToSelection = (event) => {
+        setFilter({...filter, dateTo: event.target.value})
+    }
+
+    const handleEmployeeSelection = (event) => {
+        setFilter({...filter, userId: event.target.value})
+    }
+
+    console.log(filter);
     return(
         <div>
             <h1>ADMIN VIEWS ALL TIMEHSHEETS HERE</h1>
             {/* {JSON.stringify(adminAllTimesheets)} */}
+            <form onSubmit={handleFilterSubmit}>
+                <select onChange={handleDateFromSelection}>
+                    <option></option>
+                </select>
+
+                <select onChange={handleDateToSelection}>
+                    <option></option>
+                </select>
+
+                <select onChange={handleEmployeeSelection}>
+                        <option value='0'>All Employees</option>
+                    {employeeList.map((employee) => 
+                        <option value={employee.id} key={employee.id}>{employee.first_name} {employee.last_name}</option>
+                    )}
+                </select>
+                <button>Filter</button>
+            </form>
             <table>
                 <thead>
                     <tr>

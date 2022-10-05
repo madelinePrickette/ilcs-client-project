@@ -8,6 +8,22 @@ function AdminClientItem ({client}) {
         <>
             <tr>
                 <td>{client.client_first_name}</td>
+                <td>{client.client_last_name}</td>
+                <td>{client.address}</td>
+                <td>{client.city}</td>
+                <td>{client.state}</td>
+                <td>{client.zip}</td>
+                <td>{client.bio}</td>
+                <td><button>edit</button></td>
+                <td><button>delete</button></td>
+
+
+
+
+
+
+
+
             </tr>
         </>
     );

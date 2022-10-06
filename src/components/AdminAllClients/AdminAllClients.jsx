@@ -2,22 +2,16 @@ import { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import  {useHistory} from 'react-router-dom';
 import AdminClientItem from '../AdminClientItem/AdminClientItem';
+import AdminAddClient from '../AdminAddClient/AdminAddClient';
 import './AdminAllClients.css';
-
-//MUI Dialog imports
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 function AdminAllClients() {
 
 
 
-    const clientList = useSelector(store => store.adminClients)
+    const clientList = useSelector(store => store.adminClients);
+
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -28,11 +22,8 @@ function AdminAllClients() {
         })
     }, []);
 
-    const handleAddClient = () => {
-        history.push('/add-client');
-        console.log('handle add');
+  
 
-    } //end of handleAddClient
 
     console.log('client list', clientList);
 
@@ -52,17 +43,14 @@ function AdminAllClients() {
                         <AdminClientItem 
                         key={client.client_id} 
                         client={client}
-                        // className="hide-row"
                         />
                         )
                     })}
                 </tbody>
             </table>
-            <button
-            onClick={handleAddClient}
-            >
-                Add Client
-            </button>
+            <AdminAddClient
+            />
+           
         </>
     )
 

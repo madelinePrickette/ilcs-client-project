@@ -30,4 +30,19 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 })
 
+router.get('/:timesheetid', rejectUnauthenticated, (req, res)=> {
+    queryText=`
+    SELECT * FROM "timesheet"
+    WHERE timesheet_id = $1 AND t_user_id = $2;
+    ;`;
+
+    pool.query(queryText, [req.params.timesheetid, req.user.id])
+        .then(response => {
+            res.send(response.rows)
+        }).catch(error =>{
+            console.log(error)
+            res.sendStatus(500)
+        })
+})
+
 module.exports = router;

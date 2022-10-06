@@ -27,6 +27,7 @@ import EmployeeDetails from '../EmployeeDetails/EmployeeDetails';
 import EditEmployee from '../EditEmployee/EditEmployee';
 import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 import AdminAllTimesheets from '../AdminAllTimesheets/AdminAllTimesheets';
+import EmployeeTimesheetsView from '../EmployeeTimesheetsView/EmployeeTimesheetsView';
 
 import './App.css';
 // import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
@@ -93,6 +94,14 @@ function App() {
             path="/editemployee/:employeeid"
           >
             <EditEmployee />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/user/timesheets"
+          >
+            <EmployeeTimesheetsView />
           </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.

@@ -21,6 +21,8 @@ function EditEmployee() {
     dispatch({ type: "FETCH_CURRENT_EMPLOYEE", payload: params.employeeid });
     dispatch({ type: "FETCH_CLIENT_LIST", payload: params.employeeid });
   }, []);
+  let employeeIDArrayActive = [];
+  let employeeIDArrayInactive = [];
   const history = useHistory();
   const params = useParams();
   const employeeInfo = useSelector((store) => store.employeedetails);
@@ -36,6 +38,7 @@ function EditEmployee() {
         employee: Number(params.employeeid),
       },
     });
+    dispatch({ type: "FETCH_CLIENT_LIST", payload: params.employeeid });
   };
 
   const changeFirstName = (event) => {
@@ -207,31 +210,28 @@ function EditEmployee() {
           <div style={{textAlign: 'center'}}>
           <h1>Client List</h1>
           </div>
-          {clientList.map((client) => {
-            return (
-              <div key={client.client_id}>
-                {client.j_user_id == params.employeeid && (
-                  <h1
-                    onClick={() => {
-                      unassignClient(client.client_id);
-                    }}
-                    style={{ backgroundColor: "red" }}
-                  >
-                    {client.client_first_name}
-                  </h1>
-                )}
-                {client.j_user_id != params.employeeid && (
-                  <h1
-                    onClick={() => {
-                      assignClient(client.client_id);
-                    }}
-                  >
-                    {client.client_first_name}
-                  </h1>
-                )}
-              </div>
-            );
-          })}
+          <div className="activeClients" style={{border: '1px black solid', padding: '10px'}}>
+            <h2>Working with:</h2>
+              {clientList.map(client=>{
+                if (client.j_user_id == params.employeeid) {
+                employeeIDArrayActive.push(client.client_id)
+                return(
+                  <h3 style={{backgroundColor: '#59CF76'}} onClick={() => {unassignClient(client.client_id)}}>{client.client_first_name}</h3>
+                )
+                }
+              })}
+          </div>
+          <div className="activeInactive" style={{border: '1px black solid', padding: '10px', marginTop: '10px'}}>
+            <h2>Not working with:</h2>
+            {clientList.map(client=>{
+              if (employeeIDArrayActive.includes(client.client_id) == 0 && employeeIDArrayInactive.includes(client.client_id) == 0){
+                employeeIDArrayInactive.push(client.client_id)
+                return(
+                  <h3 onClick={() => {assignClient(client.client_id)}}>{client.client_first_name}</h3>
+                )
+              }
+              })}
+          </div>
         </div>
       </div>
       <div style={{ textAlign: "center" }} className="clientEditBottom">

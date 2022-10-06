@@ -15,6 +15,7 @@ function* fetchEmployeeClientList(action) {
 function* fetchClientList() {
   try {
     const response = yield axios.get(`/api/clientlist/`);
+    yield console.log('repsonse is', response.data)
     yield put({ type: 'SET_CLIENT_LIST', payload: response.data });
   } catch (error) {
     console.log('Error in fetchClientList saga', error);

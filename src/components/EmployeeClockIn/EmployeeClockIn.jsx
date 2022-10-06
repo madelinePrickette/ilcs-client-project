@@ -3,14 +3,14 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-
+const moment = require('moment');
 
 function EmployeeClockIn() {
 
     const history = useHistory();
 
     let {id} = useParams();
-    console.log(id);
+
     useEffect( () => {
         getClientInfo(id);
     }, [])
@@ -69,10 +69,11 @@ function EmployeeClockIn() {
     }
 
     if (userInfo.client_id == clientInfo.client_id) {
+        // need to com back and require input on this.
         return (
             <div>
-                <h1>Employee Log In</h1>
-                <p>Clocked in at: {userInfo.clock_in}</p>
+                <h1>Employee Clock Out</h1>
+                <p>Clocked in at: {moment(userInfo.clock_in).format('lll')}</p>
                 <p>Type of work</p>
                 <button onClick={() => workType('PCA')}>PCA</button>
                 <button onClick={() => workType('HSA')}>HSA</button>
@@ -88,7 +89,7 @@ function EmployeeClockIn() {
     } else if (userInfo == '') {
         return (
             <div>
-                <h1>Employee Log In</h1>
+                <h1>Employee Clock In</h1>
                 <button onClick={() => clockIn()}>Clock In</button>
                 <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
                 <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
@@ -98,7 +99,7 @@ function EmployeeClockIn() {
     } else {
         return (
             <div>
-                <h1>Employee Log In</h1>
+                <h1>Employee Clock In</h1>
                 <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
                 <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
                 <p>client bio: {clientInfo.bio}</p>

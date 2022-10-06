@@ -68,7 +68,7 @@ function Nav() {
               <ListItem>
                 <Button
                   component={Link}
-                  to="/"
+                  to="/adminAllTimesheets"
                   onClick={() => setOpenDrawer(!openDrawer)}
                 >
                   <h3>All Submissions</h3>

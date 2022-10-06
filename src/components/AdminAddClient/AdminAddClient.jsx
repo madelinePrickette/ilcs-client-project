@@ -52,8 +52,8 @@ function AdminAddClient () {
     }
 
     //handleSubmit form
-    const handleSubmit = () => {
-        // event.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
         // console.log('handle submit clicked');
         // console.log(newClient);
         dispatch({
@@ -61,6 +61,7 @@ function AdminAddClient () {
             payload: newClient
         })
         setNewClient({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
+        setOpen(false);
     }//end of handleSubmit
 
 

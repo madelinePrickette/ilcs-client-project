@@ -114,13 +114,7 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/add-client"
-          >
-            <AdminAddClient />
-          </ProtectedRoute>
+          
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact

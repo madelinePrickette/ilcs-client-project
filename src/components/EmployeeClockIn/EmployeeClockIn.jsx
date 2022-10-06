@@ -46,6 +46,9 @@ function EmployeeClockIn() {
     }
 
     const clockOut = (timesheet_id) => {
+        if (work_type == '') {
+            alert('Please select the type of work before submitting');
+        } else {
         navigator.geolocation.getCurrentPosition(function(position) {
             // console.log("Latitude is :", position.coords.latitude);
             // console.log("Longitude is :", position.coords.longitude);
@@ -55,6 +58,7 @@ function EmployeeClockIn() {
             });
             history.push('/employeeDashboard')
           });
+        }
     }
 
     const [work_type, setWork_type] = useState('');

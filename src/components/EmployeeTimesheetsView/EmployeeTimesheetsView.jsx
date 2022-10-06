@@ -11,8 +11,7 @@ function EmployeeTimesheetsView() {
     }, [])
 
     const dispatch = useDispatch();
-    const timesheets = useSelector( store => store.employeeAllTimesheets )
-    console.log(timesheets)
+    const timesheets = useSelector( store => store.employeeAllTimesheets.employeeClockInStatus )
     const getTimesheets = () => {
         dispatch({
             type: 'GET_EMPLOYEE_TIMESHEETS'

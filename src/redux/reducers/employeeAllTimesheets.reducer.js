@@ -1,3 +1,5 @@
+import { combineReducers } from "redux";
+
 const employeeClockInStatus = (state = [], action) => {
     switch (action.type) {
       case 'SET_EMPLOYEE_TIMESHEETS':
@@ -8,5 +10,19 @@ const employeeClockInStatus = (state = [], action) => {
         return state;
     }
   };
+
+  const employeeSingleTimesheet = (state = {}, action) => {
+    switch (action.type) {
+      case 'SET_EMPLOYEE_SINGLE_TIMESHEET':
+        return action.payload;
+      case 'UNSET_EMPLOYEE_SINGLE_TIMESHEET':
+        return {};
+      default:
+        return state;
+    }
+  };
   
-  export default employeeClockInStatus;
+  export default combineReducers({
+    employeeClockInStatus,
+    employeeSingleTimesheet,
+  });

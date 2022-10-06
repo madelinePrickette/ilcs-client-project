@@ -28,6 +28,8 @@ import EditEmployee from '../EditEmployee/EditEmployee';
 import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 import AdminAllTimesheets from '../AdminAllTimesheets/AdminAllTimesheets';
 import EmployeeTimesheetsView from '../EmployeeTimesheetsView/EmployeeTimesheetsView';
+import EmployeeSingleTimesheet from '../EmployeeSingleTimesheet/EmployeeSingleTimesheet';
+
 
 import './App.css';
 // import EmployeeLogIn from '../EmployeeClockIn/EmployeeClockIn';
@@ -148,10 +150,13 @@ function App() {
             <AdminAllTimesheets />
           </ProtectedRoute>
 
-
-
-
-
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/timesheet/:employeeid/:timesheetid"
+          >
+            <EmployeeSingleTimesheet />
+          </ProtectedRoute>
 
           <Route
             exact

@@ -17,6 +17,7 @@ const currentEmployeeRouter = require('./routes/currentemployee.router');
 const clientListRouter = require('./routes/clientlist.router');
 const employeeRouter = require('./routes/employee.router')
 const adminAllTimesheets = require('./routes/adminAllTimesheets.router')
+const timesheetsEmployeeView = require('./routes/timesheetsEmployeeView.router');
 
 
 // Body parser middleware
@@ -40,6 +41,7 @@ app.use('/api/clientlist', clientListRouter);
 app.use('/api/employee', employeeRouter);
 app.use('/api/adminAllTimesheets', adminAllTimesheets);
 app.use('/api/employeeClockIn', employeeRouter);
+app.use('/api/timesheets/employeeView', timesheetsEmployeeView);
 
 // Serve static files
 app.use(express.static('build'));

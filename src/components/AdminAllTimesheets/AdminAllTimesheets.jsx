@@ -77,14 +77,13 @@ function AdminAllTimesheets() {
     return(
         <div>
             <h1>ADMIN VIEWS ALL TIMESHEETS HERE</h1>
-            <form onSubmit={handleFilterSubmit}>
                 {/* MUI CALENDAR DATE FROM */}
                     <form className={classes.container} noValidate onChange={handleDateFromSelection}>
                         <TextField
                             id="dateFrom"
                             label="Date From"
                             type="date"
-                            defaultValue="2022-10-01"
+                            defaultValue=""
                             className={classes.textField}
                             InputLabelProps={{
                             shrink: true,
@@ -99,7 +98,7 @@ function AdminAllTimesheets() {
                             id="dateTo"
                             label="Date To"
                             type="date"
-                            defaultValue="2022-10-05"
+                            defaultValue=""
                             className={classes.textField}
                             InputLabelProps={{
                             shrink: true,
@@ -115,12 +114,11 @@ function AdminAllTimesheets() {
                     )}
                 </select>
 
-                <button>Filter</button>
-            </form>
+                <button onClick={handleFilterSubmit}>Filter</button>
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Timesheet No.</th>
                         <th>Employee Name</th>
                         <th>Client Name</th>
                         <th>Type</th>

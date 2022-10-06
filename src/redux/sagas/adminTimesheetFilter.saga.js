@@ -7,7 +7,7 @@ function* fetchTimesheetFilter(action) {
         console.log('in fetchTimesheetFilter saga...', action.payload);
         let response = yield axios.post('/api/adminTimesheets', action.payload);
         console.log(response.data);
-        yield put ({type: 'SET_TIMESHEET_FILTER', payload: response.data})
+        yield put ({type: 'SET_ADMIN_TIMESHEETS', payload: response.data})
     }catch(err) {
         console.log('error in fetchTimesheetFilter', err)
     }

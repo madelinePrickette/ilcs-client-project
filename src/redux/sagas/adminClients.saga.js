@@ -4,7 +4,8 @@ import axios from 'axios';
 //worker functions
 function* addClient (action) {
     try {
-    yield axios.post('api/adminClients', action.payload);
+    const response = yield axios.post('api/adminClients', action.payload);
+    console.log('this is response.data in post', response.data);
     yield put({ type: 'FETCH_CLIENTS', payload: response.data });
 
     } catch (error) {

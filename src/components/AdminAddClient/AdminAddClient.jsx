@@ -52,8 +52,8 @@ function AdminAddClient () {
     }
 
     //handleSubmit form
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = () => {
+        // event.preventDefault();
         // console.log('handle submit clicked');
         // console.log(newClient);
         dispatch({

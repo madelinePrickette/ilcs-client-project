@@ -2,6 +2,7 @@ import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import {useEffect, useState} from 'react';
+const moment = require('moment');
 
 //mui for calendar
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,14 +11,44 @@ import TextField from '@material-ui/core/TextField';
 function AdminAllTimesheets() {
 
     useEffect(() => {
-        initialTimesheetDisplay();
         fetchEmployeeList();
+        getDates();
+        initialTimesheetDisplay();
     }, []);
 
     const dispatch = useDispatch();
     const employeeList = useSelector((store) => store.adminemployeesview);
     const timesheetList = useSelector((store) => store.adminTimesheetsReducer);
     const [filter, setFilter] = useState({dateFrom: '', dateTo: '', userId: 0});
+    const [todaysDate, setTodaysDate] = useState('')
+
+    const getDates = () => {
+        //SUBTRACTING 14 DAYS
+
+        //getting now
+        const now = Date.now()
+        //make it look nice
+        const nowFormat = moment(now).format();
+        //split the string at T
+        const nowFormatSplit = nowFormat.split("T");
+        //take the first value in the array
+        const sqlNow = nowFormatSplit[0];
+        console.log('DATE TO', sqlNow);
+        setTodaysDate(sqlNow);
+
+        //getting 14 days ago
+        const minus14Days = moment(nowFormat).subtract(14, 'days');
+        //make it look nice
+        const minus14DaysFormat = moment(minus14Days).format();
+        //split the string at T
+        const minus14DaysFormatSplit = minus14DaysFormat.split("T");
+        //take the first value in the array
+        const sql14DaysAgo = minus14DaysFormatSplit[0];
+        console.log('DATE FROM', sql14DaysAgo);
+
+        //set
+        setFilter({...filter, dateFrom: sql14DaysAgo, dateTo: sqlNow});
+    };
 
     const fetchEmployeeList = () => {
         console.log('fetching employee list...');
@@ -72,7 +103,8 @@ function AdminAllTimesheets() {
       }));
     const classes = useStyles();
     //END OF MUI CALENDAR STYLES
-
+    
+    console.log(todaysDate);
     console.log(filter);
     return(
         <div>
@@ -83,7 +115,7 @@ function AdminAllTimesheets() {
                             id="dateFrom"
                             label="Date From"
                             type="date"
-                            defaultValue=""
+                            defaultValue={moment(Date.now()).format().split("T")[0]}
                             className={classes.textField}
                             InputLabelProps={{
                             shrink: true,
@@ -98,7 +130,7 @@ function AdminAllTimesheets() {
                             id="dateTo"
                             label="Date To"
                             type="date"
-                            defaultValue=""
+                            defaultValue={moment(moment(moment(Date.now()).format()).subtract(14, 'days')).format().split("T")[0]}
                             className={classes.textField}
                             InputLabelProps={{
                             shrink: true,

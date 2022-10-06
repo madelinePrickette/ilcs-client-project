@@ -8,7 +8,7 @@ import adminEmployeeViewSaga from './adminemployeeview.saga';
 import employeeDetails from './employeedetails.saga';
 import clientList from './clientlist.saga'
 import employeeClockInSaga from './employeeClockIn.saga';
-import adminAllTimesheetsSaga from './adminAllTimesheets.saga';
+import adminTimesheetFilterSaga from './adminTimesheetFilter.saga';
 import employeeAllTimesheetsSaga from './employeeAllTimesheets.saga';
 
 // rootSaga is the primary saga.
@@ -29,7 +29,7 @@ export default function* rootSaga() {
     employeeDetails(),
     clientList(),
     employeeClockInSaga(),
-    adminAllTimesheetsSaga(),
+    adminTimesheetFilterSaga(),
     employeeAllTimesheetsSaga(),
   ]);
 }

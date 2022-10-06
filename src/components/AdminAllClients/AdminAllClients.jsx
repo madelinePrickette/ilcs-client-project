@@ -2,9 +2,20 @@ import { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import  {useHistory} from 'react-router-dom';
 import AdminClientItem from '../AdminClientItem/AdminClientItem';
+import './AdminAllClients.css';
+
+//MUI Dialog imports
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 function AdminAllClients() {
+
+
 
     const clientList = useSelector(store => store.adminClients)
 
@@ -41,6 +52,7 @@ function AdminAllClients() {
                         <AdminClientItem 
                         key={client.client_id} 
                         client={client}
+                        // className="hide-row"
                         />
                         )
                     })}

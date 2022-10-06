@@ -1,11 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import LogOutButton from "../LogOutButton/LogOutButton";
+import "./Nav.css";
+import { useSelector, useDispatch } from "react-redux";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+  Icon,
+  Drawer,
+  useTheme,
+  useMediaQuery,
+  List,
+  Button,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  ListItem,
+} from "@material-ui/core";
 
 function Nav() {
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const user = useSelector((store) => store.user);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   return (
     <div className="nav">
@@ -24,22 +42,110 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/employeeDashboard">
-              Home
-            </Link>
-
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
-
-            <LogOutButton className="navLink" />
+            <IconButton
+              onClick={() => {
+                setOpenDrawer(!openDrawer);
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
           </>
         )}
 
-        <Link className="navLink" to="/about">
+        {/* <Link className="navLink" to="/about">
           About
-        </Link>
+        </Link> */}
       </div>
+      <Drawer
+        anchor="right"
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+      >
+        <div className="navBarWidth">
+          <h1>Menu</h1>
+          {user.clearance_level > 0 ? (
+            <List>
+              <ListItem>
+                <Button
+                  component={Link}
+                  to="/"
+                  onClick={() => setOpenDrawer(!openDrawer)}
+                >
+                  <h3>All Submissions</h3>
+                </Button>
+              </ListItem>
+
+              <ListItem>
+                <Button
+                  component={Link}
+                  to="/all-clients"
+                  onClick={() => setOpenDrawer(!openDrawer)}
+                >
+                  <h3>Clients</h3>
+                </Button>
+              </ListItem>
+
+              <ListItem>
+                <Button
+                  component={Link}
+                  to="/employeesview"
+                  onClick={() => setOpenDrawer(!openDrawer)}
+                >
+                  <h3>Employees</h3>
+                </Button>
+              </ListItem>
+
+              <ListItem>
+                <Button
+                  component={Link}
+                  to="/"
+                  onClick={() => {
+                    setOpenDrawer(!openDrawer);
+                    dispatch({ type: "LOGOUT" });
+                  }}
+                >
+                  <h3>Logout</h3>
+                </Button>
+              </ListItem>
+            </List>
+          ) : (
+            <List>
+              <ListItem>
+                <Button
+                  component={Link}
+                  to="/"
+                  onClick={() => setOpenDrawer(!openDrawer)}
+                >
+                  <h3>Home</h3>
+                </Button>
+              </ListItem>
+
+              <ListItem>
+                <Button
+                  component={Link}
+                  to="/user/timesheets"
+                  onClick={() => setOpenDrawer(!openDrawer)}
+                >
+                  <h3>Timesheets</h3>
+                </Button>
+              </ListItem>
+
+              <ListItem>
+                <Button
+                  component={Link}
+                  to="/"
+                  onClick={() => {
+                    setOpenDrawer(!openDrawer);
+                    dispatch({ type: "LOGOUT" });
+                  }}
+                >
+                  <h3>Logout</h3>
+                </Button>
+              </ListItem>
+            </List>
+          )}
+        </div>
+      </Drawer>
     </div>
   );
 }

@@ -129,3 +129,26 @@ input {
   width: 100%;
   display: inline-flex
 }
+
+.navBarWidth {
+  text-align: center;
+  width: 250px;
+}
+
+.adminEmployeesView {
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+}
+
+.adminEmployeeDiv {
+ width: 'auto';
+}
+
+@media (min-width: 900px) {
+  .navBarWidth {
+    width: 400px;
+  }
+}

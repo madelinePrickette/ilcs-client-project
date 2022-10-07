@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {useDispatch} from 'react-redux';
-import  {useHistory} from 'react-router-dom';
 import './AdminClientItem.css';
 
 //MUI Dialog imports
@@ -14,13 +13,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 function AdminClientItem ({client}) {
 
-        //useStates
+        const dispatch = useDispatch();    
+        //use states to control dialog open/close
         const [deleteOpen, setDeleteOpen] = useState(false);
         const [editOpen, setEditOpen] = useState(false);
-
         //Updated Client Info Object
-        const [editClient, setEditClient] = useState({firstName: client.client_first_name, lastName: client.client_last_name, address: client.address, city: client.city, state: client.state, zip: client.zip, bio: client.bio});
-
+        const [editClient, setEditClient] = useState({firstName: client.client_first_name, lastName: client.client_last_name, address: client.address, city: client.city, state: client.state, zip: client.zip, bio: client.bio, clientId: client.client_id});
 
         //setting user input functions:
         const handleFirstName = (event) => {
@@ -44,13 +42,7 @@ function AdminClientItem ({client}) {
         const handleBio = (event) => {
             setEditClient({...editClient, bio: event.target.value})
         }
-
-
-        //variables
-        const clientId = client.client_id
-
-        const dispatch = useDispatch();
-
+        //functions to handle delete dialog open/close
         const handleDeleteClickOpen = () => {
             setDeleteOpen(true);
             console.log('handle click clicked');
@@ -67,18 +59,24 @@ function AdminClientItem ({client}) {
                 payload: clientId
             })
         }//end of handleDelete function
+        //functions to handle edit dialog open/close
         const handleEditClickOpen = () => {
             setEditOpen(true);
+            setEditClient({firstName: client.client_first_name, lastName: client.client_last_name, address: client.address, city: client.city, state: client.state, zip: client.zip, bio: client.bio, clientId: client.client_id});
             console.log('this is edit client', editClient);
         }//end of handleEditClickOpen
         const handleEditClose = () => {
             setEditOpen(false);
-
         }//end of handleEditClose
         const handleEdit = () => {
-            console.log('in the edit');
-            console.log('this is edit client', editClient);
-
+            // console.log('in the edit');
+            // console.log('this is edit client', editClient);
+            
+            dispatch({
+                type: 'EDIT_CLIENT',
+                payload: editClient
+            })
+            setEditOpen(false);
         }
         // console.log('this is client id', clientId);
     return(
@@ -226,7 +224,7 @@ function AdminClientItem ({client}) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleEditClose}>Cancel</Button>
-                    <Button onClick={handleEdit}>Add Client</Button>
+                    <Button onClick={handleEdit}>Confirm Edit Client</Button>
                 </DialogActions>
             </Dialog>
         </>

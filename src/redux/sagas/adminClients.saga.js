@@ -16,7 +16,7 @@ function* addClient (action) {
 function* deleteClient (action) {
     try{
         console.log('this is delete payload:', action.payload);
-        yield axios.put( `/api/adminClients/${action.payload}`);
+        yield axios.put( `/api/adminClients/delete/${action.payload}`);
         yield axios.delete(`/api/adminClients/${action.payload}`);
         yield put({ type: 'FETCH_CLIENTS' });
     } catch (error) {
@@ -33,14 +33,23 @@ function* fetchClients () {
     } catch (error) {
         console.log('error  in get clients', error);
     }
-
 }//end of fetchClients
+
+function* editClient (action){
+    try{
+        yield axios.put( `/api/adminClients/edit/client`, action.payload);
+        yield put({ type: 'FETCH_CLIENTS' });
+    } catch (error) {
+        console.log('error  in edit Clients', error);
+    }
+
+}//end of editClient
 
 function* adminClients (){
     yield takeEvery('FETCH_CLIENTS', fetchClients);
     yield takeEvery('ADD_CLIENT', addClient);
     yield takeEvery('DELETE_CLIENT', deleteClient);
-    // yield takeEvery('DELETE_CLIENT_J', deleteClientJunction);
+    yield takeEvery('EDIT_CLIENT', editClient);
     
 
 }//end of AdminAddClient saga

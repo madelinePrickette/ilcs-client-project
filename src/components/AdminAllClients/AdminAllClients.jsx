@@ -54,8 +54,7 @@ function AdminAllClients() {
                 </tbody>
             </table>
             <AdminAddClient
-            />
-           
+            /> 
         </>
     )
 

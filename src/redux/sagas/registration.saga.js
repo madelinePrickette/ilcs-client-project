@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "REGISTER" actions
@@ -16,14 +16,40 @@ function* registerUser(action) {
     // set to 'login' mode so they see the login screen
     // after registration or after they log out
     yield put({ type: 'SET_TO_LOGIN_MODE' });
+
   } catch (error) {
     console.log('Error with user registration:', error);
     yield put({ type: 'REGISTRATION_FAILED' });
   }
 }
 
+function* createNewUser(action) {
+  try { 
+    yield axios.post('/api/user/register/newuser', action.payload);
+    // yield put({type: "FETCH_NEW_EMPLOYEE", payload: action.payload.username})
+    yield action.payload.history.push('/employeesview')
+  } catch (error) {
+    console.log('Error with user registration:', error);
+    yield put({ type: 'REGISTRATION_FAILED' });
+  }
+}
+
+// function* fetchNewEmployee(action) {
+//   try {
+//     // passes the username and password from the payload to the server
+//     const response = yield axios.get('/api/user/register/newuser', action.payload);
+//     // yield console.log('new user is', response)
+//     // yield action.payload.history.push('/employeesview')
+//   } catch (error) {
+//     console.log('Error in fetchNewEmployee:', error);
+//     yield put({ type: 'REGISTRATION_FAILED' });
+//   }
+// }
+
 function* registrationSaga() {
   yield takeLatest('REGISTER', registerUser);
+  yield takeLatest('CREATE_NEW_USER', createNewUser)
+  // yield takeEvery('FETCH_NEW_EMPLOYEE', fetchNewEmployee)
 }
 
 export default registrationSaga;

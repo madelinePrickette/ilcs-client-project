@@ -47,6 +47,9 @@ function AdminAllTimesheets() {
         const sql14DaysAgo = minus14DaysFormatSplit[0];
         console.log('DATE FROM', sql14DaysAgo);
 
+        //hours worked variables:
+        const minutesSum = 0;
+
     useEffect(() => {
         fetchEmployeeList(); //populates employee list dropdown
         handleFilterSubmit(); //runs right away to get the current date and 14 days prior.
@@ -57,6 +60,8 @@ function AdminAllTimesheets() {
     const employeeList = useSelector((store) => store.adminemployeesview); //getting employees to populate the dropdown
     const timesheetList = useSelector((store) => store.adminTimesheetsReducer); //getting specific timesheets to display.
     const [filter, setFilter] = useState({dateFrom: `${sql14DaysAgo} 00:00:00.000000`, dateTo: `${sqlNow} 23:59:59.000000`, userId: 0});
+    const [beginDate, setBeginDate] = useState(`${sqlNow}T23:59:59.000000`);
+    const [endDate, setEndDate] = useState(`${sql14DaysAgo}T00:00:00.000000`);
     //this useState is what is quickly sent into a query in order to show all timesheets within the last 14 days on load.
 
     const handleFilterSubmit = () => {
@@ -76,9 +81,12 @@ function AdminAllTimesheets() {
 
     const handleDateFromSelection = (event) => {
         setFilter({...filter, dateFrom: `${event.target.value} 00:00:00.000000`})
+        setEndDate(`${event.target.value}T00:00:00.000000`);
     }
     const handleDateToSelection = (event) => {
         setFilter({...filter, dateTo: `${event.target.value} 23:59:59.000000`})
+        setBeginDate(`${event.target.value}T23:59:59.000000`);
+
     }
     const handleEmployeeSelection = (event) => {
         console.log('employee id chosen:', event.target.value);
@@ -177,23 +185,59 @@ function AdminAllTimesheets() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                        {timesheetList.map((timesheet) => 
-                            <TableRow onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
-                                <TableCell>{timesheet.timesheet_id}</TableCell>
-                                <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
-                                <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>
-                                <TableCell>{timesheet.work_type}</TableCell>
-                                <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
-                                <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
-                                <TableCell>hours worked: ???</TableCell>
-                                {timesheet.notification ?
-                                <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
-                                :
-                                <TableCell></TableCell>
+                        {timesheetList.map((timesheet) => {
+
+                            let outTime = moment(timesheet.clock_out);
+                            let inTime = moment(timesheet.clock_in);
+                            let total = moment.duration(outTime.diff(inTime)).asMinutes();
+                            let hours =  Math.floor(total / 60)
+                            let minutes = Math.floor(total % 60);
+                            // minutesSum = minutesSum + total;
+                                {/* {timesheetList && timesheetList.map(timesheet => { */}
+                                    if (moment(timesheet.clock_in).format() > endDate && moment(timesheet.clock_in).format() < beginDate) {
+                                        if (minutes < 10){
+                                            minutes = "0"+minutes
+                                                return(
+                                                    <TableRow key={timesheet.timesheet_id}>
+                                                        <TableCell>{timesheet.timesheet_id}</TableCell>
+                                                        <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
+                                                        <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>
+                                                        <TableCell>{timesheet.work_type}</TableCell>
+                                                        <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
+                                                        <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
+                                                        <TableCell>{hours}:{minutes}</TableCell>
+                                                        {timesheet.notification ?
+                                                        <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
+                                                        :
+                                                        <TableCell></TableCell>
+                                                        }
+                                                        
+                                                    </TableRow>
+                                                )
+                                        }else{
+                                            return(
+                                                <TableRow key={timesheet.timesheet_id}>
+                                                        <TableCell>{timesheet.timesheet_id}</TableCell>
+                                                        <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
+                                                        <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>
+                                                        <TableCell>{timesheet.work_type}</TableCell>
+                                                        <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
+                                                        <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
+                                                        <TableCell>kjalksdfjkl</TableCell>
+                                                        {timesheet.notification ?
+                                                        <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
+                                                        :
+                                                        <TableCell></TableCell>
+                                                        }
+                                                        
+                                                </TableRow>
+                                            )
+                                    }
+                                }else{
+                                    console.log(moment(timesheet.clock_in).format());
                                 }
-                                
-                            </TableRow>
-                        )}
+                            {/* })} */} 
+                        })}
                 </TableBody>
             </Table>
             </TableContainer>

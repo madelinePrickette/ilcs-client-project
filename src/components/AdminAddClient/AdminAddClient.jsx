@@ -52,16 +52,23 @@ function AdminAddClient () {
     }
 
     //handleSubmit form
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = () => {
         // console.log('handle submit clicked');
         // console.log(newClient);
-        dispatch({
-            type: 'ADD_CLIENT',
-            payload: newClient
-        })
-        setNewClient({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
-        setOpen(false);
+        if (newClient.firstName === '' || newClient.firstLast === '' 
+            || newClient.address === '' || newClient.city === '' 
+            || newClient.state === '' || newClient.zip === '' 
+            || newClient.bio === '') 
+        {
+            alert ("Please fill out all fields before adding new client.");  
+        } else {
+            dispatch({
+                type: 'ADD_CLIENT',
+                payload: newClient
+            })
+            setNewClient({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
+            setOpen(false);
+        }
     }//end of handleSubmit
 
 
@@ -85,7 +92,6 @@ function AdminAddClient () {
                         variant="standard"
                         onChange={handleFirstName}
                         value={newClient.firstName}
-                        required
                     />
                     <TextField
                         autoFocus
@@ -96,7 +102,6 @@ function AdminAddClient () {
                         variant="standard"
                         onChange={handleLastName}
                         value={newClient.lastName}
-                        required
                     />
                     <TextField
                         autoFocus
@@ -107,7 +112,6 @@ function AdminAddClient () {
                         variant="standard"
                         onChange={handleAddress}
                         value={newClient.address}
-                        required
                     />
                     <TextField
                         autoFocus
@@ -118,7 +122,6 @@ function AdminAddClient () {
                         variant="standard"
                         onChange={handleCity}
                         value={newClient.city}
-                        required
                     />
                     <TextField
                         autoFocus
@@ -129,7 +132,6 @@ function AdminAddClient () {
                         variant="standard"
                         onChange={handleState}
                         value={newClient.state}
-                        required
                     />
                     <TextField
                         autoFocus
@@ -140,7 +142,6 @@ function AdminAddClient () {
                         variant="standard"
                         onChange={handleZip}
                         value={newClient.zip}
-                        required
                     />
                     <TextField
                         autoFocus
@@ -151,7 +152,6 @@ function AdminAddClient () {
                         variant="standard"
                         onChange={handleBio}
                         value={newClient.bio}
-                        required
                     />
                 </DialogContent>
                 <DialogActions>

@@ -5,7 +5,6 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 function* fetchEmployeeClientList(action) {
   try {
     const response = yield axios.get(`/api/clientlist/emplist/${action.payload}`);
-    yield console.log('response is', response)
     yield put({ type: 'SET_EMPLOYEE_CLIENT_LIST', payload: response.data });
   } catch (error) {
     console.log('Error in fetchEmployeeClientList saga', error);
@@ -15,7 +14,6 @@ function* fetchEmployeeClientList(action) {
 function* fetchClientList() {
   try {
     const response = yield axios.get(`/api/clientlist/`);
-    yield console.log('repsonse is', response.data)
     yield put({ type: 'SET_CLIENT_LIST', payload: response.data });
   } catch (error) {
     console.log('Error in fetchClientList saga', error);

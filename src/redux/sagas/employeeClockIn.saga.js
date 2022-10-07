@@ -4,7 +4,8 @@ import axios from 'axios';
 
 function* employeeClockIn(action) {
     try {
-        axios.post('/api/employeeClockIn', action.payload)
+        yield axios.post('/api/employeeClockIn', action.payload)
+        yield action.payload.history.push('/employeeDashboard') // tricky tricky
     } catch (error) {
         console.log('Error with user clock in:', error);
     }

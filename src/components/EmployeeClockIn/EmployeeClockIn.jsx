@@ -46,9 +46,9 @@ function EmployeeClockIn() {
             console.log("Longitude is :", position.coords.longitude);
             dispatch({
                 type: "EMPLOYEE_CLOCK_IN",
-                payload: { location: "(" + position.coords.latitude + ", " + position.coords.longitude + ")" , clientId: id }
+                payload: { location: "(" + position.coords.latitude + ", " + position.coords.longitude + ")" , clientId: id, history: history }
             });
-            history.push('/employeeDashboard')
+            // history.push('/employeeDashboard')
           });
     }
 

@@ -27,7 +27,7 @@ router.post('/',  rejectUnauthenticated, (req, res) => {
   // POST route code here
 });
 
-router.put('/:id', rejectUnauthenticated, (req, res) =>{
+router.put('/:id', rejectUnauthenticated, (req, res) =>{ //finish this
   console.log(req.body.info.firstname)
   const id = req.params.id;
   const queryText = `

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { Button } from '@material-ui/core'
 
 function AdminEmployeesView() {
 
@@ -19,6 +20,14 @@ function AdminEmployeesView() {
 
   return (
     <div className='adminEmployeesView'>
+      <div className='employeeListTitle' style={{textAlign: 'center', width: '100%'}}>
+        <h2>All Employees</h2>
+        <Button 
+          variant='contained' 
+          style={{float: 'right'}}
+          onClick={() => {history.push('/registration')}}
+        >Add New Employee</Button>
+      </div>
     {employeesList.map(employee => {
       return (
         <div key={employee.id} style={{background: '#000000', margin: '20px'}} className="adminEmployeeDiv">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -10,12 +11,12 @@ function RegisterForm() {
   const [email, setEmail] = useState('');
   const [pic, setPic] = useState('');
   const [user_active, setUserActive] = useState(true);
+  const history = useHistory();
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
     event.preventDefault();
-
     dispatch({
       type: 'REGISTER',
       payload: {
@@ -29,6 +30,8 @@ function RegisterForm() {
         user_active: user_active
       },
     });
+    history.push('/employeesview')
+
   }; // end registerUser
 
   return (
@@ -124,7 +127,7 @@ function RegisterForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+        <input className="btn" type="submit" name="submit" value="Register user" />
       </div>
     </form>
   );

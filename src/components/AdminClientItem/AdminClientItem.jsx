@@ -18,7 +18,33 @@ function AdminClientItem ({client}) {
         const [deleteOpen, setDeleteOpen] = useState(false);
         const [editOpen, setEditOpen] = useState(false);
 
-        //
+        //Updated Client Info Object
+        const [editClient, setEditClient] = useState({firstName: client.client_first_name, lastName: client.client_last_name, address: client.address, city: client.city, state: client.state, zip: client.zip, bio: client.bio});
+
+
+        //setting user input functions:
+        const handleFirstName = (event) => {
+            setEditClient({...editClient, firstName: event.target.value})
+        }
+        const handleLastName = (event) => {
+            setEditClient({...editClient, lastName: event.target.value})
+        }
+        const handleAddress = (event) => {
+            setEditClient({...editClient, address: event.target.value})
+        }
+        const handleCity = (event) => {
+            setEditClient({...editClient, city: event.target.value})
+        }
+        const handleState = (event) => {
+            setEditClient({...editClient, state: event.target.value})
+        }
+        const handleZip = (event) => {
+            setEditClient({...editClient, zip: event.target.value})
+        }
+        const handleBio = (event) => {
+            setEditClient({...editClient, bio: event.target.value})
+        }
+
 
         //variables
         const clientId = client.client_id
@@ -43,7 +69,7 @@ function AdminClientItem ({client}) {
         }//end of handleDelete function
         const handleEditClickOpen = () => {
             setEditOpen(true);
-
+            console.log('this is edit client', editClient);
         }//end of handleEditClickOpen
         const handleEditClose = () => {
             setEditOpen(false);
@@ -51,6 +77,8 @@ function AdminClientItem ({client}) {
         }//end of handleEditClose
         const handleEdit = () => {
             console.log('in the edit');
+            console.log('this is edit client', editClient);
+
         }
         // console.log('this is client id', clientId);
     return(
@@ -132,8 +160,8 @@ function AdminClientItem ({client}) {
                         type="text"
                         fullWidth
                         variant="standard"
-                        // onChange={handleFirstName}
-                        // value={newClient.firstName}
+                        onChange={handleFirstName}
+                        value={editClient.firstName}
                     />
                     <TextField
                         autoFocus
@@ -142,8 +170,8 @@ function AdminClientItem ({client}) {
                         type="text"
                         fullWidth
                         variant="standard"
-                        // onChange={handleLastName}
-                        // value={newClient.lastName}
+                        onChange={handleLastName}
+                        value={editClient.lastName}
                     />
                     <TextField
                         autoFocus
@@ -152,8 +180,8 @@ function AdminClientItem ({client}) {
                         type="text"
                         fullWidth
                         variant="standard"
-                        // onChange={handleAddress}
-                        // value={newClient.address}
+                        onChange={handleAddress}
+                        value={editClient.address}
                     />
                     <TextField
                         autoFocus
@@ -162,8 +190,8 @@ function AdminClientItem ({client}) {
                         type="text"
                         fullWidth
                         variant="standard"
-                        // onChange={handleCity}
-                        // value={newClient.city}
+                        onChange={handleCity}
+                        value={editClient.city}
                     />
                     <TextField
                         autoFocus
@@ -172,8 +200,8 @@ function AdminClientItem ({client}) {
                         type="text"
                         fullWidth
                         variant="standard"
-                        // onChange={handleState}
-                        // value={newClient.state}
+                        onChange={handleState}
+                        value={editClient.state}
                     />
                     <TextField
                         autoFocus
@@ -182,8 +210,8 @@ function AdminClientItem ({client}) {
                         type="number"
                         fullWidth
                         variant="standard"
-                        // onChange={handleZip}
-                        // value={newClient.zip}
+                        onChange={handleZip}
+                        value={editClient.zip}
                     />
                     <TextField
                         autoFocus
@@ -192,8 +220,8 @@ function AdminClientItem ({client}) {
                         type="text"
                         fullWidth
                         variant="standard"
-                        // onChange={handleBio}
-                        // value={newClient.bio}
+                        onChange={handleBio}
+                        value={editClient.bio}
                     />
                 </DialogContent>
                 <DialogActions>

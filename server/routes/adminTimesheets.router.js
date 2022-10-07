@@ -15,7 +15,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     const userId = req.body.userId;
     console.log(userId);
 
-    if(userId === 0){
+    if(userId == 0){
         const dateFrom = req.body.dateFrom;
         const dateTo = req.body.dateTo;
         console.log('dateFrom:', dateFrom);
@@ -56,13 +56,12 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         SELECT * FROM "timesheet"
         JOIN "client"
         ON "timesheet".t_client_id = "client".client_id
-        JOIN "user_client"
-        ON "user_client".j_client_id = "client".client_id
         JOIN "user"
-        ON "user_client".j_user_id = "user".id
-        WHERE "clock_in" >= '$1 00:00:00' 
-        AND "clock_in" <= '$2 00:00:00',
-        "user".id= $3;
+        ON "timesheet".t_user_id = "user".id
+        WHERE "clock_in" >= $1 
+        AND "clock_in" <= $2
+        AND "timesheet".t_user_id = $3
+        ORDER BY clock_in DESC;
         `;
 
         pool.query(queryText, [dateFrom, dateTo, userId])

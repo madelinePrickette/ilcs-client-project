@@ -75,6 +75,7 @@ function NewEmployee() {
         pic: newEmployeeInfo.picture,
         user_active: true,
         clients: activeClients,
+        history: history,
       },
     });
   };

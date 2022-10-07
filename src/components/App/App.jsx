@@ -176,9 +176,9 @@ function App() {
             exact
             path="/registration"
           >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
+            {user.clearance_level != 1 ?
+              // Only admins can register users
+              // redirect them to the /user page if not an admin
               <Redirect to="/employeeDashboard" />
               :
               // Otherwise, show the registration page

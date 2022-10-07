@@ -17,6 +17,7 @@ function* deleteClient (action) {
     try{
         console.log('this is delete payload:', action.payload);
         yield axios.put( `/api/adminClients/${action.payload}`);
+        yield axios.delete(`/api/adminClients/${action.payload}`);
         yield put({ type: 'FETCH_CLIENTS' });
     } catch (error) {
         console.log('error in client delete', error);
@@ -39,6 +40,7 @@ function* adminClients (){
     yield takeEvery('FETCH_CLIENTS', fetchClients);
     yield takeEvery('ADD_CLIENT', addClient);
     yield takeEvery('DELETE_CLIENT', deleteClient);
+    // yield takeEvery('DELETE_CLIENT_J', deleteClientJunction);
     
 
 }//end of AdminAddClient saga

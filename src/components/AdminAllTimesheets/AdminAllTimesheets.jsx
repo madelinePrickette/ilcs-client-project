@@ -223,7 +223,7 @@ function AdminAllTimesheets() {
                                                         <TableCell>{timesheet.work_type}</TableCell>
                                                         <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
                                                         <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
-                                                        <TableCell>kjalksdfjkl</TableCell>
+                                                        <TableCell>{hours}:{minutes}</TableCell>
                                                         {timesheet.notification ?
                                                         <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
                                                         :

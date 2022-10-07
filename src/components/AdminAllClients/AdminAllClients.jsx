@@ -33,8 +33,13 @@ function AdminAllClients() {
             <table>
                 <thead>
                     <tr>
-                        <th>Client Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th>Bio</th>
                     </tr>
                 </thead>
                 <tbody>

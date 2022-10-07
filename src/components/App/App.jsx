@@ -131,7 +131,7 @@ function App() {
             exact
             path="/all-clients"
           >
-            <AdminAllClients />
+           {user.clearance_level == 1 ? <AdminAllClients /> : <Redirect to='/' /> }
           </ProtectedRoute>
 
           <ProtectedRoute

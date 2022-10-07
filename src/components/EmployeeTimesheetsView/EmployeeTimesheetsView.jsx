@@ -36,15 +36,15 @@ function EmployeeTimesheetsView() {
 
     let minutesSum = 0;
 
-    const [fromDate, setFromDate] = useState(moment(Date.now()).format().split("T")[0]);
-    const [toDate, setToDate] = useState(moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0]);
+    const [fromDate, setFromDate] = useState(moment(Date.now()).format().split("T")[0] + 'T23:59:59:000000');
+    const [toDate, setToDate] = useState(moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0] + 'T00:00:00.000000');
 
     const handleDateFromSelection = (event) => {
-        setFromDate(event.target.value)
+        setFromDate(event.target.value + 'T23:59:59:000000')
     }
 
     const handleDateToSelection = (event) => {
-        setToDate(event.target.value)
+        setToDate(event.target.value + 'T00:00:00.000000')
     }
 
     //MUI CALENDAR NECESSARY STYLES
@@ -61,6 +61,9 @@ function EmployeeTimesheetsView() {
         }));
     const classes = useStyles();
     //END OF MUI CALENDAR STYLES
+
+    console.log(fromDate);
+    console.log(toDate);
 
     return(
         <div>

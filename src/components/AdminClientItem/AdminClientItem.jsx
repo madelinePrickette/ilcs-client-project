@@ -18,6 +18,8 @@ function AdminClientItem ({client}) {
         const [deleteOpen, setDeleteOpen] = useState(false);
         const [editOpen, setEditOpen] = useState(false);
 
+        //
+
         //variables
         const clientId = client.client_id
 
@@ -50,7 +52,7 @@ function AdminClientItem ({client}) {
         const handleEdit = () => {
             console.log('in the edit');
         }
-        console.log('this is client id', clientId);
+        // console.log('this is client id', clientId);
     return(
         <>
             {client.client_active ?

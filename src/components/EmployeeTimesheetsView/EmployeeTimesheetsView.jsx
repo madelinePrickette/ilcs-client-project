@@ -45,7 +45,11 @@ function EmployeeTimesheetsView() {
                 )
             })}
 
-            <h1>Total = {Math.floor(minutesSum / 60)}:{Math.floor(minutesSum % 60)}</h1>
+        {Math.floor(minutesSum % 60) < 10 ? 
+        <h1>Total = {Math.floor(minutesSum / 60)}:0{Math.floor(minutesSum % 60)}</h1>
+        :
+        <h1>Total = {Math.floor(minutesSum / 60)}:{Math.floor(minutesSum % 60)}</h1>
+        }
             
         </div>
     )

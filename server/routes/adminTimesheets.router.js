@@ -24,14 +24,13 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         const queryText =
         `
         SELECT * FROM "timesheet"
-        JOIN "client"
+        INNER JOIN "client"
         ON "timesheet".t_client_id = "client".client_id
-        JOIN "user_client"
-        ON "user_client".j_client_id = "client".client_id
-        JOIN "user"
-        ON "user_client".j_user_id = "user".id
+        INNER JOIN "user"
+        ON "timesheet".t_user_id = "user".id
         WHERE "clock_in" >= $1 
-        AND "clock_in" <= $2;
+        AND "clock_in" <= $2
+        ORDER BY clock_in DESC;
         `;
 
         pool.query(queryText, [dateFrom, dateTo])

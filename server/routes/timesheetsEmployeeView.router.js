@@ -13,10 +13,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('in get timesheets for employee');
 
     const queryText = `SELECT * FROM "timesheet"
-    JOIN "client"
+    INNER JOIN "client"
     ON "timesheet".t_client_id = "client".client_id
-    JOIN "user_client"
-    ON "user_client".j_client_id = "client".client_id
+    INNER JOIN "user"
+    ON "timesheet".t_user_id = "user".id
     WHERE "timesheet".t_user_id = $1
     ORDER BY clock_in DESC;`;
     const queryValues = [ req.user.id ];

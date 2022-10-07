@@ -62,22 +62,26 @@ function NewEmployee() {
   };
 
   const clickSubmit = () => {
-    // dispatch({ type: 'CREATE_NEW_EMPLOYEE', payload: {info: newEmployeeInfo, clients: activeClients} })
-    dispatch({
-      type: "CREATE_NEW_USER",
-      payload: {
-        username: newEmployeeInfo.username,
-        password: newEmployeeInfo.password,
-        first_name: newEmployeeInfo.firstname,
-        last_name: newEmployeeInfo.lastname,
-        clearance_level: newEmployeeInfo.clearancelevel,
-        email: newEmployeeInfo.email,
-        pic: newEmployeeInfo.picture,
-        user_active: true,
-        clients: activeClients,
-        history: history,
-      },
-    });
+    if (newEmployeeInfo.username === "" || newEmployeeInfo.password === "") {
+      alert('Please fill all required fields.')
+      return 0;
+    } else {
+      dispatch({
+        type: "CREATE_NEW_USER",
+        payload: {
+          username: newEmployeeInfo.username,
+          password: newEmployeeInfo.password,
+          first_name: newEmployeeInfo.firstname,
+          last_name: newEmployeeInfo.lastname,
+          clearance_level: newEmployeeInfo.clearancelevel,
+          email: newEmployeeInfo.email,
+          pic: newEmployeeInfo.picture,
+          user_active: true,
+          clients: activeClients,
+          history: history,
+        },
+      });
+    }
   };
 
   const assignClient = (clientid) => {

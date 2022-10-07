@@ -2,6 +2,7 @@ import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import {useEffect, useState} from 'react';
+import { useHistory } from 'react-router-dom';
 const moment = require('moment');
 
 //mui dot icon
@@ -54,6 +55,7 @@ function AdminAllTimesheets() {
         handleFilterSubmit(); //runs right away to get the current date and 14 days prior.
     }, []);
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const employeeList = useSelector((store) => store.adminemployeesview); //getting employees to populate the dropdown
     const timesheetList = useSelector((store) => store.adminTimesheetsReducer); //getting specific timesheets to display.
@@ -118,6 +120,10 @@ function AdminAllTimesheets() {
         const tableClasses = useStylesForTable();
 
     //END MUI TABLE STYLES
+
+    const goToTimesheet = (t_id, e_id) => {
+        history.push(`/admin/timesheet/${e_id}/${t_id}`)
+    }
 
     console.log(filter); // just to check what is in our payload
     return(

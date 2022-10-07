@@ -29,7 +29,8 @@ import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 import AdminAllTimesheets from '../AdminAllTimesheets/AdminAllTimesheets';
 import EmployeeTimesheetsView from '../EmployeeTimesheetsView/EmployeeTimesheetsView';
 import EmployeeSingleTimesheet from '../EmployeeSingleTimesheet/EmployeeSingleTimesheet';
-import RegistrationPage from '../RegisterPage/RegistrationPage'
+import RegistrationPage from '../RegisterPage/RegistrationPage';
+import AdminSingleTimesheet from '../AdminSingleTimesheet/AdminSingleTimesheet';
 
 
 import './App.css';
@@ -156,7 +157,16 @@ function App() {
             exact
             path="/timesheet/:employeeid/:timesheetid"
           >
+            
             <EmployeeSingleTimesheet />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/admin/timesheet/:employeeid/:timesheetid"
+          >
+            {user.clearance_level == 1 ? <AdminSingleTimesheet /> : <Redirect to='/' /> }
+            
           </ProtectedRoute>
 
           <Route

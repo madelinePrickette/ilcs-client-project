@@ -80,7 +80,6 @@ function EditEmployee() {
   };
 
   const clickSubmit = () => {
-    console.log(newEmployeeInfo)
     dispatch({ type: 'SAVE_NEW_EMPLOYEE_INFO', payload: {employeeid: params.employeeid, info: newEmployeeInfo} })
     history.push(`/employee/${params.employeeid}`)
   }
@@ -216,7 +215,7 @@ function EditEmployee() {
                 if (client.j_user_id == params.employeeid) {
                 employeeIDArrayActive.push(client.client_id)
                 return(
-                  <h3 style={{backgroundColor: '#59CF76'}} onClick={() => {unassignClient(client.client_id)}}>{client.client_first_name}</h3>
+                  <h3 key={client.client_id} style={{backgroundColor: '#59CF76'}} onClick={() => {unassignClient(client.client_id)}}>{client.client_first_name}</h3>
                 )
                 }
               })}
@@ -227,7 +226,7 @@ function EditEmployee() {
               if (employeeIDArrayActive.includes(client.client_id) == 0 && employeeIDArrayInactive.includes(client.client_id) == 0){
                 employeeIDArrayInactive.push(client.client_id)
                 return(
-                  <h3 onClick={() => {assignClient(client.client_id)}}>{client.client_first_name}</h3>
+                  <h3 key={client.client_id} onClick={() => {assignClient(client.client_id)}}>{client.client_first_name}</h3>
                 )
               }
               })}

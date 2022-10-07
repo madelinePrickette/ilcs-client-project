@@ -16,6 +16,19 @@ function* registerUser(action) {
     // set to 'login' mode so they see the login screen
     // after registration or after they log out
     yield put({ type: 'SET_TO_LOGIN_MODE' });
+
+  } catch (error) {
+    console.log('Error with user registration:', error);
+    yield put({ type: 'REGISTRATION_FAILED' });
+  }
+}
+
+function* createNewUser(action) {
+  try {
+    // passes the username and password from the payload to the server
+    yield axios.post('/api/user/register/newuser', action.payload);
+
+    yield action.payload.history.push('/employeesview')
   } catch (error) {
     console.log('Error with user registration:', error);
     yield put({ type: 'REGISTRATION_FAILED' });
@@ -24,6 +37,7 @@ function* registerUser(action) {
 
 function* registrationSaga() {
   yield takeLatest('REGISTER', registerUser);
+  yield takeLatest('CREATE_NEW_USER', createNewUser)
 }
 
 export default registrationSaga;

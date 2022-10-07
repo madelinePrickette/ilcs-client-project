@@ -20,7 +20,6 @@ function AdminAllTimesheets() {
     const employeeList = useSelector((store) => store.adminemployeesview);
     const timesheetList = useSelector((store) => store.adminTimesheetsReducer);
     const [filter, setFilter] = useState({dateFrom: '', dateTo: '', userId: 0});
-    const [todaysDate, setTodaysDate] = useState('')
 
     const getDates = () => {
         //SUBTRACTING 14 DAYS
@@ -34,7 +33,6 @@ function AdminAllTimesheets() {
         //take the first value in the array
         const sqlNow = nowFormatSplit[0];
         console.log('DATE TO', sqlNow);
-        setTodaysDate(sqlNow);
 
         //getting 14 days ago
         const minus14Days = moment(nowFormat).subtract(14, 'days');
@@ -47,7 +45,7 @@ function AdminAllTimesheets() {
         console.log('DATE FROM', sql14DaysAgo);
 
         //set
-        setFilter({...filter, dateFrom: sql14DaysAgo, dateTo: sqlNow});
+        setFilter({...filter, dateFrom: `${sql14DaysAgo} 00:00:00.000000`, dateTo: `${sqlNow} 23:59:59.000000`, userId: 0});
     };
 
     const fetchEmployeeList = () => {
@@ -78,11 +76,11 @@ function AdminAllTimesheets() {
     }
 
     const handleDateFromSelection = (event) => {
-        setFilter({...filter, dateFrom: event.target.value})
+        setFilter({...filter, dateFrom: `${event.target.value} 00:00:00.000000`})
     }
 
     const handleDateToSelection = (event) => {
-        setFilter({...filter, dateTo: event.target.value})
+        setFilter({...filter, dateTo: `${event.target.value} 23:59:59.000000`})
     }
 
     const handleEmployeeSelection = (event) => {
@@ -92,7 +90,7 @@ function AdminAllTimesheets() {
     //MUI CALENDAR NECESSARY STYLES
     const useStyles = makeStyles((theme) => ({
         container: {
-          display: 'flex',
+          display: 'inline',
           flexWrap: 'wrap',
         },
         textField: {
@@ -104,18 +102,18 @@ function AdminAllTimesheets() {
     const classes = useStyles();
     //END OF MUI CALENDAR STYLES
     
-    console.log(todaysDate);
     console.log(filter);
     return(
         <div>
             <h1>ADMIN VIEWS ALL TIMESHEETS HERE</h1>
+
                 {/* MUI CALENDAR DATE FROM */}
-                    <form className={classes.container} noValidate onChange={handleDateFromSelection}>
+                    <form className={classes.container}  noValidate onChange={handleDateFromSelection}>
                         <TextField
                             id="dateFrom"
-                            label="Date From"
+                            label="Begin Date"
                             type="date"
-                            defaultValue={moment(Date.now()).format().split("T")[0]}
+                            defaultValue={moment(moment(moment(Date.now()).format()).subtract(14, 'days')).format().split("T")[0]}
                             className={classes.textField}
                             InputLabelProps={{
                             shrink: true,
@@ -125,12 +123,12 @@ function AdminAllTimesheets() {
                 {/* EMD OF MUI CALENDAR DATE FROM */}
 
                 {/* MUI CALENDAR DATE TO */}
-                    <form className={classes.container} noValidate onChange={handleDateToSelection}>
+                <form className={classes.container} noValidate onChange={handleDateToSelection}>
                         <TextField
                             id="dateTo"
-                            label="Date To"
+                            label="End Date"
                             type="date"
-                            defaultValue={moment(moment(moment(Date.now()).format()).subtract(14, 'days')).format().split("T")[0]}
+                            defaultValue={moment(Date.now()).format().split("T")[0]}
                             className={classes.textField}
                             InputLabelProps={{
                             shrink: true,

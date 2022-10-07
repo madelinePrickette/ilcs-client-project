@@ -12,6 +12,7 @@ import adminTimesheetsReducer from './adminTimesheetFilter.reducer';
 import clientInfoClockIn from './clientInfoClockIn.reducer';
 import employeeClockInStatus from './employeeClockInStatus.reducer';
 import employeeAllTimesheets from './employeeAllTimesheets.reducer';
+import adminSingleTimesheet from './adminSingleTimesheet.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
   clientInfoClockIn, // will hold client name, address, and bio for clock in screen.
   employeeClockInStatus, // will hold all of the info on the open timesheets where user has not clocked out.
   employeeAllTimesheets, // will hold all of the timesheet submissions for a specific user.
-  employeeClockInStatus //will hold all of the info on the open timesheets where user has not clocked out.
+  employeeClockInStatus, //will hold all of the info on the open timesheets where user has not clocked out.
+  adminSingleTimesheet, // will hold 1 single timesheet entry that admin clicks on to view details/edit.
 });
 
 export default rootReducer;

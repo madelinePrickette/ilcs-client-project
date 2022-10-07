@@ -20,9 +20,19 @@ function* saveNewEmployeeInfo(action) {
   }
 }
 
+function* createNewEmployee(action){
+  try {
+    yield console.log('info is', action.payload.info, 'clients are', action.payload.clients)
+    yield axios.post(`/api/currentemployee/`, action.payload.info)
+  } catch (error) {
+    console.log('Error in createNewEmployee', error)
+  }
+}
+
 function* employeeDetailsSaga() {
   yield takeEvery('FETCH_CURRENT_EMPLOYEE', fetchCurrentEmployee);
   yield takeLatest('SAVE_NEW_EMPLOYEE_INFO', saveNewEmployeeInfo)
+  yield takeLatest('CREATE_NEW_EMPLOYEE', createNewEmployee)
 }
 
 export default employeeDetailsSaga;

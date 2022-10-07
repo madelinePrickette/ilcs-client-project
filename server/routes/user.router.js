@@ -31,6 +31,27 @@ router.post('/register', (req, res, next) => {
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`;
   pool
     .query(queryText, [ first_name, last_name, username, password, clearance_level, email, pic, user_active ])
+    .then(response => res.send(response))
+    .catch((err) => {
+      console.log('User registration failed: ', err);
+      res.sendStatus(500);
+    });
+});
+
+router.post('/register/newuser', (req, res, next) => {
+  const username = req.body.username;
+  const password = encryptLib.encryptPassword(req.body.password);
+  const first_name = req.body.first_name;
+  const last_name = req.body.last_name;
+  const clearance_level = req.body.clearance_level;
+  const email = req.body.email;
+  const pic = req.body.pic;
+  const user_active = req.body.user_active;
+
+  const queryText = `INSERT INTO "user" ("first_name", "last_name", "username", "password", "clearance_level", "email", "pic", "user_active")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`;
+  pool
+    .query(queryText, [ first_name, last_name, username, password, clearance_level, email, pic, user_active ])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);

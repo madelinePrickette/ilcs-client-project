@@ -29,6 +29,7 @@ import EmployeeClockIn from '../EmployeeClockIn/EmployeeClockIn';
 import AdminAllTimesheets from '../AdminAllTimesheets/AdminAllTimesheets';
 import EmployeeTimesheetsView from '../EmployeeTimesheetsView/EmployeeTimesheetsView';
 import EmployeeSingleTimesheet from '../EmployeeSingleTimesheet/EmployeeSingleTimesheet';
+import RegistrationPage from '../RegisterPage/RegistrationPage'
 
 
 import './App.css';
@@ -182,7 +183,8 @@ function App() {
               <Redirect to="/employeeDashboard" />
               :
               // Otherwise, show the registration page
-              <RegisterPage />
+              // <RegisterPage />
+              <RegistrationPage />
             }
           </Route>
 

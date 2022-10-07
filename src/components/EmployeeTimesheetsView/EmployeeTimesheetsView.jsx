@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 const moment = require('moment');
 var momentPreciseRangePlugin = require("moment-precise-range-plugin");
 
@@ -10,6 +11,8 @@ function EmployeeTimesheetsView() {
         getTimesheets();
     }, [])
 
+    const user = useSelector(store => store.user)
+    const history = useHistory();
     const dispatch = useDispatch();
     const timesheets = useSelector( store => store.employeeAllTimesheets.employeeClockInStatus )
     const getTimesheets = () => {
@@ -18,10 +21,19 @@ function EmployeeTimesheetsView() {
         })
     }
 
+    const goToTimesheet = (timesheet_id, user_id) => {
+        history.push('/timesheet/' + user_id + '/' + timesheet_id);
+    }
+
+    const goBack = () => {
+        history.push('/')
+    }
+
     let minutesSum = 0;
 
     return(
         <div>
+            <button onClick={() => goBack()}>Back</button>
             <h1>Employee Timesheets View</h1>
             {timesheets && timesheets.map(timesheet => {
                 let outTime = moment(timesheet.clock_out);
@@ -36,7 +48,7 @@ function EmployeeTimesheetsView() {
                 }
                
                 return (
-                    <div key={timesheet.timesheet_id}>
+                    <div onClick={() => goToTimesheet(timesheet.timesheet_id, user.id)} key={timesheet.timesheet_id}>
                         <h1>Client: {timesheet.client_first_name}</h1>
                         <p>Clock in: {moment(timesheet.clock_in).format('lll')}</p>
                         <p>Clock out: {moment(timesheet.clock_out).format('lll')}</p>

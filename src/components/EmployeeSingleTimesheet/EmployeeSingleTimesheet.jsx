@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Select, TextField, MenuItem } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function EmployeeSingleTimesheet() {
   useEffect(() => {
@@ -19,6 +20,7 @@ function EmployeeSingleTimesheet() {
     (store) => store.employeeAllTimesheets.employeeSingleTimesheet
   );
   const dispatch = useDispatch();
+  const history = useHistory();
   const params = useParams();
   const [editing, setEditing] = useState(false);
   const [clientSelect, setClientSelect] = useState(timesheet.t_client_id)
@@ -46,8 +48,13 @@ function EmployeeSingleTimesheet() {
 
 
 
+  const goBack = () => {
+    history.push('/user/timesheets');
+  }
+
   return (
     <div style={{ padding: "20px" }}>
+      <button onClick={() => goBack()}>Back</button>
       {editing ? (
         <div>
           <h3>User ID: {timesheet.t_user_id}</h3>

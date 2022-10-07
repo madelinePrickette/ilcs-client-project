@@ -4,26 +4,6 @@ import { Button, Select, TextField, MenuItem } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
 function EmployeeSingleTimesheet() {
-  const timesheet = useSelector(
-    (store) => store.employeeAllTimesheets.employeeSingleTimesheet
-  );
-  const dispatch = useDispatch();
-  const params = useParams();
-  const [editing, setEditing] = useState(false);
-  const employeeClients = useSelector(
-    (store) => store.clientlist.employeeClientList
-  );
-  console.log("params", params);
-  console.log("employee clients list", employeeClients);
-
-  const clickEdit = () => {
-    setEditing(!editing);
-  };
-
-  const clickSave = () => {
-    setEditing(!editing);
-  };
-
   useEffect(() => {
     dispatch({
       type: "GET_SINGLE_EMPLOYEE_TIMESHEET",
@@ -35,12 +15,44 @@ function EmployeeSingleTimesheet() {
     });
   }, []);
 
+  const timesheet = useSelector(
+    (store) => store.employeeAllTimesheets.employeeSingleTimesheet
+  );
+  const dispatch = useDispatch();
+  const params = useParams();
+  const [editing, setEditing] = useState(false);
+  const [clientSelect, setClientSelect] = useState(timesheet.t_client_id)
+  const [newNotes, setNewNotes] = useState(timesheet.notes)
+  const employeeClients = useSelector(
+    (store) => store.clientlist.employeeClientList
+  );
+
+  const clickEdit = () => {
+    setEditing(!editing);
+  };
+
+  const clickSave = () => {
+    dispatch({ type: 'EMPLOYEE_TIMESHEET_CHANGES', payload: { timesheet: params.timesheetid, client: clientSelect, notes: newNotes } })
+    setEditing(!editing);
+  };
+
+  const changeClient = (event) => {
+    setClientSelect(event.target.value)
+  }
+
+  const changeNotes = (event) => {
+    setNewNotes(event.target.value);
+  }
+
+
+
   return (
     <div style={{ padding: "20px" }}>
       {editing ? (
         <div>
           <h3>User ID: {timesheet.t_user_id}</h3>
-          <Select style={{ width: "70%" }} value={timesheet.t_client_id}>
+          <Select style={{ width: "40%" }} defaultValue={0} onChange={changeClient}>
+            <MenuItem value={0}>Select a client</MenuItem>
             {employeeClients &&
               employeeClients.map((client) => {
                 return (
@@ -53,7 +65,14 @@ function EmployeeSingleTimesheet() {
           <h3>Clock-in time: {timesheet.clock_in}</h3>
           <h3>Clock-out time: {timesheet.clock_out}</h3>
           <h3>Work type: {timesheet.work_type}</h3>
-          <h3>Notes: {timesheet.notes}</h3>
+          <h3>Notes:</h3>
+          <TextField 
+            defaultValue={timesheet.notes}
+            multiline
+            style={{ width: "80%", marginBottom: '15px'}}
+            variant="outlined"
+            onChange={changeNotes}
+          />
         </div>
       ) : (
         <div className="singleTimeSheetInfoDiv">
@@ -66,9 +85,13 @@ function EmployeeSingleTimesheet() {
         </div>
       )}
       {editing ? (
+        <div>
+        <Button variant='contained' onClick={() => {setEditing(!editing)}}>Cancel</Button> 
+        
         <Button onClick={clickSave} variant="contained">
           Save
         </Button>
+        </div>
       ) : (
         <Button onClick={clickEdit} variant="contained">
           Edit

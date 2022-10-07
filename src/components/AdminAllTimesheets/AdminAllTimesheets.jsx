@@ -4,6 +4,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useEffect, useState} from 'react';
 const moment = require('moment');
 
+//mui dot icon
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+
 //mui for table
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -177,7 +180,12 @@ function AdminAllTimesheets() {
                                 <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
                                 <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
                                 <TableCell>hours worked: ???</TableCell>
-                                <TableCell>status: ???</TableCell>
+                                {timesheet.notification ?
+                                <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
+                                :
+                                <TableCell></TableCell>
+                                }
+                                
                             </TableRow>
                         )}
                 </TableBody>

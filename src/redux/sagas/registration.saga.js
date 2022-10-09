@@ -25,9 +25,19 @@ function* registerUser(action) {
 
 function* createNewUser(action) {
   try { 
-    yield axios.post('/api/user/register/newuser', action.payload);
-    // yield put({type: "FETCH_NEW_EMPLOYEE", payload: action.payload.username})
-    yield action.payload.history.push('/employeesview')
+    const response = yield axios.post('/api/user/register/newuser', action.payload);
+    
+    for (let client of action.payload.clients){
+      yield put({
+        type: "ASSIGN_CLIENT",
+        payload: {
+          client: Number(client),
+          employee: Number(response.data.id),
+        },
+      });
+    }
+
+    yield action.payload.history.push(`/employee/${response.data.id}`)
   } catch (error) {
     console.log('Error with user registration:', error);
     yield put({ type: 'REGISTRATION_FAILED' });

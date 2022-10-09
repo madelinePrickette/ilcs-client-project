@@ -250,7 +250,7 @@ function NewEmployee() {
           >
             <h2>Assign Clients:</h2>
             {clientList.map((client) => {
-              if (activeClients.includes(client.client_id) == 0) {
+              if (activeClients.includes(client.client_id) == 0 && client.client_active === true) {
                 return (
                   <h3
                     key={client.client_id}
@@ -261,7 +261,7 @@ function NewEmployee() {
                     {client.client_first_name}
                   </h3>
                 );
-              } else {
+              } else if (client.client_active === true ){
                 return (
                   <h3
                     key={client.client_id}

@@ -49,32 +49,19 @@ router.post('/register/newuser', (req, res, next) => {
   const user_active = req.body.user_active;
 
   const queryText = `INSERT INTO "user" ("first_name", "last_name", "username", "password", "clearance_level", "email", "pic", "user_active")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`;
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id;
+    
+    
+    `;
   pool
     .query(queryText, [ first_name, last_name, username, password, clearance_level, email, pic, user_active ])
-    .then(() => res.sendStatus(201))
+    .then(response => res.send(response.rows[0]))
     .catch((err) => {
       console.log('User registration failed: ', err);
       res.sendStatus(500);
     });
 });
 
-// router.get('/register/newuser', rejectUnauthenticated, (req, res) =>{
-//   console.log('req.body is', req.body)
-
-//   const queryText = `
-//    SELECT * FROM "user"
-//    WHERE "username" = $1;
-//   ;`;
-
-//   pool.query( queryText, [req.body])
-//     .then(response => {
-//       res.send(response.rows[0]);
-//     }).catch(error => {
-//       console.log(error)
-//       res.sendStatus(500)
-//     })
-// })
 
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route

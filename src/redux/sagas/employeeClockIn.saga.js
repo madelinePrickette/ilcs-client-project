@@ -32,6 +32,7 @@ function* checkClockedIn(action) {
 function* employeeClockOut(action) {
     try {
         axios.put('/api/employeeClockIn', action.payload)
+        // console.log('this is action.payload.timesheet_id in employee clockout', action.payload.timesheet_id);
     } catch (error) {
         console.log('Error with user clock in:', error);
     }

@@ -31,7 +31,7 @@ function* checkClockedIn(action) {
 
 function* employeeClockOut(action) {
     try {
-        axios.put('/api/employeeClockIn', action.payload);
+        yield axios.put('/api/employeeClockIn', action.payload);
         yield put({ type: 'SEND_CLOCK_OUT_EMAIL', payload: action.payload.timesheet_id});
     } catch (error) {
         console.log('Error with user clock in:', error);

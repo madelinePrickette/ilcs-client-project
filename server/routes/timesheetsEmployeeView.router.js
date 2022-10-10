@@ -48,7 +48,8 @@ router.put('/:timesheetid', rejectUnauthenticated, (req, res) => {
     const queryText = `
         UPDATE "timesheet" 
         SET "t_client_id" = $1,
-        "notes" = $2
+        "notes" = $2,
+        "notification" = TRUE
         WHERE "timesheet_id" = $3;
     ;`;
 

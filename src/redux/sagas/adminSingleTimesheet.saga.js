@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 
@@ -21,9 +21,28 @@ function* adminTimesheetChanges(action){
     }
 }
 
+function* adminDeleteTimesheet(action){
+    try{
+        yield axios.delete(`api/admin/timesheet/${action.payload.timesheet}`)
+    }catch (error) {
+        console.log('Error in admineDeleteTimesheet', error)
+    }
+}
+
+function* markAsRead(action){
+    try{
+        yield axios.put(`api/admin/timesheet/notification/${action.payload.timesheetid}`)
+        yield action.payload.history.go(0); //Refresh page once column is updated
+    } catch (error) {
+        console.log('Error in markAsRead', error)
+    }
+}
+
 function* adminSingleTimesheetSaga() {
     yield takeLatest('GET_ADMIN_SINGLE_TIMESHEET', getAdminSingleTimeSheet);
     yield takeLatest('ADMIN_UPDATE_TIMESHEET', adminTimesheetChanges);
+    yield takeEvery('DELETE_TIMESHEET', adminDeleteTimesheet);
+    yield takeEvery('MARK_AS_READ', markAsRead)
   }
   
   export default adminSingleTimesheetSaga;

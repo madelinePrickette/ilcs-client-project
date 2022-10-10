@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Select, TextField, MenuItem } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import './EmployeeSingleTimesheet.css'
 import moment from 'moment'
 
 function EmployeeSingleTimesheet() {
@@ -30,6 +31,12 @@ function EmployeeSingleTimesheet() {
     (store) => store.clientlist.employeeClientList
   );
 
+  let outTime = moment(timesheet.clock_out);
+  let inTime = moment(timesheet.clock_in);
+  let total = moment.duration(outTime.diff(inTime)).asMinutes();
+  let hours =  Math.floor(total / 60)
+  let minutes = Math.floor(total % 60);
+
   const clickEdit = () => {
     setEditing(!editing);
   };
@@ -54,12 +61,11 @@ function EmployeeSingleTimesheet() {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="mobile-single-timesheet-container" style={{ padding: "20px" }}>
       <button onClick={() => goBack()}>Back</button>
       {editing ? (
         <div>
-          <h3>User ID: {timesheet.t_user_id}</h3>
-          <Select style={{ width: "40%" }} defaultValue={0} onChange={changeClient}>
+          <Select style={{ width: "40%" }} defaultValue={timesheet.t_client_id} onChange={changeClient}>
             <MenuItem value={0}>Select a client</MenuItem>
             {employeeClients &&
               employeeClients.map((client) => {
@@ -70,13 +76,9 @@ function EmployeeSingleTimesheet() {
                 );
               })}
           </Select>
-          <h3>Clock-in time: {timesheet.clock_in}</h3>
-          <h3>Clock-out time: {timesheet.clock_out}</h3>
-          <h3>
-            {moment(timesheet.clock_out).diff(timesheet.clock_in, 'hours')} Hours, 
-            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'minutes') % 60} Minutes,
-            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds') % 60} Seconds
-          </h3>
+          <h3>Clock-in: {moment(timesheet.clock_in).format('DD/MM/YYYY LT')}</h3>
+          <h3>Clock-out: {moment(timesheet.clock_out).format('DD/MM/YYYY LT')}</h3>
+          <h3>Time worked: {hours}:{minutes>9 ? minutes : '0'+minutes}</h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes:</h3>
           <TextField 
@@ -89,15 +91,10 @@ function EmployeeSingleTimesheet() {
         </div>
       ) : (
         <div className="singleTimeSheetInfoDiv">
-          <h3>User ID: {timesheet.t_user_id}</h3>
-          <h3>Client ID: {timesheet.t_client_id}</h3>
-          <h3>Clock-in time: {moment(timesheet.clock_in).format('MMMM Do YYYY, h:mm:ss a')}</h3>
-          <h3>Clock-out time: {moment(timesheet.clock_out).format('MMMM Do YYYY, h:mm:ss a')}</h3>
-          <h3>
-            {moment(timesheet.clock_out).diff(timesheet.clock_in, 'hours')} Hours, 
-            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'minutes') % 60} Minutes,
-            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds') % 60} Seconds
-          </h3>
+          <h3>Client: {timesheet.client_first_name} {timesheet.client_last_name}</h3>
+          <h3>Clock-in: {moment(timesheet.clock_in).format('DD/MM/YYYY LT')}</h3>
+          <h3>Clock-out: {moment(timesheet.clock_out).format('DD/MM/YYYY LT')}</h3>
+          <h3>Time worked: {hours}:{minutes>9 ? minutes : '0'+minutes}</h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes: {timesheet.notes}</h3>
         </div>
@@ -111,9 +108,11 @@ function EmployeeSingleTimesheet() {
         </Button>
         </div>
       ) : (
-        <Button onClick={clickEdit} variant="contained">
-          Edit
-        </Button>
+        <div>
+          <Button onClick={clickEdit} variant="contained">
+            Edit
+          </Button>
+        </div>
       )}
     </div>
   );

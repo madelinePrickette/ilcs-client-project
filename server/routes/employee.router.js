@@ -5,6 +5,8 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const router = express.Router();
 
@@ -89,6 +91,24 @@ router.get('/email/:id', rejectUnauthenticated, (req, res) => {
     .then( result => {
         res.send(result.rows[0]);
         console.log('this is what we get from send email fetch!', result.rows[0]);
+        console.log('this is req.user.email', req.user.email)
+
+        const recipient = req.user.email;
+        const message = `Timesheet # ${result.rows[0].timesheet_id}`;
+
+        const msg = {
+            to: recipient,
+            from: 'ilcsdevs@gmail.com',
+            subject: 'Hello world',
+            text: message,
+            // html: '<p>Hello HTML world!</p>',
+        };
+
+        sgMail
+        .send(msg)
+        .then((response)=> console.log('email sent'))
+        .catch((error)=> console.log(error.message));
+
         // res.sendStatus(201);
     }).catch( err => {
         console.log( err );

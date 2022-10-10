@@ -31,6 +31,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/:timesheetid', rejectUnauthenticated, (req, res)=> {
     const queryText=`
     SELECT * FROM "timesheet"
+    JOIN "client"
+    ON "client".client_id = "timesheet".t_client_id
     WHERE timesheet_id = $1 AND t_user_id = $2;
     ;`;
 

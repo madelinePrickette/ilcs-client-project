@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import './AdminSingleTimesheet.css'
 const moment = require('moment');
 
 function AdminSingleTimesheet() {
@@ -80,12 +81,12 @@ function AdminSingleTimesheet() {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="single-timesheet-container" style={{ padding: "20px" }}>
       <button onClick={() => goBack()}>Back</button>
       {editing ? (
         <div>
           <h3>Employee: {timesheet.first_name} {timesheet.last_name}</h3>
-          <Select style={{ width: "20%" }} defaultValue={timesheet.t_client_id} onChange={changeClient}>
+          <Select style={{ width: "100%" }} defaultValue={timesheet.t_client_id} onChange={changeClient}>
             <MenuItem value={0}>Select a client</MenuItem>
             {employeeClients &&
               employeeClients.map((client) => {
@@ -121,7 +122,7 @@ function AdminSingleTimesheet() {
                 />
             </LocalizationProvider>
           <h3>Work type:</h3>
-          <Select style={{ width: "20%" }} defaultValue={timesheet.work_type} onChange={changeWorkType}>
+          <Select style={{ width: "100%" }} defaultValue={timesheet.work_type} onChange={changeWorkType}>
             <MenuItem value={0}>Select a Work Type</MenuItem>
             <MenuItem value={'HSA'}>HSA</MenuItem>
             <MenuItem value={'PCA'}>PCA</MenuItem>
@@ -130,7 +131,7 @@ function AdminSingleTimesheet() {
           <TextField 
             defaultValue={timesheet.notes}
             multiline
-            style={{ width: "80%", marginBottom: '15px'}}
+            style={{ width: "100%", marginBottom: '15px'}}
             variant="outlined"
             onChange={changeNotes}
           />

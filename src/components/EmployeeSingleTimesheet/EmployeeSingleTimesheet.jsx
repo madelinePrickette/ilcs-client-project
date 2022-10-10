@@ -75,7 +75,7 @@ function EmployeeSingleTimesheet() {
           <h3>
             {moment(timesheet.clock_out).diff(timesheet.clock_in, 'hours')} Hours, 
             <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'minutes') % 60} Minutes,
-            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds') % 3600} Seconds
+            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds') % 60} Seconds
           </h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes:</h3>
@@ -96,7 +96,7 @@ function EmployeeSingleTimesheet() {
           <h3>
             {moment(timesheet.clock_out).diff(timesheet.clock_in, 'hours')} Hours, 
             <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'minutes') % 60} Minutes,
-            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds') % 3600} Seconds
+            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds') % 60} Seconds
           </h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes: {timesheet.notes}</h3>

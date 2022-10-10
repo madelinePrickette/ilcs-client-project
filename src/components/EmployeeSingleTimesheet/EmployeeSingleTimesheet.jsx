@@ -88,10 +88,10 @@ function EmployeeSingleTimesheet() {
           <h3>Client ID: {timesheet.t_client_id}</h3>
           <h3>Clock-in time: {moment(timesheet.clock_in).format('MMMM Do YYYY, h:mm:ss a')}</h3>
           <h3>Clock-out time: {moment(timesheet.clock_out).format('MMMM Do YYYY, h:mm:ss a')}</h3>
-          var hours = parseInt(duration.asHours());
-          var minutes = parseInt(duration.asMinutes()) % 60;
-          <h3>Hours: {parseInt(moment(timesheet.clock_out).diff(timesheet.clock_in)).asHours()}
-          Minutes: {parseInt(moment(timesheet.clock_out).diff(timesheet.clock_in)).asMinutes() % 60}
+          <h3>
+            {moment(timesheet.clock_out).diff(timesheet.clock_in, 'hours')} Hours, 
+            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'minutes')} Minutes,
+            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds')} Seconds
           </h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes: {timesheet.notes}</h3>

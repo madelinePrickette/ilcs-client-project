@@ -29,10 +29,20 @@ function* adminDeleteTimesheet(action){
     }
 }
 
+function* markAsRead(action){
+    try{
+        yield axios.put(`api/admin/timesheet/notification/${action.payload.timesheetid}`)
+        yield action.payload.history.go(0); //Refresh page once column is updated
+    } catch (error) {
+        console.log('Error in markAsRead', error)
+    }
+}
+
 function* adminSingleTimesheetSaga() {
     yield takeLatest('GET_ADMIN_SINGLE_TIMESHEET', getAdminSingleTimeSheet);
     yield takeLatest('ADMIN_UPDATE_TIMESHEET', adminTimesheetChanges);
     yield takeEvery('DELETE_TIMESHEET', adminDeleteTimesheet);
+    yield takeEvery('MARK_AS_READ', markAsRead)
   }
   
   export default adminSingleTimesheetSaga;

@@ -38,6 +38,12 @@ function AdminSingleTimesheet() {
     (store) => store.clientlist.employeeClientList
   );
 
+  let outTime = moment(timesheet.clock_out);
+  let inTime = moment(timesheet.clock_in);
+  let total = moment.duration(outTime.diff(inTime)).asMinutes();
+  let hours =  Math.floor(total / 60)
+  let minutes = Math.floor(total % 60);
+
   const clickEdit = () => {
     setEditing(!editing);
   };
@@ -135,6 +141,7 @@ function AdminSingleTimesheet() {
           <h3>Client Name: {timesheet.client_first_name} {timesheet.client_last_name}</h3>
           <h3>Clock-in time: {moment(timesheet.clock_in).format('lll')}</h3>
           <h3>Clock-out time: {moment(timesheet.clock_out).format('DD/MM/YYYY LT')}</h3>
+          <h3>Time worked: {hours}:{minutes>9 ? minutes : '0'+minutes}</h3>
           <h3>Clock-in location: {'('}{String(location_1.x)}, {String(location_1.y)}{')'}</h3>
           <h3>Clock-out location: {'('}{String(location_2.x)}, {String(location_2.y)}{')'}</h3>
           <h3>Work type: {timesheet.work_type}</h3>

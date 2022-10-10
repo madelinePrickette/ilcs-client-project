@@ -33,16 +33,26 @@ function* employeeClockOut(action) {
     try {
         axios.put('/api/employeeClockIn', action.payload)
         // console.log('this is action.payload.timesheet_id in employee clockout', action.payload.timesheet_id);
+        yield put({ type: 'SEND_CLOCK_OUT_EMAIL', payload: action.payload.timesheet_id});
     } catch (error) {
         console.log('Error with user clock in:', error);
     }
 }
+
+function* sendClockOutEmail (action) {
+    try {
+        const response = yield axios.get(`/api/employeeClockIn/email/${action.payload}`);
+    } catch (error) {
+        console.log('Error with send clock out email:', error);
+    }
+}//end of sendClockOutEmail
 
 function* employeeClockInSaga() {
     yield takeEvery('EMPLOYEE_CLOCK_IN', employeeClockIn);
     yield takeEvery('CLIENT_INFO_CLOCK_IN', clientInfoClockIn);
     yield takeEvery('GET_USER_STATUS', checkClockedIn);
     yield takeEvery('EMPLOYEE_CLOCK_OUT', employeeClockOut);
+    yield takeEvery('SEND_CLOCK_OUT_EMAIL', sendClockOutEmail);
 }
 
 export default employeeClockInSaga;

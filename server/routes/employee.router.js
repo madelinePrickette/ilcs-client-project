@@ -77,5 +77,23 @@ router.get('/user', rejectUnauthenticated, (req, res) => {
     })
 })
 
+router.get('/email/:id', rejectUnauthenticated, (req, res) => {
+    console.log('timesheet id', req.params.id);
+    const queryText = `SELECT * FROM "timesheet"
+    JOIN "client"
+    ON "timesheet".t_client_id = "client".client_id
+    WHERE "timesheet".timesheet_id = $1;`;
+    const queryValues = [ req.params.id ];
+
+    pool.query(queryText, queryValues)
+    .then( result => {
+        res.send(result.rows[0]);
+        console.log('this is what we get from send email fetch!', result.rows[0]);
+        // res.sendStatus(201);
+    }).catch( err => {
+        console.log( err );
+        res.sendStatus(500);
+    })
+})
 
 module.exports = router;

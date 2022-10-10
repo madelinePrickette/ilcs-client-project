@@ -48,4 +48,20 @@ router.put('/:timesheetid', rejectUnauthenticated, (req, res) => {
         })
 })
 
+router.delete('/:timesheetid', rejectUnauthenticated, (req, res) => {
+    const id = req.params.timesheetid
+    const queryText = `
+    DELETE FROM "timesheet"
+    WHERE "timesheet_id" = $1
+    ;`
+
+    pool.query( queryText, [ id ])
+    .then(response => {
+        res.sendStatus(200)
+    }).catch( err => {
+        console.log(err)
+        res.sendStatus(500)
+    })
+})
+
 module.exports = router;

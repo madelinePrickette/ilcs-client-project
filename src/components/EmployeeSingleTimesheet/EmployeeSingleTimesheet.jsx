@@ -108,9 +108,11 @@ function EmployeeSingleTimesheet() {
         </Button>
         </div>
       ) : (
-        <Button onClick={clickEdit} variant="contained">
-          Edit
-        </Button>
+        <div>
+          <Button onClick={clickEdit} variant="contained">
+            Edit
+          </Button>
+        </div>
       )}
     </div>
   );

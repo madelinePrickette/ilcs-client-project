@@ -49,6 +49,11 @@ function AdminSingleTimesheet() {
     setEditing(!editing);
   };
 
+  const clickDelete = () => {
+    dispatch({ type: 'DELETE_TIMESHEET', payload: {timesheet: params.timesheetid}})
+    history.push('/adminAllTimesheets');
+  };
+
   const clickSave = () => {
     dispatch({ type: 'ADMIN_UPDATE_TIMESHEET', payload: { timesheet: params.timesheetid, client: clientSelect, notes: newNotes, work_type: newWorkType, clock_in: clockInValue, clock_out: clockOutValue } })
     setEditing(!editing);
@@ -158,9 +163,14 @@ function AdminSingleTimesheet() {
         </Button>
         </div>
       ) : (
-        <Button onClick={clickEdit} variant="contained">
-          Edit
-        </Button>
+        <div>
+            <Button onClick={clickEdit} variant="contained">
+            Edit
+            </Button>
+            <Button onClick={clickDelete} variant="contained">
+            Delete
+            </Button>
+        </div>
       )}
     </div>
   );

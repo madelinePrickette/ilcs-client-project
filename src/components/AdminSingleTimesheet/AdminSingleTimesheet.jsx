@@ -142,8 +142,8 @@ function AdminSingleTimesheet() {
           <h3>Clock-in time: {moment(timesheet.clock_in).format('lll')}</h3>
           <h3>Clock-out time: {moment(timesheet.clock_out).format('DD/MM/YYYY LT')}</h3>
           <h3>Time worked: {hours}:{minutes>9 ? minutes : '0'+minutes}</h3>
-          <h3>Clock-in location: {'('}{String(location_1.x)}, {String(location_1.y)}{')'}</h3>
-          <h3>Clock-out location: {'('}{String(location_2.x)}, {String(location_2.y)}{')'}</h3>
+          <h3>Clock-in location: {location_1}</h3>
+          <h3>Clock-out location: {location_2}</h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes: {timesheet.notes}</h3>
         </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Select, TextField, MenuItem } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import moment from 'moment'
 
 function EmployeeSingleTimesheet() {
   useEffect(() => {
@@ -85,8 +86,13 @@ function EmployeeSingleTimesheet() {
         <div className="singleTimeSheetInfoDiv">
           <h3>User ID: {timesheet.t_user_id}</h3>
           <h3>Client ID: {timesheet.t_client_id}</h3>
-          <h3>Clock-in time: {timesheet.clock_in}</h3>
-          <h3>Clock-out time: {timesheet.clock_out}</h3>
+          <h3>Clock-in time: {moment(timesheet.clock_in).format('MMMM Do YYYY, h:mm:ss a')}</h3>
+          <h3>Clock-out time: {moment(timesheet.clock_out).format('MMMM Do YYYY, h:mm:ss a')}</h3>
+          var hours = parseInt(duration.asHours());
+          var minutes = parseInt(duration.asMinutes()) % 60;
+          <h3>Hours: {parseInt(moment(timesheet.clock_out).diff(timesheet.clock_in)).asHours()}
+          Minutes: {parseInt(moment(timesheet.clock_out).diff(timesheet.clock_in)).asMinutes() % 60}
+          </h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes: {timesheet.notes}</h3>
         </div>

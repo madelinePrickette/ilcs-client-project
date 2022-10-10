@@ -7,6 +7,9 @@ const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+//Moment formating code
+const moment = require('moment');
+var momentPreciseRangePlugin = require("moment-precise-range-plugin");
 
 const router = express.Router();
 
@@ -94,7 +97,14 @@ router.get('/email/:id', rejectUnauthenticated, (req, res) => {
         console.log('this is req.user.email', req.user.email)
 
         const recipient = req.user.email;
-        const message = `Timesheet # ${result.rows[0].timesheet_id}`;
+        const message = `Timesheet # ${result.rows[0].timesheet_id}
+            ClockIn: ${moment(result.rows[0].clock_in).format('lll')}
+            ClockOut: ${moment(result.rows[0].clock_out).format('lll')}
+            Client: ${result.rows[0].client_first_name} ${result.rows[0].client_last_name }
+            Type of work: ${result.rows[0].work_type}
+            Shift Notes: ${result.rows[0].notes}
+            Hours Worked:
+            `; //end of message
 
         const msg = {
             to: recipient,

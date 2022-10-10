@@ -59,6 +59,10 @@ function AdminSingleTimesheet() {
     setEditing(!editing);
   };
 
+  const clickRead = () => {
+    dispatch({type: 'MARK_AS_READ', payload: {timesheetid: params.timesheetid, history: history} })
+  }
+
   const changeClient = (event) => {
     setClientSelect(event.target.value)
   }
@@ -170,6 +174,10 @@ function AdminSingleTimesheet() {
             <Button onClick={clickDelete} variant="contained">
             Delete
             </Button>
+            {timesheet.notification ? 
+            <Button onClick={clickRead} style={{border: '2px solid #57C148'}} variant="contained">
+            Mark as read
+            </Button> : <></>}
         </div>
       )}
     </div>

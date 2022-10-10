@@ -72,6 +72,11 @@ function EmployeeSingleTimesheet() {
           </Select>
           <h3>Clock-in time: {timesheet.clock_in}</h3>
           <h3>Clock-out time: {timesheet.clock_out}</h3>
+          <h3>
+            {moment(timesheet.clock_out).diff(timesheet.clock_in, 'hours')} Hours, 
+            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'minutes') % 60} Minutes,
+            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds') % 3600} Seconds
+          </h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes:</h3>
           <TextField 
@@ -90,8 +95,8 @@ function EmployeeSingleTimesheet() {
           <h3>Clock-out time: {moment(timesheet.clock_out).format('MMMM Do YYYY, h:mm:ss a')}</h3>
           <h3>
             {moment(timesheet.clock_out).diff(timesheet.clock_in, 'hours')} Hours, 
-            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'minutes')} Minutes,
-            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds')} Seconds
+            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'minutes') % 60} Minutes,
+            <> </>{moment(timesheet.clock_out).diff(timesheet.clock_in, 'seconds') % 3600} Seconds
           </h3>
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes: {timesheet.notes}</h3>

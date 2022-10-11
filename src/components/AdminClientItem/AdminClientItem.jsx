@@ -19,6 +19,7 @@ function AdminClientItem ({client}) {
         const [editOpen, setEditOpen] = useState(false);
         //Updated Client Info Object
         const [editClient, setEditClient] = useState({firstName: client.client_first_name, lastName: client.client_last_name, address: client.address, city: client.city, state: client.state, zip: client.zip, bio: client.bio, clientId: client.client_id});
+        const clientId = client.client_id;
 
         //setting user input functions:
         const handleFirstName = (event) => {

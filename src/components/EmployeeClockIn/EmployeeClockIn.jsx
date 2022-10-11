@@ -80,8 +80,8 @@ function EmployeeClockIn() {
                 <h1>Employee Clock Out</h1>
                 <p>Clocked in at: {moment(userInfo.clock_in).format('lll')}</p>
                 <p>Type of work</p>
-                <button onClick={() => workType('PCA')}>PCA</button>
-                <button onClick={() => workType('HSA')}>HSA</button>
+                <button onClick={() => workType('PCA - 15.00')}>PCA</button>
+                <button onClick={() => workType('HSA - 20.00')}>HSA</button>
                 <br />
                 <input onChange={() => notesSection(event)} type="text" placeholder="NOTES" />
                 <br />

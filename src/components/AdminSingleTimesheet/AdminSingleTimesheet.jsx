@@ -46,6 +46,7 @@ function AdminSingleTimesheet() {
   let minutes = Math.floor(total % 60);
 
   const clickEdit = () => {
+    setClockInValue(moment(timesheet.clock_in).format('YYYY-MM-DD HH:mm:00.000000'));setClockOutValue(moment(timesheet.clock_out).format('YYYY-MM-DD HH:mm:00.000000'));
     setEditing(!editing);
   };
 

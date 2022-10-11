@@ -117,7 +117,9 @@ function App() {
             exact
             path="/employeeDashboard"
           >
-            <EmployeeDashboard />
+            {/* Dashboard for admins should be all timesheets view */}
+            {user.clearance_level > 0 ?
+            <AdminAllTimesheets/> : <EmployeeDashboard /> }
           </ProtectedRoute>
 
           <ProtectedRoute

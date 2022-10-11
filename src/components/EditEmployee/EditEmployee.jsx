@@ -16,19 +16,36 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 
+//This component is reached from the Admin side when the admin clicks on the "Edit Employee" button after viewing a single employee. All information of the employee is editable, the admin can also assign and unassign clients for the employee.
+
 function EditEmployee() {
+
   useEffect(() => {
     dispatch({ type: "FETCH_CURRENT_EMPLOYEE", payload: params.employeeid });
     dispatch({ type: "FETCH_CLIENT_LIST", payload: params.employeeid });
   }, []);
-  let employeeIDArrayActive = [];
-  let employeeIDArrayInactive = [];
+
+  //Const variables
   const history = useHistory();
   const params = useParams();
   const employeeInfo = useSelector((store) => store.employeedetails);
   const clientList = useSelector((store) => store.clientlist.clientList);
   const [active, setActive] = useState(employeeInfo.user_active);
   const dispatch = useDispatch();
+  const [newEmployeeInfo, setNewEmployeeInfo] = useState({
+    firstname: employeeInfo.first_name,
+    lastname: employeeInfo.last_name,
+    username: employeeInfo.username,
+    clearancelevel: employeeInfo.clearance_level,
+    email: employeeInfo.email,
+    picture: employeeInfo.pic,
+    active: employeeInfo.user_active,
+  });
+    
+  let employeeIDArrayActive = [];
+  let employeeIDArrayInactive = [];
+
+  //Const functions
 
   const unassignClient = (clientID) => {
     dispatch({
@@ -54,7 +71,10 @@ function EditEmployee() {
   };
 
   const changeClearanceLevel = (event) => {
-    setNewEmployeeInfo({ ...newEmployeeInfo, clearancelevel: event.target.value });
+    setNewEmployeeInfo({
+      ...newEmployeeInfo,
+      clearancelevel: event.target.value,
+    });
   };
 
   const changeEmail = (event) => {
@@ -80,43 +100,40 @@ function EditEmployee() {
   };
 
   const clickSubmit = () => {
-    dispatch({ type: 'SAVE_NEW_EMPLOYEE_INFO', payload: {employeeid: params.employeeid, info: newEmployeeInfo} })
-    history.push(`/employee/${params.employeeid}`)
-  }
+    dispatch({
+      type: "SAVE_NEW_EMPLOYEE_INFO",
+      payload: { employeeid: params.employeeid, info: newEmployeeInfo },
+    });
+    history.push(`/employee/${params.employeeid}`);
+  };
 
   const clickCheck = () => {
     setActive(!active);
     setNewEmployeeInfo({ ...newEmployeeInfo, active: !active });
-   }
-
-  const [newEmployeeInfo, setNewEmployeeInfo] = useState({
-    firstname: employeeInfo.first_name,
-    lastname: employeeInfo.last_name,
-    username: employeeInfo.username,
-    clearancelevel: employeeInfo.clearance_level,
-    email: employeeInfo.email,
-    picture: employeeInfo.pic,
-    active: employeeInfo.user_active
-  });
+  };
 
   return (
     <div>
       <div className="clientEditTop">
         <div
           className="clientEditTop-Left"
-          style={{ width: "60%", paddingLeft: "20px", paddingBottom: '20px' }}
+          style={{ width: "60%", paddingLeft: "20px", paddingBottom: "20px" }}
         >
           <FormGroup>
             <div className="inputDiv">
               <label
-                style={{ lineHeight: "3", marginRight: "10px", marginBottom: '0px' }}
+                style={{
+                  lineHeight: "3",
+                  marginRight: "10px",
+                  marginBottom: "0px",
+                }}
                 className="label"
               >
                 First name
               </label>
               <TextField
                 fullWidth
-                style={{marginTop: '-10px'}}
+                style={{ marginTop: "-10px" }}
                 variant="outlined"
                 defaultValue={employeeInfo.first_name}
                 onChange={changeFirstName}
@@ -130,21 +147,25 @@ function EditEmployee() {
               </label>
               <TextField
                 fullWidth
-                style={{marginTop: '-10px'}}
+                style={{ marginTop: "-10px" }}
                 variant="outlined"
                 defaultValue={employeeInfo.last_name}
                 onChange={changeLastName}
               />
 
               <label
-                style={{ lineHeight: "3", marginRight: "10px", marginBottom: '0px' }}
+                style={{
+                  lineHeight: "3",
+                  marginRight: "10px",
+                  marginBottom: "0px",
+                }}
                 className="label"
               >
                 Username
               </label>
               <TextField
                 fullWidth
-                style={{marginTop: '-10px'}}
+                style={{ marginTop: "-10px" }}
                 variant="outlined"
                 defaultValue={employeeInfo.username}
                 onChange={changeUsername}
@@ -158,7 +179,7 @@ function EditEmployee() {
               </label>
               <TextField
                 fullWidth
-                style={{marginTop: '-10px'}}
+                style={{ marginTop: "-10px" }}
                 variant="outlined"
                 defaultValue={employeeInfo.clearance_level}
                 onChange={changeClearanceLevel}
@@ -172,7 +193,7 @@ function EditEmployee() {
               </label>
               <TextField
                 fullWidth
-                style={{marginTop: '-10px'}}
+                style={{ marginTop: "-10px" }}
                 variant="outlined"
                 defaultValue={employeeInfo.email}
                 onChange={changeEmail}
@@ -186,7 +207,7 @@ function EditEmployee() {
               </label>
               <TextField
                 fullWidth
-                style={{marginTop: '-10px'}}
+                style={{ marginTop: "-10px" }}
                 variant="outlined"
                 defaultValue={employeeInfo.pic}
                 onChange={changePicture}
@@ -198,54 +219,89 @@ function EditEmployee() {
               >
                 Active
               </label>
-                <input type="checkbox" checked={active}
-                onChange={clickCheck}
-                />
+              <input type="checkbox" checked={active} onChange={clickCheck} />
             </div>
           </FormGroup>
         </div>
 
-        <div style={{ width: "60%", paddingRight: "20px", paddingLeft: "20px", paddingBottom: '20px'  }}>
-          <div style={{textAlign: 'center'}}>
-          <h1>Client List</h1>
+        <div
+          style={{
+            width: "60%",
+            paddingRight: "20px",
+            paddingLeft: "20px",
+            paddingBottom: "20px",
+          }}
+        >
+          <div style={{ textAlign: "center" }}>
+            <h1>Client List</h1>
           </div>
-          <div className="activeClients" style={{border: '1px black solid', padding: '10px'}}>
+          <div
+            className="activeClients"
+            style={{ border: "1px black solid", padding: "10px" }}
+          >
             <h2>Working with:</h2>
-              {clientList.map(client=>{
-                if (client.j_user_id == params.employeeid) {
-                employeeIDArrayActive.push(client.client_id)
-                return(
-                  <h3 key={client.client_id} style={{backgroundColor: '#59CF76'}} onClick={() => {unassignClient(client.client_id)}}>{client.client_first_name}</h3>
-                )
-                }
-              })}
-          </div>
-          <div className="activeInactive" style={{border: '1px black solid', padding: '10px', marginTop: '10px'}}>
-            <h2>Not working with:</h2>
-            {clientList.map(client=>{
-              if (employeeIDArrayActive.includes(client.client_id) == 0 && employeeIDArrayInactive.includes(client.client_id) == 0){
-                employeeIDArrayInactive.push(client.client_id)
-                return(
-                  <h3 key={client.client_id} onClick={() => {assignClient(client.client_id)}}>{client.client_first_name}</h3>
-                )
+            {clientList.map((client) => {
+              if (client.j_user_id == params.employeeid) {
+                employeeIDArrayActive.push(client.client_id);
+                return (
+                  <h3
+                    key={client.client_id}
+                    style={{ backgroundColor: "#59CF76" }}
+                    onClick={() => {
+                      unassignClient(client.client_id);
+                    }}
+                  >
+                    {client.client_first_name}
+                  </h3>
+                );
               }
-              })}
+            })}
+          </div>
+          <div
+            className="activeInactive"
+            style={{
+              border: "1px black solid",
+              padding: "10px",
+              marginTop: "10px",
+            }}
+          >
+            <h2>Not working with:</h2>
+            {clientList.map((client) => {
+              if (
+                employeeIDArrayActive.includes(client.client_id) == 0 &&
+                employeeIDArrayInactive.includes(client.client_id) == 0
+              ) {
+                employeeIDArrayInactive.push(client.client_id);
+                return (
+                  <h3
+                    key={client.client_id}
+                    onClick={() => {
+                      assignClient(client.client_id);
+                    }}
+                  >
+                    {client.client_first_name}
+                  </h3>
+                );
+              }
+            })}
           </div>
         </div>
       </div>
       <div style={{ textAlign: "center" }} className="clientEditBottom">
-        <Button 
-          onClick={clickCancel} 
+        <Button
+          onClick={clickCancel}
           variant="contained"
-          style={{margin: '10px'}}
+          style={{ margin: "10px" }}
         >
           Cancel
         </Button>
-        <Button 
+        <Button
           onClick={clickSubmit}
           variant="contained"
-          style={{margin: '10px'}}
-        >Submit</Button>
+          style={{ margin: "10px" }}
+        >
+          Submit
+        </Button>
       </div>
     </div>
   );

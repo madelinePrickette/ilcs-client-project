@@ -3,10 +3,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  position: fixed;
+  width: 100%;
+  top: 0;
   margin: 0 0 30px;
   background-color: #00acb0;
   overflow: hidden;
+  z-index: 3;
 }
 
 .nav a {

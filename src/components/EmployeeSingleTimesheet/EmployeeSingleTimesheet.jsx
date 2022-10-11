@@ -7,6 +7,7 @@ import './EmployeeSingleTimesheet.css'
 import moment from 'moment'
 
 function EmployeeSingleTimesheet() {
+
   useEffect(() => {
     dispatch({
       type: "GET_SINGLE_EMPLOYEE_TIMESHEET",
@@ -17,6 +18,8 @@ function EmployeeSingleTimesheet() {
       payload: params.employeeid,
     });
   }, []);
+  
+  //Const variables
 
   const timesheet = useSelector(
     (store) => store.employeeAllTimesheets.employeeSingleTimesheet
@@ -37,6 +40,8 @@ function EmployeeSingleTimesheet() {
   let hours =  Math.floor(total / 60)
   let minutes = Math.floor(total % 60);
 
+  //Const functions
+
   const clickEdit = () => {
     setClientSelect(timesheet.t_client_id)
     setEditing(!editing);
@@ -55,8 +60,6 @@ function EmployeeSingleTimesheet() {
     setNewNotes(event.target.value);
   }
 
-
-
   const goBack = () => {
     history.push('/user/timesheets');
   }
@@ -67,7 +70,6 @@ function EmployeeSingleTimesheet() {
       {editing ? (
         <div>
           <Select style={{ width: "40%" }} defaultValue={clientSelect} onChange={changeClient}>
-            <MenuItem value={0}>Change Client</MenuItem>
             {employeeClients &&
               employeeClients.map((client) => {
                 return (

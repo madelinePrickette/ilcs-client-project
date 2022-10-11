@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import ClockLoader from "react-spinners/ClockLoader";
+import './EmployeeClockIn.css';
 const moment = require('moment');
 
 function EmployeeClockIn() {
@@ -12,8 +14,9 @@ function EmployeeClockIn() {
     const dispatch = useDispatch();
     const [work_type, setWork_type] = useState('');
     const [notes, setNotes] = useState('');
-    const clientInfo = useSelector( store => store.clientInfoClockIn)
-    const userInfo = useSelector( store => store.employeeClockInStatus)
+    const clientInfo = useSelector( store => store.clientInfoClockIn);
+    const userInfo = useSelector( store => store.employeeClockInStatus);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect( () => {
         getClientInfo(id);
@@ -41,6 +44,7 @@ function EmployeeClockIn() {
     // this function get location data from a users browser and sends it to the employeeClockIn Reducer.
     const clockIn = () => {
         console.log('clicked');
+        setIsLoading(true);
         navigator.geolocation.getCurrentPosition(function(position) {
             console.log("Latitude is :", position.coords.latitude);
             console.log("Longitude is :", position.coords.longitude);
@@ -56,20 +60,32 @@ function EmployeeClockIn() {
         if (work_type == '') {
             alert('Please select the type of work before submitting');
         } else {
+        setIsLoading(true);
         navigator.geolocation.getCurrentPosition(function(position) {
             // console.log("Latitude is :", position.coords.latitude);
             // console.log("Longitude is :", position.coords.longitude);
             dispatch({
                 type: "EMPLOYEE_CLOCK_OUT",
-                payload: { loc_2: "(" + position.coords.latitude + ", " + position.coords.longitude + ")" , timesheet_id: timesheet_id, work_type: work_type, notes: notes  }
+                payload: { loc_2: "(" + position.coords.latitude + ", " + position.coords.longitude + ")" , timesheet_id: timesheet_id, work_type: work_type, notes: notes, history: history }
             });
-            history.push('/employeeDashboard')
+            // history.push('/employeeDashboard')
           });
         }
     }
 
     const goBack = () => {
         history.push('/')
+    }
+
+    if (isLoading) {
+        return(
+            <div className="loading-spinner-container">
+                <ClockLoader
+                color="#36d7b7"
+                size={'200px'}
+                />
+            </div>
+        )
     }
 
     if (userInfo.client_id == clientInfo.client_id) {
@@ -80,8 +96,8 @@ function EmployeeClockIn() {
                 <h1>Employee Clock Out</h1>
                 <p>Clocked in at: {moment(userInfo.clock_in).format('lll')}</p>
                 <p>Type of work</p>
-                <button onClick={() => workType('PCA')}>PCA</button>
-                <button onClick={() => workType('HSA')}>HSA</button>
+                <button onClick={() => workType('PCA - 15.00')}>PCA</button>
+                <button onClick={() => workType('HSA - 20.00')}>HSA</button>
                 <br />
                 <input onChange={() => notesSection(event)} type="text" placeholder="NOTES" />
                 <br />

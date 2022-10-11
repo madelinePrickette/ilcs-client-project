@@ -16,10 +16,23 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {
+    FormGroup,
+    useMediaQuery,
+    useTheme,
+    Button,
+    Select,
+    TextField,
+    MenuItem,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+  } from "@material-ui/core";
 
 //mui for calendar
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 
 //import papa
 const Papa = require('papaparse');
@@ -191,110 +204,115 @@ function AdminAllTimesheets() {
     console.log(filter); // just to check what is in our payload
     return (
         <div>
-            <h1>ADMIN VIEWS ALL TIMESHEETS HERE</h1>
-            {/* MUI CALENDAR DATE FROM */}
-            <form className={classes.container} noValidate onChange={handleDateFromSelection}>
-                <TextField
-                    id="dateFrom"
-                    label="Begin Date"
-                    type="date"
-                    defaultValue={moment(moment(moment(Date.now()).format()).subtract(14, 'days')).format().split("T")[0]}
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-            </form>
-            {/* EMD OF MUI CALENDAR DATE FROM */}
+            <h1 style={{marginLeft: '10px'}}>Employee Timesheets</h1>
 
-            {/* MUI CALENDAR DATE TO */}
-            <form className={classes.container} noValidate onChange={handleDateToSelection}>
-                <TextField
-                    id="dateTo"
-                    label="End Date"
-                    type="date"
-                    defaultValue={moment(Date.now()).format().split("T")[0]}
-                    className={classes.textField}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-            </form>
-            {/* END OF MUI CALENDAR DATE TO */}
 
-            <select onChange={handleEmployeeSelection}>
-                <option value='0'>All Employees</option>
-                {employeeList.map((employee) =>
-                    <option value={employee.id} key={employee.id}>{employee.first_name} {employee.last_name}</option>
-                )}
-            </select>
+                {/* MUI CALENDAR DATE FROM */}
+                    <form className={classes.container}  noValidate onChange={handleDateFromSelection}>
+                        <TextField
+                            id="dateFrom"
+                            label="Begin Date"
+                            type="date"
+                            defaultValue={moment(moment(moment(Date.now()).format()).subtract(14, 'days')).format().split("T")[0]}
+                            className={classes.textField}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                        />
+                    </form>
+                {/* EMD OF MUI CALENDAR DATE FROM */}
 
-            <button onClick={handleFilterSubmit}>Filter</button>
-            <button onClick={handleExportCsv}>Export CSV</button>
+                {/* MUI CALENDAR DATE TO */}
+                <div style={{marginBottom: '5px', display: 'inline-flex'}}>
+                <form className={classes.container} noValidate onChange={handleDateToSelection}>
+                        <TextField
+                            id="dateTo"
+                            label="End Date"
+                            type="date"
+                            defaultValue={moment(Date.now()).format().split("T")[0]}
+                            className={classes.textField}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                        />
+                    </form>
+                {/* END OF MUI CALENDAR DATE TO */}
+   
+                <Select onChange={handleEmployeeSelection} defaultValue={0} style={{marginLeft: '10px'}} label="Employee">
+                        <MenuItem value='0'>All Employees</MenuItem>
+                    {employeeList.map((employee) => 
+                        <MenuItem value={employee.id} key={employee.id}>{employee.first_name} {employee.last_name}</MenuItem>
+                    )}
+                </Select>
+
+                <Button variant="contained" onClick={handleFilterSubmit} style={{marginLeft: '10px'}}>Filter</Button>
+                <button onClick={handleExportCsv}>Export CSV</button>
+
+                </div>
 
             <Paper className={tableClasses.root}>
-                <TableContainer className={tableClasses.container}>
-                    <Table stickyHeader>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Timesheet No.</TableCell>
-                                <TableCell>Employee Name</TableCell>
-                                <TableCell>Client Name</TableCell>
-                                <TableCell>Type</TableCell>
-                                <TableCell>Clock in time</TableCell>
-                                <TableCell>Clock out time</TableCell>
-                                <TableCell>Hours worked</TableCell>
-                                <TableCell>Status</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {timesheetList.map((timesheet) => {
+            <TableContainer className={tableClasses.container}>   
+            <Table stickyHeader>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Timesheet No.</TableCell>
+                        <TableCell>Employee Name</TableCell>
+                        <TableCell>Client Name</TableCell>
+                        <TableCell>Type</TableCell>
+                        <TableCell>Clock in time</TableCell>
+                        <TableCell>Clock out time</TableCell>
+                        <TableCell>Hours worked</TableCell>
+                        <TableCell>Status</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                        {timesheetList.map((timesheet) => {
 
-                                let outTime = moment(timesheet.clock_out);
-                                let inTime = moment(timesheet.clock_in);
-                                let total = moment.duration(outTime.diff(inTime)).asMinutes();
-                                let hours = Math.floor(total / 60)
-                                let minutes = Math.floor(total % 60);
-                                // minutesSum = minutesSum + total;
-                                {/* {timesheetList && timesheetList.map(timesheet => { */ }
-                                if (moment(timesheet.clock_in).format() > endDate && moment(timesheet.clock_in).format() < beginDate) {
-                                    if (minutes < 10) {
-                                        minutes = "0" + minutes
-                                        return (
-                                            <TableRow onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
-                                                <TableCell>{timesheet.timesheet_id}</TableCell>
-                                                <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
-                                                <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>
-                                                <TableCell>{timesheet.work_type}</TableCell>
-                                                <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
-                                                <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
-                                                <TableCell>{hours}:{minutes}</TableCell>
-                                                {timesheet.notification ?
-                                                    <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
-                                                    :
-                                                    <TableCell></TableCell>
-                                                }
-
-                                            </TableRow>
-                                           )
-                                    } else {
-                                        return (
-                                            <TableRow onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
-                                                <TableCell>{timesheet.timesheet_id}</TableCell>
-                                                <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
-                                                <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>
-                                                <TableCell>{timesheet.work_type}</TableCell>
-                                                <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
-                                                <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
-                                                <TableCell>{hours}:{minutes}</TableCell>
-                                                {timesheet.notification ?
-                                                    <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
-                                                    :
-                                                    <TableCell></TableCell>
-                                                }
-
-                                            </TableRow>
-                                        )
+                            let outTime = moment(timesheet.clock_out);
+                            let inTime = moment(timesheet.clock_in);
+                            let total = moment.duration(outTime.diff(inTime)).asMinutes();
+                            let hours =  Math.floor(total / 60)
+                            let minutes = Math.floor(total % 60);
+                            // minutesSum = minutesSum + total;
+                                {/* {timesheetList && timesheetList.map(timesheet => { */}
+                                    if (moment(timesheet.clock_in).format() > endDate && moment(timesheet.clock_in).format() < beginDate) {
+                                        if (minutes < 10){
+                                            minutes = "0"+minutes
+                                                return(
+                                                    <TableRow hover onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
+                                                        <TableCell>{timesheet.timesheet_id}</TableCell>
+                                                        <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
+                                                        <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>
+                                                        <TableCell>{timesheet.work_type}</TableCell>
+                                                        <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm a')}</TableCell>
+                                                        <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm a')}</TableCell>
+                                                        <TableCell>{hours}:{minutes}</TableCell>
+                                                        {timesheet.notification ?
+                                                        <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
+                                                        :
+                                                        <TableCell></TableCell>
+                                                        }
+                                                        
+                                                    </TableRow>
+                                                )
+                                        }else{
+                                            return(
+                                                <TableRow onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
+                                                        <TableCell>{timesheet.timesheet_id}</TableCell>
+                                                        <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
+                                                        <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>
+                                                        <TableCell>{timesheet.work_type}</TableCell>
+                                                        <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
+                                                        <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm:ss a')}</TableCell>
+                                                        <TableCell>{hours}:{minutes}</TableCell>
+                                                        {timesheet.notification ?
+                                                        <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
+                                                        :
+                                                        <TableCell></TableCell>
+                                                        }
+                                                        
+                                                </TableRow>
+                                            )
                                     }
                                 } else {
                                     console.log(moment(timesheet.clock_in).format());

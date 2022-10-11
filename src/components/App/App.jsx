@@ -61,7 +61,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
     <Router>
-      <div>
+      <div className="appDiv">
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -117,7 +117,9 @@ function App() {
             exact
             path="/employeeDashboard"
           >
-            <EmployeeDashboard />
+            {/* Dashboard for admins should be all timesheets view */}
+            {user.clearance_level > 0 ?
+            <AdminAllTimesheets/> : <EmployeeDashboard /> }
           </ProtectedRoute>
 
           <ProtectedRoute

@@ -50,20 +50,11 @@ function AdminAllClients() {
     console.log('client list', clientList);
 
     return(
-        <>
+        <>  
+            
             <h2>Clients</h2>
-            {/* <table>
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Zip</th>
-                        <th>Bio</th>
-                    </tr>
-                </thead> */}
+
+            <AdminAddClient/> 
 
             <Paper className={tableClasses.root}>
             <TableContainer className={tableClasses.container}>   
@@ -94,8 +85,6 @@ function AdminAllClients() {
                 </Table>
             </TableContainer>
             </Paper>
-            <AdminAddClient
-            /> 
         </>
     )
 

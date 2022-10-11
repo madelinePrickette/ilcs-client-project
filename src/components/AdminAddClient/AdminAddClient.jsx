@@ -75,7 +75,14 @@ function AdminAddClient () {
 
     return(
         <>
-            <button onClick={handleClickOpen}>Add New Client</button>
+            <Button 
+            onClick={handleClickOpen}
+            variant='contained' 
+            style={{float: 'right'}}
+            >
+                Add New Client
+            </Button>
+            
             {/* Add new client dialog */}
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add New Client</DialogTitle>

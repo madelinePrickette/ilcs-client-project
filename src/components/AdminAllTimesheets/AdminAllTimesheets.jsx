@@ -216,7 +216,7 @@ function AdminAllTimesheets() {
                                         if (minutes < 10){
                                             minutes = "0"+minutes
                                                 return(
-                                                    <TableRow onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
+                                                    <TableRow hover onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
                                                         <TableCell>{timesheet.timesheet_id}</TableCell>
                                                         <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
                                                         <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>

@@ -30,9 +30,13 @@ function AdminEmployeesView() {
       </div>
     {employeesList.map(employee => {
       return (
-        <div key={employee.id} style={{background: '#000000', margin: '20px'}} className="adminEmployeeDiv">
-        <img src={employee.pic} style={{height: '250px', width: '250px'}} onClick={() => {clickEmployee(employee.id)}}/><p></p>
-        <a onClick={() => {clickEmployee(employee.id)}} style={{color: '#ffffff'}}>{employee.first_name} {employee.last_name}</a>
+        <div  style={{marginLeft: 'auto', marginRight: 'auto'}} key={employee.id}>
+        <div style={{margin: '20px', borderRadius: '50%'}} className="adminEmployeeDiv">
+        <img src={employee.pic} style={{height: '250px', width: '250px', borderRadius: '50%'}} onClick={() => {clickEmployee(employee.id)}}/><p></p>
+        </div>
+        <div style={{textAlign: 'center'}}>
+        <a onClick={() => {clickEmployee(employee.id)}} style={{color: '#000000'}}>{employee.first_name} {employee.last_name}</a>
+        </div>
         </div>
       )
     })}

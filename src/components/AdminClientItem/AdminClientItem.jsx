@@ -99,11 +99,11 @@ function AdminClientItem ({client}) {
                             edit
                         </button></td>
                     <td>
-                        <button
+                        <Button
                         onClick={handleDeleteClickOpen}
                         >
                             delete
-                        </button>
+                        </Button>
                     </td>
                 </tr>
                 :
@@ -117,11 +117,12 @@ function AdminClientItem ({client}) {
                     <td>{client.bio}</td>
                     <td><button>edit</button></td>
                     <td>
-                        <button
+                        <Button
+                        autoFocus
                         onClick={handleDeleteClickOpen}
                         >
                             delete
-                        </button>
+                        </Button>
                     </td>
                 </tr>
             }

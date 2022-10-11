@@ -18,7 +18,12 @@ import {
   ListItem,
 } from "@material-ui/core";
 
+//This component contains code for the navbar displayed to all users. Displays the organization's name as well as a clickable hamburger/menu icon for opening the Drawer component which renders link according to user's clearance level (admin or employee).
+
 function Nav() {
+  
+  //Const variables
+
   const dispatch = useDispatch();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));

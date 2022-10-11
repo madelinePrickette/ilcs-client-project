@@ -38,6 +38,7 @@ function EmployeeSingleTimesheet() {
   let minutes = Math.floor(total % 60);
 
   const clickEdit = () => {
+    setClientSelect(timesheet.t_client_id)
     setEditing(!editing);
   };
 
@@ -65,8 +66,8 @@ function EmployeeSingleTimesheet() {
       <button onClick={() => goBack()}>Back</button>
       {editing ? (
         <div>
-          <Select style={{ width: "40%" }} defaultValue={timesheet.t_client_id} onChange={changeClient}>
-            <MenuItem value={0}>Select a client</MenuItem>
+          <Select style={{ width: "40%" }} defaultValue={clientSelect} onChange={changeClient}>
+            <MenuItem value={0}>Change Client</MenuItem>
             {employeeClients &&
               employeeClients.map((client) => {
                 return (

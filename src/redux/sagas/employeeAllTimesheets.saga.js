@@ -23,15 +23,26 @@ function* employeeTimesheetChanges(action){
     try{
         yield axios.put(`api/timesheets/employeeView/${action.payload.timesheet}`, action.payload)
         yield put ({type: 'GET_SINGLE_EMPLOYEE_TIMESHEET', payload: { timesheet: action.payload.timesheet } })
+        yield put ({type: 'SEND_EMAIL_EDITED_TIMESHEET', payload: { timesheet: action.payload.timesheet }})
     }catch (error) {
         console.log('Error in employeeTimesheetChanges', error)
     }
 }
 
+function* sendEmailEditedTimesheet(action){
+    try{
+        const response = yield axios.get(`/api/email/timesheet/edit/${action.payload.timesheet}`);
+    }catch (error) {
+        console.log('Error in sendEmailEditedTimesheet', error)
+    }
+
+}//end of sendEmailEditedTimesheet
+
 function* employeeAllTimesheetsSaga() {
     yield takeEvery('GET_EMPLOYEE_TIMESHEETS', getEmployeeTimesheets);
-    yield takeEvery('GET_SINGLE_EMPLOYEE_TIMESHEET', getSingleEmployeeTimeSheet)
-    yield takeLatest('EMPLOYEE_TIMESHEET_CHANGES', employeeTimesheetChanges)
+    yield takeEvery('GET_SINGLE_EMPLOYEE_TIMESHEET', getSingleEmployeeTimeSheet);
+    yield takeLatest('EMPLOYEE_TIMESHEET_CHANGES', employeeTimesheetChanges);
+    yield takeEvery('SEND_EMAIL_EDITED_TIMESHEET', sendEmailEditedTimesheet);
 }
 
 export default employeeAllTimesheetsSaga;

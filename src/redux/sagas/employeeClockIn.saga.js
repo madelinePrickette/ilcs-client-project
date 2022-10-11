@@ -40,7 +40,7 @@ function* employeeClockOut(action) {
 
 function* sendClockOutEmail (action) {
     try {
-        const response = yield axios.get(`/api/employeeClockIn/email/${action.payload}`);
+        const response = yield axios.get(`/api/email/timesheet/${action.payload}`);
     } catch (error) {
         console.log('Error with send clock out email:', error);
     }

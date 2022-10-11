@@ -16,15 +16,33 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 
+//This component is only accessible by admins when clicking on the "Add new employee" button from the employees list view. Admins can enter information of the new employee as well as assign clients right away. Users who are created are automatically set to be active.
+
 function NewEmployee() {
+
   useEffect(() => {
     dispatch({ type: "FETCH_CLIENTS" });
   }, []);
-  const [activeClients, setActiveClients] = useState([]);
+
+  //Const variables
+
   const history = useHistory();
   const params = useParams();
   const clientList = useSelector((store) => store.adminClients);
   const dispatch = useDispatch();
+  const [activeClients, setActiveClients] = useState([]);
+  const [newEmployeeInfo, setNewEmployeeInfo] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    password: "",
+    clearancelevel: 0,
+    email: "",
+    picture: "",
+    active: true,
+  });
+
+  //Const functions
 
   const changeFirstName = (event) => {
     setNewEmployeeInfo({ ...newEmployeeInfo, firstname: event.target.value });
@@ -63,7 +81,7 @@ function NewEmployee() {
 
   const clickSubmit = () => {
     if (newEmployeeInfo.username === "" || newEmployeeInfo.password === "") {
-      alert('Please fill all required fields.')
+      alert("Please fill all required fields.");
       return 0;
     } else {
       dispatch({
@@ -95,17 +113,6 @@ function NewEmployee() {
       })
     );
   };
-
-  const [newEmployeeInfo, setNewEmployeeInfo] = useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    password: "",
-    clearancelevel: 0,
-    email: "",
-    picture: "",
-    active: true,
-  });
 
   return (
     <div>
@@ -188,12 +195,7 @@ function NewEmployee() {
                 Clearance level
               </label>
               <p></p>
-              {/* <TextField
-                fullWidth
-                style={{marginTop: '-10px'}}
-                variant="outlined"
-                onChange={changeClearanceLevel}
-              /> */}
+
               <Select
                 style={{ width: "40%", marginTop: "0px" }}
                 defaultValue={0}
@@ -250,7 +252,10 @@ function NewEmployee() {
           >
             <h2>Assign Clients:</h2>
             {clientList.map((client) => {
-              if (activeClients.includes(client.client_id) == 0 && client.client_active === true) {
+              if (
+                activeClients.includes(client.client_id) == 0 &&
+                client.client_active === true
+              ) {
                 return (
                   <h3
                     key={client.client_id}
@@ -261,7 +266,7 @@ function NewEmployee() {
                     {client.client_first_name}
                   </h3>
                 );
-              } else if (client.client_active === true ){
+              } else if (client.client_active === true) {
                 return (
                   <h3
                     key={client.client_id}

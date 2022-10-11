@@ -16,10 +16,23 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {
+    FormGroup,
+    useMediaQuery,
+    useTheme,
+    Button,
+    Select,
+    TextField,
+    MenuItem,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+  } from "@material-ui/core";
 
 //mui for calendar
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 
 function AdminAllTimesheets() {
 
@@ -128,7 +141,9 @@ function AdminAllTimesheets() {
     console.log(filter); // just to check what is in our payload
     return(
         <div>
-            <h1>ADMIN VIEWS ALL TIMESHEETS HERE</h1>
+
+            <h1 style={{marginLeft: '10px'}}>Employee Timesheets</h1>
+
 
                 {/* MUI CALENDAR DATE FROM */}
                     <form className={classes.container}  noValidate onChange={handleDateFromSelection}>
@@ -146,6 +161,7 @@ function AdminAllTimesheets() {
                 {/* EMD OF MUI CALENDAR DATE FROM */}
 
                 {/* MUI CALENDAR DATE TO */}
+                <div style={{marginBottom: '5px', display: 'inline-flex'}}>
                 <form className={classes.container} noValidate onChange={handleDateToSelection}>
                         <TextField
                             id="dateTo"
@@ -159,15 +175,17 @@ function AdminAllTimesheets() {
                         />
                     </form>
                 {/* END OF MUI CALENDAR DATE TO */}
-
-                <select onChange={handleEmployeeSelection}>
-                        <option value='0'>All Employees</option>
+   
+                <Select onChange={handleEmployeeSelection} defaultValue={0} style={{marginLeft: '10px'}} label="Employee">
+                        <MenuItem value='0'>All Employees</MenuItem>
                     {employeeList.map((employee) => 
-                        <option value={employee.id} key={employee.id}>{employee.first_name} {employee.last_name}</option>
+                        <MenuItem value={employee.id} key={employee.id}>{employee.first_name} {employee.last_name}</MenuItem>
                     )}
-                </select>
+                </Select>
 
-                <button onClick={handleFilterSubmit}>Filter</button>
+                <Button variant="contained" onClick={handleFilterSubmit} style={{marginLeft: '10px'}}>Filter</Button>
+
+                </div>
 
             <Paper className={tableClasses.root}>
             <TableContainer className={tableClasses.container}>   
@@ -198,7 +216,7 @@ function AdminAllTimesheets() {
                                         if (minutes < 10){
                                             minutes = "0"+minutes
                                                 return(
-                                                    <TableRow onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
+                                                    <TableRow hover onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
                                                         <TableCell>{timesheet.timesheet_id}</TableCell>
                                                         <TableCell>{timesheet.first_name} {timesheet.last_name}</TableCell>
                                                         <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>

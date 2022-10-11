@@ -4,8 +4,8 @@ import axios from 'axios';
 
 function* employeeClockIn(action) {
     try {
-        yield axios.post('/api/employeeClockIn', action.payload)
-        yield action.payload.history.push('/employeeDashboard') // tricky tricky
+        yield axios.post('/api/employeeClockIn', action.payload);
+        yield action.payload.history.push('/employeeDashboard'); // tricky tricky
     } catch (error) {
         console.log('Error with user clock in:', error);
     }
@@ -23,7 +23,7 @@ function* clientInfoClockIn(action) {
 function* checkClockedIn(action) {
     try {
         const response = yield axios.get(`/api/employeeClockIn/user`);
-        yield put({ type: 'SET_USER_STATUS', payload: response.data})
+        yield put({ type: 'SET_USER_STATUS', payload: response.data});
     } catch (error) {
         console.log('Error with user clock in:', error);
     }
@@ -33,6 +33,7 @@ function* employeeClockOut(action) {
     try {
         yield axios.put('/api/employeeClockIn', action.payload);
         yield put({ type: 'SEND_CLOCK_OUT_EMAIL', payload: action.payload.timesheet_id});
+        yield action.payload.history.push('/employeeDashboard');
     } catch (error) {
         console.log('Error with user clock in:', error);
     }

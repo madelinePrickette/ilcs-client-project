@@ -47,6 +47,8 @@ function AdminSingleTimesheet() {
 
   const clickEdit = () => {
     setEditing(!editing);
+    setClockInValue(moment(timesheet.clock_in).format('YYYY-MM-DD HH:mm:00.000000'));
+    setClockOutValue(moment(timesheet.clock_out).format('YYYY-MM-DD HH:mm:00.000000'));
   };
 
   const clickDelete = () => {

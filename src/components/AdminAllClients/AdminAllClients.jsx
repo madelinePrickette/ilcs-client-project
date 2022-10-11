@@ -13,6 +13,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 
 function AdminAllClients() {
@@ -30,7 +32,18 @@ function AdminAllClients() {
             type: 'FETCH_CLIENTS'
         })
     }, []);
+     //MUI TABLE STYLES
+     const useStylesForTable = makeStyles({
+        root: {
+          width: '100%',
+        },
+        container: {
+          maxHeight: 540,
+        },
+    });
+        const tableClasses = useStylesForTable();
 
+    //END MUI TABLE STYLES
   
 
 
@@ -39,7 +52,7 @@ function AdminAllClients() {
     return(
         <>
             <h2>Clients</h2>
-            <table>
+            {/* <table>
                 <thead>
                     <tr>
                         <th>First Name</th>
@@ -50,8 +63,25 @@ function AdminAllClients() {
                         <th>Zip</th>
                         <th>Bio</th>
                     </tr>
-                </thead>
-                <tbody>
+                </thead> */}
+
+            <Paper className={tableClasses.root}>
+            <TableContainer className={tableClasses.container}>   
+            <Table stickyHeader>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>First Name</TableCell>
+                        <TableCell>Last Name</TableCell>
+                        <TableCell>Address</TableCell>
+                        <TableCell>City</TableCell>
+                        <TableCell>State</TableCell>
+                        <TableCell>Zip</TableCell>
+                        <TableCell>Bio</TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {clientList && clientList.map( client => {
                         return (
                         <AdminClientItem 
@@ -60,8 +90,10 @@ function AdminAllClients() {
                         />
                         )
                     })}
-                </tbody>
-            </table>
+                </TableBody>
+                </Table>
+            </TableContainer>
+            </Paper>
             <AdminAddClient
             /> 
         </>

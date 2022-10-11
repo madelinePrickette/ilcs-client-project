@@ -11,6 +11,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+//mui for table
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
+
 function AdminClientItem ({client}) {
 
         const dispatch = useDispatch();    
@@ -79,52 +89,53 @@ function AdminClientItem ({client}) {
             })
             setEditOpen(false);
         }
-        // console.log('this is client id', clientId);
+        
     return(
         <>
             {client.client_active ?
 
-                <tr>
-                    <td>{client.client_first_name}</td>
-                    <td>{client.client_last_name}</td>
-                    <td>{client.address}</td>
-                    <td>{client.city}</td>
-                    <td>{client.state}</td>
-                    <td>{client.zip}</td>
-                    <td>{client.bio}</td>
-                    <td>
-                        <button
+                <TableRow>
+                    <TableCell>{client.client_first_name}</TableCell>
+                    <TableCell>{client.client_last_name}</TableCell>
+                    <TableCell>{client.address}</TableCell>
+                    <TableCell>{client.city}</TableCell>
+                    <TableCell>{client.state}</TableCell>
+                    <TableCell>{client.zip}</TableCell>
+                    <TableCell>{client.bio}</TableCell>
+                    <TableCell>
+                        <Button
                         onClick={handleEditClickOpen}
                         >
                             edit
-                        </button></td>
-                    <td>
+                        </Button>
+                    </TableCell>
+                    <TableCell>
                         <Button
                         onClick={handleDeleteClickOpen}
                         >
                             delete
                         </Button>
-                    </td>
-                </tr>
+                    </TableCell>
+                </TableRow>
                 :
-                <tr className="hide-row">
-                    <td>{client.client_first_name}</td>
-                    <td>{client.client_last_name}</td>
-                    <td>{client.address}</td>
-                    <td>{client.city}</td>
-                    <td>{client.state}</td>
-                    <td>{client.zip}</td>
-                    <td>{client.bio}</td>
-                    <td><button>edit</button></td>
-                    <td>
+                <TableRow className="hide-row">
+                    <TableCell>{client.client_first_name}</TableCell>
+                    <TableCell>{client.client_last_name}</TableCell>
+                    <TableCell>{client.address}</TableCell>
+                    <TableCell>{client.city}</TableCell>
+                    <TableCell>{client.state}</TableCell>
+                    <TableCell>{client.zip}</TableCell>
+                    <TableCell>{client.bio}</TableCell>
+                    <TableCell><button>edit</button></TableCell>
+                    <TableCell>
                         <Button
                         autoFocus
                         onClick={handleDeleteClickOpen}
                         >
                             delete
                         </Button>
-                    </td>
-                </tr>
+                    </TableCell>
+                </TableRow>
             }
 
             {/* Delete Client Modal Code: */}
@@ -138,9 +149,9 @@ function AdminClientItem ({client}) {
                 </DialogTitle>
                
                 <DialogActions>
-                <Button onClick={handleDeleteClose}>Disagree</Button>
+                <Button onClick={handleDeleteClose}>Cancel</Button>
                 <Button onClick={handleDelete} autoFocus>
-                    Agree
+                    Delete Client
                 </Button>
                 </DialogActions>
             </Dialog>

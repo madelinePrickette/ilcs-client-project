@@ -22,6 +22,10 @@ Container
   padding: 20px;
 }
 
+.appDiv {
+  margin-top: 60px;
+}
+
 /* --------------------------------------------------------------------------------
 Button
 -------------------------------------------------------------------------------- */
@@ -136,7 +140,8 @@ input {
 }
 
 .adminEmployeesView {
-  padding: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;

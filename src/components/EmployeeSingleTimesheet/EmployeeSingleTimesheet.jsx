@@ -149,10 +149,12 @@ function EmployeeSingleTimesheet() {
           </Button>
         </div>
       ) : (
+        //Show edit button only if timesheet isn't older than 7 days.
         <div>
+          {moment().diff(timesheet.clock_out, 'days') < 7 ? 
           <Button onClick={clickEdit} variant="contained">
             Edit
-          </Button>
+          </Button> : <></> }
         </div>
       )}
     </div>

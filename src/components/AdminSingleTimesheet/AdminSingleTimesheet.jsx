@@ -136,8 +136,8 @@ function AdminSingleTimesheet() {
           <h3>Work type:</h3>
           <Select style={{ width: "100%" }} defaultValue={timesheet.work_type} onChange={changeWorkType}>
             <MenuItem value={0}>Select a Work Type</MenuItem>
-            <MenuItem value={'HSA'}>HSA</MenuItem>
-            <MenuItem value={'PCA'}>PCA</MenuItem>
+            <MenuItem value={'HSA - 20.00'}>HSA - 20.00</MenuItem>
+            <MenuItem value={'PCA - 15.00'}>PCA - 15.00</MenuItem>
           </Select>
           <h3>Notes:</h3>
           <TextField 

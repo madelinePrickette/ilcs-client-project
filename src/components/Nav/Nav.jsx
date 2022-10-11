@@ -52,7 +52,7 @@ function Nav() {
                 setOpenDrawer(!openDrawer);
               }}
             >
-              <MenuIcon />
+              <MenuIcon style={{color: '#f8f8f8'}}/>
             </IconButton>
           </>
         )}

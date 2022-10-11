@@ -127,6 +127,7 @@ function AdminAllTimesheets() {
         history.push(`/admin/timesheet/${e_id}/${t_id}`)
     }
 
+    //handling the export -----------------------------------------
     const handleExportCsv = () => {
         console.log('clicked export csv');
 
@@ -135,14 +136,30 @@ function AdminAllTimesheets() {
         //map over timesheetList array
         //for every timesheet, make new array and add it into data
         for (let timesheet of timesheetList) {
-            if(timesheet.work_type === 'PCA'){
+
+            //marking the value of their work, PCA is 15 dollars and HSA is 20 dollars
+            if (timesheet.work_type === 'PCA') {
                 workValue = 15;
             } else {
                 workValue = 20;
-            }
-            data.push([timesheet.timesheet_id, timesheet.first_name, timesheet.last_name, workValue, (moment(timesheet.clock_in).format("lll")), (moment(timesheet.clock_out).format("lll"))]);
-        }
+            };
 
+            let outTime = moment(timesheet.clock_out);
+            let inTime = moment(timesheet.clock_in);
+            let total = moment.duration(outTime.diff(inTime)).asMinutes();
+            let hours = Math.floor(total / 60)
+            let minutes = Math.floor(total % 60);
+
+            if (moment(timesheet.clock_in).format() > endDate && moment(timesheet.clock_in).format() < beginDate) {
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                    data.push([timesheet.timesheet_id, timesheet.first_name, timesheet.last_name, workValue, hours + ':' + minutes, (moment(timesheet.clock_in).format("lll")), (moment(timesheet.clock_out).format("lll"))]);
+                } else {
+                    data.push([timesheet.timesheet_id, timesheet.first_name, timesheet.last_name, workValue, hours + ':' + minutes, (moment(timesheet.clock_in).format("lll")), (moment(timesheet.clock_out).format("lll"))]);
+                }
+            }
+        }
+        
         let csv = Papa.unparse({
             "fields": ["ID", "Employee First", "Employee Last", "Work Type", "Hours Worked", "Clock In", "Clock Out"],
             "data": data
@@ -169,17 +186,12 @@ function AdminAllTimesheets() {
                 document.body.removeChild(link);
             }
         }
-
     }
-
-
-
 
     console.log(filter); // just to check what is in our payload
     return (
         <div>
             <h1>ADMIN VIEWS ALL TIMESHEETS HERE</h1>
-
             {/* MUI CALENDAR DATE FROM */}
             <form className={classes.container} noValidate onChange={handleDateFromSelection}>
                 <TextField
@@ -264,7 +276,7 @@ function AdminAllTimesheets() {
                                                 }
 
                                             </TableRow>
-                                        )
+                                           )
                                     } else {
                                         return (
                                             <TableRow onClick={() => goToTimesheet(timesheet.timesheet_id, timesheet.t_user_id)} key={timesheet.timesheet_id}>
@@ -287,7 +299,6 @@ function AdminAllTimesheets() {
                                 } else {
                                     console.log(moment(timesheet.clock_in).format());
                                 }
-                                {/* })} */ }
                             })}
                         </TableBody>
                     </Table>

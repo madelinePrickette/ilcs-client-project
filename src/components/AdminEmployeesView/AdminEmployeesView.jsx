@@ -103,6 +103,7 @@ function AdminEmployeesView() {
       <MaterialReactTable
         columns={columns}
         data={data}
+        enableColumnResizing
         initialState={{ columnVisibility: { id: false } }}
         muiTableBodyRowProps={({ row }) => ({
           onClick: (event) => {
@@ -112,6 +113,19 @@ function AdminEmployeesView() {
             cursor: "pointer", //you might want to change the cursor too when adding an onClick
           },
         })}
+        muiTopToolbarProps={{
+          //no useTheme hook needed, just use the `sx` prop with the theme callback
+          sx: ({
+            backgroundColor: '#D3D3D3',
+          })}}
+
+          muiTableHeadCellProps={{
+            //no useTheme hook needed, just use the `sx` prop with the theme callback
+            sx: ({
+              backgroundColor: '#3768AD',
+              color: '#FFFFFF'
+            })}}
+          // #3768AD
       />
     </div>
   );

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {useDispatch} from 'react-redux';
-import './AdminClientItem.css';
 
 //MUI Dialog imports
 import Button from '@material-ui/core/Button';
@@ -94,17 +93,21 @@ function AdminClientItem ({client}) {
         <>
             {client.client_active ?
 
-                <TableRow>
+                <TableRow hover >
                     <TableCell>{client.client_first_name}</TableCell>
                     <TableCell>{client.client_last_name}</TableCell>
                     <TableCell>{client.address}</TableCell>
                     <TableCell>{client.city}</TableCell>
                     <TableCell>{client.state}</TableCell>
                     <TableCell>{client.zip}</TableCell>
-                    <TableCell>{client.bio}</TableCell>
+                    <TableCell
+                    style={{width: '30%', whiteSpace: 'normal',
+                    wordBreak: 'break-word'}}
+                    >{client.bio}</TableCell>
                     <TableCell>
                         <Button
                         onClick={handleEditClickOpen}
+                        variant='contained' 
                         >
                             edit
                         </Button>
@@ -112,13 +115,14 @@ function AdminClientItem ({client}) {
                     <TableCell>
                         <Button
                         onClick={handleDeleteClickOpen}
+                        variant='contained' 
                         >
                             delete
                         </Button>
                     </TableCell>
                 </TableRow>
                 :
-                <TableRow className="hide-row">
+                <TableRow className="hide-row" style={{display: 'none'}}>
                     <TableCell>{client.client_first_name}</TableCell>
                     <TableCell>{client.client_last_name}</TableCell>
                     <TableCell>{client.address}</TableCell>
@@ -126,10 +130,17 @@ function AdminClientItem ({client}) {
                     <TableCell>{client.state}</TableCell>
                     <TableCell>{client.zip}</TableCell>
                     <TableCell>{client.bio}</TableCell>
-                    <TableCell><button>edit</button></TableCell>
                     <TableCell>
                         <Button
-                        autoFocus
+                        variant='contained'
+                        onClick={handleDeleteClickOpen}
+                        >
+                            edit
+                        </Button>
+                    </TableCell>
+                    <TableCell>
+                        <Button
+                        variant='contained'
                         onClick={handleDeleteClickOpen}
                         >
                             delete
@@ -149,8 +160,16 @@ function AdminClientItem ({client}) {
                 </DialogTitle>
                
                 <DialogActions>
-                <Button onClick={handleDeleteClose}>Cancel</Button>
-                <Button onClick={handleDelete} autoFocus>
+                <Button 
+                onClick={handleDeleteClose}
+                variant='contained'
+                >
+                    Cancel
+                </Button>
+                <Button 
+                onClick={handleDelete}
+                variant='contained'
+                >
                     Delete Client
                 </Button>
                 </DialogActions>
@@ -226,6 +245,8 @@ function AdminClientItem ({client}) {
                     />
                     <TextField
                         autoFocus
+                        multiline
+                        minRows={4}
                         margin="dense"
                         label="bio"
                         type="text"
@@ -236,8 +257,18 @@ function AdminClientItem ({client}) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleEditClose}>Cancel</Button>
-                    <Button onClick={handleEdit}>Confirm Edit Client</Button>
+                    <Button 
+                    onClick={handleEditClose}
+                    variant='contained'
+                    >
+                        Cancel
+                    </Button>
+                    <Button 
+                    onClick={handleEdit}
+                    variant='contained'
+                    >
+                        Confirm Edit Client
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>

@@ -245,8 +245,8 @@ function AdminAllTimesheets() {
                     )}
                 </Select>
 
-                <Button variant="contained" onClick={handleFilterSubmit} style={{marginLeft: '10px'}}>Filter</Button>
-                <button onClick={handleExportCsv}>Export CSV</button>
+                <Button variant="contained" onClick={handleFilterSubmit} style={{marginLeft: '10px'}}>Show Results</Button>
+                <Button variant="contained" onClick={handleExportCsv} style={{marginLeft: '10px'}}>Export  Results</Button>
 
                 </div>
 
@@ -275,7 +275,7 @@ function AdminAllTimesheets() {
                             let minutes = Math.floor(total % 60);
                             // minutesSum = minutesSum + total;
                                 {/* {timesheetList && timesheetList.map(timesheet => { */}
-                                    if (moment(timesheet.clock_in).format() > endDate && moment(timesheet.clock_in).format() < beginDate) {
+                                    // if (moment(timesheet.clock_in).format() > endDate && moment(timesheet.clock_in).format() < beginDate) {
                                         if (minutes < 10){
                                             minutes = "0"+minutes
                                                 return(
@@ -314,9 +314,9 @@ function AdminAllTimesheets() {
                                                 </TableRow>
                                             )
                                     }
-                                } else {
-                                    console.log(moment(timesheet.clock_in).format());
-                                }
+                                // } else {
+                                //     console.log(moment(timesheet.clock_in).format());
+                                // }
                             })}
                         </TableBody>
                     </Table>

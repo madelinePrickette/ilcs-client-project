@@ -103,6 +103,7 @@ function AdminEmployeesView() {
         <MaterialReactTable
           columns={columns}
           data={data}
+          enableFullScreenToggle={false}
           enableColumnResizing
           renderTopToolbarCustomActions={() => (
             <Box>

@@ -9,7 +9,7 @@
   margin: 0 0 30px;
   background-color: #3768AD;
   overflow: hidden;
-  z-index: 3;
+  z-index: 10000;
 }
 
 .nav a {

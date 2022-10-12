@@ -246,9 +246,8 @@ function AdminAllTimesheets() {
                 </Select>
 
                 <Button variant="contained" onClick={handleFilterSubmit} style={{marginLeft: '10px'}}>Show Results</Button>
-                <Button variant="contained" onClick={handleExportCsv} style={{marginLeft: '10px'}}>Export  Results</Button>
-
                 </div>
+                <Button variant="contained" onClick={handleExportCsv} style={{float: 'right', marginRight: '10px', marginBottom: '5px', display: 'inline-flex', height: '45px'}}>Export  Results</Button>
 
             <Paper className={tableClasses.root}>
             <TableContainer className={tableClasses.container}>   

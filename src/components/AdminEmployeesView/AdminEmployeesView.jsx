@@ -72,7 +72,7 @@ function AdminEmployeesView() {
     selectableRowsHeader: false,
     selectableRowsOnClick: false,
     selectableRowsHideCheckboxes: true,
-    responsive,
+    responsive: 'standard',
     onRowClick: rowData => clickEmployee(rowData[4])
   };
 

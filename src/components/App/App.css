@@ -125,10 +125,7 @@ input {
 
 .employeeDetailsDiv {
   padding-left: 20px;
-}
-
-.employeedetails {
-  display: inline;
+  text-align: center;
 }
 
 .clientEditTop {

@@ -233,18 +233,18 @@ function EditEmployee() {
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <h1>Client List</h1>
+            <p style={{ marginBottom: '5px', textAlign: 'left' }}>Client List</p>
           </div>
           <div
             className="activeClients"
-            style={{ border: "1px black solid", padding: "10px" }}
+            style={{ border: "1px #C4C4C4 solid", padding: "10px", borderRadius: '5px' }}
           >
-            <h2>Working with:</h2>
+            <p>Working with:</p>
             {clientList.map((client) => {
               if (client.j_user_id == params.employeeid) {
                 employeeIDArrayActive.push(client.client_id);
                 return (
-                  <h3
+                  <p
                     key={client.client_id}
                     style={{ backgroundColor: "#59CF76" }}
                     onClick={() => {
@@ -252,7 +252,7 @@ function EditEmployee() {
                     }}
                   >
                     {client.client_first_name}
-                  </h3>
+                  </p>
                 );
               }
             })}
@@ -260,12 +260,13 @@ function EditEmployee() {
           <div
             className="activeInactive"
             style={{
-              border: "1px black solid",
+              border: "1px #C4C4C4 solid",
               padding: "10px",
               marginTop: "10px",
+              borderRadius: '5px'
             }}
           >
-            <h2>Not working with:</h2>
+            <p>Not working with:</p>
             {clientList.map((client) => {
               if (
                 employeeIDArrayActive.includes(client.client_id) == 0 &&
@@ -273,14 +274,14 @@ function EditEmployee() {
               ) {
                 employeeIDArrayInactive.push(client.client_id);
                 return (
-                  <h3
+                  <p
                     key={client.client_id}
                     onClick={() => {
                       assignClient(client.client_id);
                     }}
                   >
                     {client.client_first_name}
-                  </h3>
+                  </p>
                 );
               }
             })}

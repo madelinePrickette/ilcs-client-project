@@ -3,3 +3,97 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.client-bio-container {
+    width: 95%;
+    /* background-color: #3768ad47; */
+    color: #3768ad;
+    background-color: white;
+    /* border: 1px solid #3768ad; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: left;
+    /* box-shadow: 3px 3px 3px #888888; */
+}
+
+.client-bio-container p {
+    padding: 7px;
+    margin: 0px;
+}
+
+.employee-clock-in-button {
+    width: 95%;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #3768ad;
+    color: white;
+    font-size: 20px;
+    /* border: none; */
+}
+
+.clock-in-body-container {
+    text-align: center;
+}
+
+.pca-button {
+    width: 46.5%;
+    margin: 1%;
+    height: 100px;
+    background-color: #3768ad;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #888888;
+}
+
+.hsa-button {
+    width: 46.5%;
+    margin: 1%;
+    height: 100px;
+    background-color: #3768ad;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #888888;
+}
+
+.pressed-state {
+    background-color: white;
+    color: #3768ad;
+    border: 1px solid #3768ad;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #888888;
+}
+
+.clock-out-button {
+    width: 95%;
+    height: 50px;
+    margin-top: 2%;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: #3768ad;
+    color: white;
+    box-shadow: 3px 3px 3px #888888;
+}
+
+.notes-input {
+    width: 93%;
+    height: 50px; 
+    margin-top: 1%;
+    margin-bottom: 0;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid #3768ad;
+    box-shadow: 3px 3px 3px #888888;
+}
+
+.clocked-in-at-time {
+    color: #3768ad;
+    font-size: 20px;
+    font-weight: 700;
+}

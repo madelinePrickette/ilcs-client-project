@@ -81,7 +81,7 @@ function EmployeeClockIn() {
         return(
             <div className="loading-spinner-container">
                 <ClockLoader
-                color="#36d7b7"
+                color="#57C148"
                 size={'200px'}
                 />
             </div>
@@ -91,41 +91,52 @@ function EmployeeClockIn() {
     if (userInfo.client_id == clientInfo.client_id) {
         // need to com back and require input on this.
         return (
-            <div>
-                <button onClick={() => goBack()}>Back</button>
-                <h1>Employee Clock Out</h1>
-                <p>Clocked in at: {moment(userInfo.clock_in).format('lll')}</p>
-                <p>Type of work</p>
-                <button onClick={() => workType('PCA - 15.00')}>PCA</button>
-                <button onClick={() => workType('HSA - 20.00')}>HSA</button>
+            <div className="clock-in-body-container">
+                {/* <button className="clock-in-back-button" onClick={() => goBack()}>Back</button>
+                <br/> */}
+                {/* <h1>Employee Clock Out</h1> */}
+                <div className="clocked-in-at-time">
+                    <p>Clocked in: {moment(userInfo.clock_in).format('lll')}</p>
+                </div>
+                {/* <p>Type of work</p> */}
+                <button className={work_type=='PCA - 15.00'?"pca-button pressed-state":"pca-button"} onClick={() => workType('PCA - 15.00')}>PCA</button>
+                <button className={work_type=='HSA - 20.00'?"hsa-button pressed-state":"hsa-button"} onClick={() => workType('HSA - 20.00')}>HSA</button>
                 <br />
-                <input onChange={() => notesSection(event)} type="text" placeholder="NOTES" />
+                <input className="notes-input" onChange={() => notesSection(event)} type="text" placeholder="NOTES" />
                 <br />
-                <button onClick={() => clockOut(userInfo.timesheet_id)}>Clock Out</button>
-                <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
-                <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
-                <p>client bio: {clientInfo.bio}</p>
+                <button className="clock-out-button" onClick={() => clockOut(userInfo.timesheet_id)}>Clock Out</button>
+                <div className="client-bio-container">
+                    <p><strong>client:</strong> {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
+                    <p><strong>address:</strong> {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
+                    <p><strong>bio:</strong> {clientInfo.bio}</p>
+                </div>
             </div>
         )
     } else if (userInfo == '') {
         return (
-            <div>
-                <button onClick={() => goBack()}>Back</button>
-                <h1>Employee Clock In</h1>
-                <button onClick={() => clockIn()}>Clock In</button>
-                <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
-                <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
-                <p>client bio: {clientInfo.bio}</p>
+            <div className="clock-in-body-container">
+                {/* <button className="clock-in-back-button" onClick={() => goBack()}>Back</button>
+                <br/> */}
+                {/* <h1>Employee Clock In</h1> */}
+                <button className="employee-clock-in-button" onClick={() => clockIn()}>Clock In</button>
+                <div className="client-bio-container">
+                    <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
+                    <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
+                    <p>client bio: {clientInfo.bio}</p>
+                </div>
             </div>
         )
     } else {
         return (
-            <div>
-                <button onClick={() => goBack()}>Back</button>
-                <h1>Employee Clock In</h1>
-                <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
-                <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
-                <p>client bio: {clientInfo.bio}</p>
+            <div className="clock-in-body-container">
+                {/* <button className="clock-in-back-button" onClick={() => goBack()}>Back</button>
+                <br/> */}
+                {/* <h1>Employee Clock In</h1> */}
+                <div className="client-bio-container">
+                    <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
+                    <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
+                    <p>client bio: {clientInfo.bio}</p>
+                </div>
             </div>
         )
     }

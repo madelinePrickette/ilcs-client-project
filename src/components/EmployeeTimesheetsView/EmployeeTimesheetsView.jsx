@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import './EmployeeTimesheets.css';
 const moment = require('moment');
 var momentPreciseRangePlugin = require("moment-precise-range-plugin");
 
@@ -30,10 +31,6 @@ function EmployeeTimesheetsView() {
         history.push('/timesheet/' + user_id + '/' + timesheet_id);
     }
 
-    const goBack = () => {
-        history.push('/')
-    }
-
     let minutesSum = 0;
 
     const [fromDate, setFromDate] = useState(moment(Date.now()).format().split("T")[0] + 'T23:59:59:000000');
@@ -56,7 +53,7 @@ function EmployeeTimesheetsView() {
         textField: {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
-            width: 200,
+            width: '95%',
         },
         }));
     const classes = useStyles();
@@ -67,32 +64,32 @@ function EmployeeTimesheetsView() {
 
     return(
         <div>
-            <button onClick={() => goBack()}>Back</button>
-            <h1>Employee Timesheets View</h1>
-            <form className={classes.container} noValidate onChange={handleDateFromSelection}>
-                <TextField
-                    id="dateFrom"
-                    label="Date From"
-                    type="date"
-                    defaultValue={moment(Date.now()).format().split("T")[0]}
-                    className={classes.textField}
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                />
-            </form>
-            <form className={classes.container} noValidate onChange={handleDateToSelection}>
-                <TextField
-                    id="dateTo"
-                    label="Date To"
-                    type="date"
-                    defaultValue={moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0]}
-                    className={classes.textField}
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                />
-            </form>
+            <div className="timesheet-filter-dropdown">
+                <form className={classes.container} noValidate onChange={handleDateFromSelection}>
+                    <TextField
+                        id="dateFrom"
+                        label="Date From"
+                        type="date"
+                        defaultValue={moment(Date.now()).format().split("T")[0]}
+                        className={classes.textField}
+                        InputLabelProps={{
+                        shrink: true,
+                        }}
+                    />
+                </form>
+                <form className={classes.container} noValidate onChange={handleDateToSelection}>
+                    <TextField
+                        id="dateTo"
+                        label="Date To"
+                        type="date"
+                        defaultValue={moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0]}
+                        className={classes.textField}
+                        InputLabelProps={{
+                        shrink: true,
+                        }}
+                    />
+                </form>
+            </div>
             {timesheets && timesheets.map(timesheet => {
                 let outTime = moment(timesheet.clock_out);
                 let inTime = moment(timesheet.clock_in);
@@ -108,20 +105,26 @@ function EmployeeTimesheetsView() {
                 }
                
                 return (
-                    <div onClick={() => goToTimesheet(timesheet.timesheet_id, user.id)} key={timesheet.timesheet_id}>
-                        <h1>Client: {timesheet.client_first_name}</h1>
-                        <p>Clock in: {moment(timesheet.clock_in).format('lll')}</p>
-                        <p>Clock out: {moment(timesheet.clock_out).format('lll')}</p>
-                        <p>Time worked: {hours}:{minutes}</p>
+                    <div className="timesheet-listing-container" onClick={() => goToTimesheet(timesheet.timesheet_id, user.id)} key={timesheet.timesheet_id}>
+                        <p className="client-in-listing">Client: {timesheet.client_first_name} {timesheet.client_last_name}</p>
+                        <p className="date-in-listing">Date: {moment(timesheet.clock_in).format('LL')}</p>
+                        {/* <p>Clock out: {moment(timesheet.clock_out).format('lll')}</p> */}
+                        {timesheet.clock_out ? 
+                        <p className="time-in-listing">Time worked: <strong>{hours}:{minutes}</strong></p>
+                        :
+                        <p className="time-in-listing">Pending</p>
+                        }
                     </div>
                 )}
             })}
 
-        {Math.floor(minutesSum % 60) < 10 ? 
-        <h1>Total = {Math.floor(minutesSum / 60)}:0{Math.floor(minutesSum % 60)}</h1>
-        :
-        <h1>Total = {Math.floor(minutesSum / 60)}:{Math.floor(minutesSum % 60)}</h1>
-        }
+        <div className="total-hours-footer ">
+            {Math.floor(minutesSum % 60) < 10 ? 
+            <h1 className="total-text">Total = {Math.floor(minutesSum / 60)}:0{Math.floor(minutesSum % 60)}</h1>
+            :
+            <h1 className="total-text">Total = {Math.floor(minutesSum / 60)}:{Math.floor(minutesSum % 60)}</h1>
+            }
+        </div>
             
         </div>
     )

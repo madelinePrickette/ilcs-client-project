@@ -70,16 +70,11 @@ function EmployeeSingleTimesheet() {
     setNewNotes(event.target.value);
   };
 
-  const goBack = () => {
-    history.push("/user/timesheets");
-  };
-
   return (
     <div
       className="mobile-single-timesheet-container"
       style={{ padding: "20px" }}
     >
-      <button onClick={() => goBack()}>Back</button>
       {editing ? (
         <div>
           <Select
@@ -123,12 +118,25 @@ function EmployeeSingleTimesheet() {
           <h3>
             Clock-in: {moment(timesheet.clock_in).format("DD/MM/YYYY LT")}
           </h3>
-          <h3>
-            Clock-out: {moment(timesheet.clock_out).format("DD/MM/YYYY LT")}
-          </h3>
-          <h3>
-            Time worked: {hours}:{minutes > 9 ? minutes : "0" + minutes}
-          </h3>
+          {timesheet.clock_out? 
+          <div>
+            <h3>
+              Clock-out: {moment(timesheet.clock_out).format("DD/MM/YYYY LT")}
+            </h3>
+            <h3>
+              Time worked: {hours}:{minutes > 9 ? minutes : "0" + minutes}
+            </h3>
+          </div>
+          :
+          <div>
+            <h3>
+            Clock-out: Pending
+            </h3>
+            <h3>
+              Time worked: Pending
+            </h3>
+          </div>
+          }
           <h3>Work type: {timesheet.work_type}</h3>
           <h3>Notes: {timesheet.notes}</h3>
         </div>

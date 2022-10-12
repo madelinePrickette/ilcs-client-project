@@ -78,7 +78,7 @@ function AdminAddClient () {
             <Button 
             onClick={handleClickOpen}
             variant='contained' 
-            style={{float: 'right'}}
+            style={{float: 'right', marginBottom: '25px'}}
             >
                 Add New Client
             </Button>
@@ -152,6 +152,8 @@ function AdminAddClient () {
                     />
                     <TextField
                         autoFocus
+                        multiline
+                        minRows={4}
                         margin="dense"
                         label="bio"
                         type="text"

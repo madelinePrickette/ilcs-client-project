@@ -24,7 +24,6 @@ function AdminAllClients() {
     const clientList = useSelector(store => store.adminClients);
 
 
-    const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,15 +32,18 @@ function AdminAllClients() {
         })
     }, []);
      //MUI TABLE STYLES
-     const useStylesForTable = makeStyles({
+     const useStylesForClientTable = makeStyles({
         root: {
-          width: '100%',
+          width: '95%',
+          margin: 'auto',
         },
-        container: {
-          maxHeight: 540,
-        },
+        clientsContainer: {
+          maxHeight: '100%',
+          maxWidth:'100%',
+        }
+        
     });
-        const tableClasses = useStylesForTable();
+        const tableClasses = useStylesForClientTable();
 
     //END MUI TABLE STYLES
   
@@ -50,44 +52,44 @@ function AdminAllClients() {
     console.log('client list', clientList);
 
     return(
-        <>  
+        <div className={useStylesForClientTable.clientsContainer}>  
             
-            <h2>Clients</h2>
-
-            <AdminAddClient/> 
+            
 
             <Paper className={tableClasses.root}>
-            <TableContainer className={tableClasses.container}>   
-            <Table stickyHeader>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>First Name</TableCell>
-                        <TableCell>Last Name</TableCell>
-                        <TableCell>Address</TableCell>
-                        <TableCell>City</TableCell>
-                        <TableCell>State</TableCell>
-                        <TableCell>Zip</TableCell>
-                        <TableCell>Bio</TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {clientList && clientList.map( client => {
-                        return (
-                        <AdminClientItem 
-                        key={client.client_id} 
-                        client={client}
-                        />
-                        )
-                    })}
-                </TableBody>
-                </Table>
-            </TableContainer>
-            </Paper>
-        </>
-    )
+                <h2 style={{textAlign: 'center', padding:'25px 0 0 0'}}>Clients</h2>
+                <AdminAddClient/> 
 
+                <TableContainer className={tableClasses.container}>   
+                <Table stickyHeader>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>First Name</TableCell>
+                            <TableCell>Last Name</TableCell>
+                            <TableCell>Address</TableCell>
+                            <TableCell>City</TableCell>
+                            <TableCell>State</TableCell>
+                            <TableCell>Zip</TableCell>
+                            <TableCell>Bio</TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {clientList && clientList.map( client => {
+                            return (
+                            <AdminClientItem 
+                            key={client.client_id} 
+                            client={client}
+                            />
+                            )
+                        })}
+                    </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper>
+        </div>
+    )
 }//end of AdminAllClients
 
 export default AdminAllClients;

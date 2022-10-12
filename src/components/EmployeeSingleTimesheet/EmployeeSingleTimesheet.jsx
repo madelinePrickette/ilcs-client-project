@@ -70,16 +70,11 @@ function EmployeeSingleTimesheet() {
     setNewNotes(event.target.value);
   };
 
-  const goBack = () => {
-    history.push("/user/timesheets");
-  };
-
   return (
     <div
       className="mobile-single-timesheet-container"
       style={{ padding: "20px" }}
     >
-      <button onClick={() => goBack()}>Back</button>
       {editing ? (
         <div>
           <Select

@@ -73,10 +73,6 @@ function EmployeeClockIn() {
         }
     }
 
-    const goBack = () => {
-        history.push('/')
-    }
-
     if (isLoading) {
         return(
             <div className="loading-spinner-container">
@@ -92,13 +88,10 @@ function EmployeeClockIn() {
         // need to com back and require input on this.
         return (
             <div className="clock-in-body-container">
-                {/* <button className="clock-in-back-button" onClick={() => goBack()}>Back</button>
-                <br/> */}
-                {/* <h1>Employee Clock Out</h1> */}
+                <br />
                 <div className="clocked-in-at-time">
                     <p>Clocked in: {moment(userInfo.clock_in).format('lll')}</p>
                 </div>
-                {/* <p>Type of work</p> */}
                 <button className={work_type=='PCA - 15.00'?"pca-button pressed-state":"pca-button"} onClick={() => workType('PCA - 15.00')}>PCA</button>
                 <button className={work_type=='HSA - 20.00'?"hsa-button pressed-state":"hsa-button"} onClick={() => workType('HSA - 20.00')}>HSA</button>
                 <br />
@@ -106,36 +99,30 @@ function EmployeeClockIn() {
                 <br />
                 <button className="clock-out-button" onClick={() => clockOut(userInfo.timesheet_id)}>Clock Out</button>
                 <div className="client-bio-container">
-                    <p><strong>client:</strong> {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
-                    <p><strong>address:</strong> {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
-                    <p><strong>bio:</strong> {clientInfo.bio}</p>
+                    <p><strong>CLIENT:</strong> {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
+                    <p><strong>ADDRESS:</strong> {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
+                    <p><strong>BIO:</strong> {clientInfo.bio}</p>
                 </div>
             </div>
         )
     } else if (userInfo == '') {
         return (
             <div className="clock-in-body-container">
-                {/* <button className="clock-in-back-button" onClick={() => goBack()}>Back</button>
-                <br/> */}
-                {/* <h1>Employee Clock In</h1> */}
                 <button className="employee-clock-in-button" onClick={() => clockIn()}>Clock In</button>
                 <div className="client-bio-container">
-                    <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
-                    <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
-                    <p>client bio: {clientInfo.bio}</p>
+                    <p>CLIENT: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
+                    <p>ADDRESS: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
+                    <p>BIO: {clientInfo.bio}</p>
                 </div>
             </div>
         )
     } else {
         return (
             <div className="clock-in-body-container">
-                {/* <button className="clock-in-back-button" onClick={() => goBack()}>Back</button>
-                <br/> */}
-                {/* <h1>Employee Clock In</h1> */}
                 <div className="client-bio-container">
-                    <p>client name: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
-                    <p>client address: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
-                    <p>client bio: {clientInfo.bio}</p>
+                    <p>CLIENT: {clientInfo.client_first_name} {clientInfo.client_last_name} </p>
+                    <p>ADDRESS: {clientInfo.address} {clientInfo.city}, {clientInfo.state} {clientInfo.zip} </p>
+                    <p>BIO: {clientInfo.bio}</p>
                 </div>
             </div>
         )

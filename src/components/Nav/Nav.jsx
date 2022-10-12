@@ -62,6 +62,7 @@ function Nav() {
         </Link> */}
       </div>
       <Drawer
+        style={{zIndex: '10001'}}
         anchor="right"
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}

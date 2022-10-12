@@ -57,7 +57,7 @@ function AdminAllClients() {
             
 
             <Paper className={tableClasses.root}>
-                <h2 style={{textAlign: 'center', padding:'25px 0 0 0'}}>Clients</h2>
+                <h1 style={{marginLeft:'10px'}}>Clients</h1>
                 <AdminAddClient/> 
 
                 <TableContainer className={tableClasses.container}>   

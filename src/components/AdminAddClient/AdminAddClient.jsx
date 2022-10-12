@@ -78,7 +78,7 @@ function AdminAddClient () {
             <Button 
             onClick={handleClickOpen}
             variant='contained' 
-            style={{float: 'right', marginBottom: '25px'}}
+            style={{float: 'right', marginBottom: '10px', marginRight: '10px'}}
             >
                 Add New Client
             </Button>

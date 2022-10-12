@@ -34,7 +34,7 @@ function AdminAllClients() {
      //MUI TABLE STYLES
      const useStylesForClientTable = makeStyles({
         root: {
-          width: '95%',
+          width: '100%',
           margin: 'auto',
         },
         clientsContainer: {

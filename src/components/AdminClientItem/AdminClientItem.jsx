@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {useDispatch} from 'react-redux';
-import './AdminClientItem.css';
 
 //MUI Dialog imports
 import Button from '@material-ui/core/Button';
@@ -123,7 +122,7 @@ function AdminClientItem ({client}) {
                     </TableCell>
                 </TableRow>
                 :
-                <TableRow className="hide-row">
+                <TableRow className="hide-row" style={{display: 'none'}}>
                     <TableCell>{client.client_first_name}</TableCell>
                     <TableCell>{client.client_last_name}</TableCell>
                     <TableCell>{client.address}</TableCell>

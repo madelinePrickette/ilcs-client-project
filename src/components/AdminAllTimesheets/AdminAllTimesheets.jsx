@@ -302,8 +302,17 @@ function AdminAllTimesheets() {
                                                         <TableCell>{timesheet.client_first_name} {timesheet.client_last_name}</TableCell>
                                                         <TableCell>{timesheet.work_type}</TableCell>
                                                         <TableCell>{moment(timesheet.clock_in).format('MMM Do YYYY, h:mm a')}</TableCell>
-                                                        <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm a')}</TableCell>
-                                                        <TableCell>{hours}:{minutes}</TableCell>
+                                                        {timesheet.clock_out ?
+                                                            <TableCell>{moment(timesheet.clock_out).format('MMM Do YYYY, h:mm a')}</TableCell>
+                                                        :
+                                                            <TableCell>Pending</TableCell>
+                                                        }
+
+                                                        {timesheet.clock_out ?
+                                                            <TableCell>{hours}:{minutes}</TableCell>
+                                                        :
+                                                            <TableCell>Pending</TableCell>
+                                                        }
                                                         {timesheet.notification ?
                                                         <TableCell><FiberManualRecordIcon color="primary" /></TableCell>
                                                         :

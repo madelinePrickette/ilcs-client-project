@@ -21,10 +21,13 @@ function EmployeeSingleTimesheet() {
   }, []);
 
   //Const variables
-
+  const employeeClients = useSelector(
+    (store) => store.clientlist.employeeClientList
+  );
   const timesheet = useSelector(
     (store) => store.employeeAllTimesheets.employeeSingleTimesheet
   );
+
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
@@ -33,9 +36,6 @@ function EmployeeSingleTimesheet() {
   const [clientSelect, setClientSelect] = useState(timesheet.t_client_id);
   const [newNotes, setNewNotes] = useState(timesheet.notes);
   //Store that contains the clients the employee is currently working with.
-  const employeeClients = useSelector(
-    (store) => store.clientlist.employeeClientList
-  );
 
   let outTime = moment(timesheet.clock_out);
   let inTime = moment(timesheet.clock_in);
@@ -107,7 +107,7 @@ function EmployeeSingleTimesheet() {
             multiline
             style={{ width: "95%", marginBottom: "15px" }}
             variant="outlined"
-            onChange={changeNotes}
+            onChange={() => changeNotes(event)}
           />
         </div>
       ) : (
@@ -130,7 +130,7 @@ function EmployeeSingleTimesheet() {
           :
           <div>
             <h3>
-            Clock-out: Pending
+              Clock-out: Pending
             </h3>
             <h3>
               Time worked: Pending

@@ -40,8 +40,8 @@ function EmployeeDetails() {
            <Button style={{margin: '10px', float: 'right'}} onClick={clickEdit} variant="contained">
                 Edit Employee
               </Button>
-          <div style={{ textAlign: "center", backgroundColor: "#d3d3d3" }}>
-            <h1 style={{ margin: "0px", padding: "10px" }}>Employee Info</h1>
+          <div style={{textAlign: 'center', backgroundColor: "#d3d3d3" }}>
+            <h1 style={{ margin: "0px", padding: "10px", width: '50%' }}>Employee Info</h1>
           </div>
           <div style={{ display: "flex", backgroundColor: "#ffffff" }}>
             <img

@@ -79,7 +79,7 @@ function App() {
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
-            path="/employeesview"
+            path="/all-employees"
           >
             <AdminEmployeesView />
           </Route>

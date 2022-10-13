@@ -31,30 +31,6 @@ function EmployeeDetails() {
   };
 
   return (
-    // <div className="employeeDetailsDiv">
-    //   <div key={employeeInfo.id}>
-    //     <img className="profilePicDiv" src={employeeInfo.pic} style={{borderRadius: '50%', border: '10px solid #d3d3d3'}}/>
-    //       <h1 style={{ width: "50%", marginLeft: 'auto', marginRight: 'auto'}}>
-    //         {employeeInfo.first_name}
-    //         {employeeInfo.last_name}
-
-    //       </h1>
-    //       <h1><a href={`mailto:${employeeInfo.email}`}>{employeeInfo.email}</a></h1>
-    //     <div className="clientListDiv">
-    //       <h2>Clients</h2>
-    //       {employeeClientList.map((client) => {
-    //         return (
-    //           <h3 key={client.client_id}>
-    //             {client.client_first_name} {client.client_last_name}
-    //           </h3>
-    //         );
-    //       })}
-    //     </div>
-    //     <Button onClick={clickEdit} variant="contained">
-    //         Edit Employee
-    //       </Button>
-    //   </div>
-    // </div>
     <div>
       <Box>
         <Paper elevation={1} style={{width: '800px', marginLeft: 'auto', marginRight: 'auto'}}>

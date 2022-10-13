@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import ClockLoader from "react-spinners/ClockLoader";
+import { TextField } from "@material-ui/core";
 import './EmployeeClockIn.css';
 const moment = require('moment');
 
@@ -52,7 +53,6 @@ function EmployeeClockIn() {
                 type: "EMPLOYEE_CLOCK_IN",
                 payload: { location: "(" + position.coords.latitude + ", " + position.coords.longitude + ")" , clientId: id, history: history }
             });
-            // history.push('/employeeDashboard')
           });
     }
 
@@ -62,13 +62,11 @@ function EmployeeClockIn() {
         } else {
         setIsLoading(true);
         navigator.geolocation.getCurrentPosition(function(position) {
-            // console.log("Latitude is :", position.coords.latitude);
-            // console.log("Longitude is :", position.coords.longitude);
             dispatch({
                 type: "EMPLOYEE_CLOCK_OUT",
                 payload: { loc_2: "(" + position.coords.latitude + ", " + position.coords.longitude + ")" , timesheet_id: timesheet_id, work_type: work_type, notes: notes, history: history }
             });
-            // history.push('/employeeDashboard')
+
           });
         }
     }
@@ -85,7 +83,6 @@ function EmployeeClockIn() {
     }
 
     if (userInfo.client_id == clientInfo.client_id) {
-        // need to com back and require input on this.
         return (
             <div className="clock-in-body-container">
                 <br />
@@ -95,7 +92,12 @@ function EmployeeClockIn() {
                 <button className={work_type=='PCA - 15.00'?"pca-button pressed-state":"pca-button"} onClick={() => workType('PCA - 15.00')}>PCA</button>
                 <button className={work_type=='HSA - 20.00'?"hsa-button pressed-state":"hsa-button"} onClick={() => workType('HSA - 20.00')}>HSA</button>
                 <br />
-                <input className="notes-input" onChange={() => notesSection(event)} type="text" placeholder="NOTES" />
+                <TextField
+                    multiline
+                    style={{ width: "95%", marginBottom: "15px", marginTop: "15px"  }}
+                    variant="outlined"
+                    onChange={() => notesSection(event)}
+                />
                 <br />
                 <button className="clock-out-button" onClick={() => clockOut(userInfo.timesheet_id)}>Clock Out</button>
                 <div className="client-bio-container">

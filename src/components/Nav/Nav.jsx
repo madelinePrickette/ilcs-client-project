@@ -87,7 +87,7 @@ function Nav() {
               <ListItem>
                 <Button
                   component={Link}
-                  to="/employeesview"
+                  to="/all-employees"
                   onClick={() => setOpenDrawer(!openDrawer)}
                 >
                   <h3>Employees</h3>

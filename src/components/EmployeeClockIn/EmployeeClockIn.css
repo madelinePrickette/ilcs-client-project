@@ -7,16 +7,12 @@
 
 .client-bio-container {
     width: 95%;
-    /* background-color: #3768ad47; */
-    color: #3768ad;
     background-color: white;
-    /* border: 1px solid #3768ad; */
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
     border-radius: 5px;
     text-align: left;
-    /* box-shadow: 3px 3px 3px #888888; */
 }
 
 .client-bio-container p {
@@ -74,7 +70,8 @@
 .clock-out-button {
     width: 95%;
     height: 50px;
-    margin-top: 2%;
+    margin-top: 5px;
+    margin-bottom: 10px;
     border-radius: 5px;
     font-size: 20px;
     font-weight: 700;
@@ -86,8 +83,8 @@
 .notes-input {
     width: 93%;
     height: 50px; 
-    margin-top: 1%;
-    margin-bottom: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
     font-size: 20px;
     border-radius: 5px;
     border: 1px solid #3768ad;
@@ -95,7 +92,6 @@
 }
 
 .clocked-in-at-time {
-    color: #3768ad;
     font-size: 20px;
     font-weight: 700;
 }

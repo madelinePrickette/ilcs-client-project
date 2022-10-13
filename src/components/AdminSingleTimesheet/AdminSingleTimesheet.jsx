@@ -50,6 +50,8 @@ function AdminSingleTimesheet() {
     setEditing(!editing);
     setClockInValue(moment(timesheet.clock_in).format('YYYY-MM-DD HH:mm:00.000000'));
     setClockOutValue(moment(timesheet.clock_out).format('YYYY-MM-DD HH:mm:00.000000'));
+    setClientSelect(timesheet.t_client_id);
+    setNewWorkType(timesheet.work_type);
   };
 
   const clickDelete = () => {

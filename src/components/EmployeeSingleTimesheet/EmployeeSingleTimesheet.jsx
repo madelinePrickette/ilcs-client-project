@@ -78,7 +78,7 @@ function EmployeeSingleTimesheet() {
       {editing ? (
         <div>
           <Select
-            style={{ width: "40%" }}
+            style={{ width: "95%" }}
             defaultValue={clientSelect}
             onChange={changeClient}
           >
@@ -86,7 +86,7 @@ function EmployeeSingleTimesheet() {
               employeeClients.map((client) => {
                 return (
                   <MenuItem key={client.client_id} value={client.client_id}>
-                    {client.client_first_name}
+                    {client.client_first_name} {client.client_last_name}
                   </MenuItem>
                 );
               })}
@@ -105,7 +105,7 @@ function EmployeeSingleTimesheet() {
           <TextField
             defaultValue={timesheet.notes}
             multiline
-            style={{ width: "80%", marginBottom: "15px" }}
+            style={{ width: "95%", marginBottom: "15px" }}
             variant="outlined"
             onChange={changeNotes}
           />

@@ -156,8 +156,13 @@ function AdminClientItem ({client}) {
             onClose={handleDeleteClose}
             >
                 <DialogTitle id="alert-dialog-title">
-                {"Are you sure you want to delete Client?"}
+                {"Are you sure you want to delete client?"}
                 </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Delete client will remove client from the application interface.
+                    </DialogContentText>
+                </DialogContent>
                
                 <DialogActions>
                 <Button 

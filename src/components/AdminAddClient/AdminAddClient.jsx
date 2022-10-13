@@ -12,23 +12,21 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 function AdminAddClient () {
 
+    //const variables
     const dispatch = useDispatch();
-
-    //new client object that takes in user form inputs
     const [newClient, setNewClient] = useState({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
-
-    //Code that handles MUI dialog box open and close
     const [open, setOpen] = useState(false);
+    
+    //functions that handle open/close of AdminAddClient Dialog
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
         setNewClient({firstName: '', lastName:'', address: '', city: '', state:'', zip:'', bio:''});
-
     };
 
-    //setting user input functions:
+    //functions that set user inputs:
     const handleFirstName = (event) => {
         setNewClient({...newClient, firstName: event.target.value})
     }
@@ -51,10 +49,8 @@ function AdminAddClient () {
         setNewClient({...newClient, bio: event.target.value})
     }
 
-    //handleSubmit form
+    //function that handles submitting the form
     const handleSubmit = () => {
-        // console.log('handle submit clicked');
-        // console.log(newClient);
         if (newClient.firstName === '' || newClient.firstLast === '' 
             || newClient.address === '' || newClient.city === '' 
             || newClient.state === '' || newClient.zip === '' 
@@ -71,10 +67,13 @@ function AdminAddClient () {
         }
     }//end of handleSubmit
 
-
+    //This component contains code that allows the admin to add a new client to the database.
+    //The component contains input fields to capture the new client information.
+    //The handle submit button sends the information captured by the input fields to the database. 
 
     return(
         <>
+        {/* This button opens the Dialog */}
             <Button 
             onClick={handleClickOpen}
             variant='contained' 
@@ -83,7 +82,7 @@ function AdminAddClient () {
                 Add New Client
             </Button>
             
-            {/* Add new client dialog */}
+            {/* AddNewClient Dialog */}
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add New Client</DialogTitle>
                 <DialogContent>
@@ -171,8 +170,6 @@ function AdminAddClient () {
         </>
 
     );
-
-
 } // end of AdminAddClient component 
 
 export default AdminAddClient;

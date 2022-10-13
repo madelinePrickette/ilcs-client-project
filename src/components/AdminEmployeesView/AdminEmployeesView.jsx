@@ -87,7 +87,7 @@ function AdminEmployeesView() {
     // </div>
 
     <div>
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "left", marginLeft: '10px' }}>
         <h1>Employees</h1>
       </div>
       <div>

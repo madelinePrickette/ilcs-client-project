@@ -61,7 +61,7 @@ function EmployeeDetails() {
         <div style={{ textAlign: "center", backgroundColor: "#d3d3d3" }}>
             <h1 style={{ margin: "0px", padding: "10px" }}>Employee Info</h1>
           </div>
-          <div style={{display: 'flex'}}>
+          <div style={{display: 'flex', backgroundColor: '#ffffff'}}>
 
           <img
             className="profilePicDiv"
@@ -74,7 +74,8 @@ function EmployeeDetails() {
               marginLeft: "40px",
               marginRight: '40px',
               marginTop: '20px',
-              marginBottom: '20px'
+              marginBottom: '20px',
+              objectFit: 'cover'
             }}
           />
           <div style={{ width: "50%", float: "right", padding: "20px", backgroundColor: '#3768adce' }}>

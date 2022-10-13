@@ -5,7 +5,6 @@ import { Button, Link, Box, Paper, Typography } from "@material-ui/core";
 import MaterialReactTable from "material-react-table";
 
 function AdminEmployeesView() {
-
   useEffect(() => {
     dispatch({ type: "FETCH_EMPLOYEES_LIST" });
   }, []);
@@ -88,45 +87,62 @@ function AdminEmployeesView() {
     // </div>
 
     <div>
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "left", marginLeft: '10px' }}>
         <h1>Employees</h1>
       </div>
-      {employeesList.map((employee) => {
-        data.push({
-          pic: employee.pic,
-          first_name: employee.first_name,
-          last_name: employee.last_name,
-          email: employee.email,
-          id: employee.id,
-        });
-      })}
-      <MaterialReactTable
-        columns={columns}
-        data={data}
-        enableColumnResizing
-        initialState={{ columnVisibility: { id: false } }}
-        muiTableBodyRowProps={({ row }) => ({
-          onClick: (event) => {
-            clickEmployee(row.original.id);
-          },
-          sx: {
-            cursor: "pointer", //you might want to change the cursor too when adding an onClick
-          },
+      <div>
+        {employeesList.map((employee) => {
+          data.push({
+            pic: employee.pic,
+            first_name: employee.first_name,
+            last_name: employee.last_name,
+            email: employee.email,
+            id: employee.id,
+          });
         })}
-        muiTopToolbarProps={{
-          //no useTheme hook needed, just use the `sx` prop with the theme callback
-          sx: ({
-            backgroundColor: '#D3D3D3',
-          })}}
-
+        <MaterialReactTable
+          columns={columns}
+          data={data}
+          enableFullScreenToggle={false}
+          enableColumnResizing
+          renderTopToolbarCustomActions={() => (
+            <Box>
+              <Button
+                variant="contained"
+                style={{ float: "right", marginBottom: "10px" }}
+                onClick={() => {
+                  history.push("/registration");
+                }}
+              >
+                Add New Employee
+              </Button>
+            </Box>
+          )}
+          initialState={{ columnVisibility: { id: false } }}
+          muiTableBodyRowProps={({ row }) => ({
+            onClick: (event) => {
+              clickEmployee(row.original.id);
+            },
+            sx: {
+              cursor: "pointer", //you might want to change the cursor too when adding an onClick
+            },
+          })}
+          muiTopToolbarProps={{
+            //no useTheme hook needed, just use the `sx` prop with the theme callback
+            sx: {
+              backgroundColor: "#D3D3D3",
+            },
+          }}
           muiTableHeadCellProps={{
             //no useTheme hook needed, just use the `sx` prop with the theme callback
-            sx: ({
-              backgroundColor: '#3768AD',
-              color: '#FFFFFF'
-            })}}
+            sx: {
+              backgroundColor: "#3768AD",
+              color: "#FFFFFF",
+            },
+          }}
           // #3768AD
-      />
+        />
+      </div>
     </div>
   );
 }

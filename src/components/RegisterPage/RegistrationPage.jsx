@@ -243,32 +243,32 @@ function NewEmployee() {
             paddingBottom: "20px",
           }}
         >
-          <div style={{ textAlign: "center" }}>
-            <h1>Client List</h1>
+          <div style={{ marginBottom: '5px', textAlign: 'left'}}>
+            <p>Client List</p>
           </div>
           <div
             className="activeClients"
-            style={{ border: "1px black solid", padding: "10px" }}
+            style={{ border: "1px black solid", padding: "10px", border: "1px #C4C4C4 solid", padding: "10px", borderRadius: '5px', paddingLeft: '30px',  paddingRight: '30px'}}
           >
-            <h2>Assign Clients:</h2>
+            <p>Assign Clients:</p>
             {clientList.map((client) => {
               if (
                 activeClients.includes(client.client_id) == 0 &&
                 client.client_active === true
               ) {
                 return (
-                  <h3
+                  <p
                     key={client.client_id}
                     onClick={() => {
                       assignClient(client.client_id);
                     }}
                   >
                     {client.client_first_name}
-                  </h3>
+                  </p>
                 );
               } else if (client.client_active === true) {
                 return (
-                  <h3
+                  <p
                     key={client.client_id}
                     style={{ backgroundColor: "#59CF76" }}
                     onClick={() => {
@@ -276,7 +276,7 @@ function NewEmployee() {
                     }}
                   >
                     {client.client_first_name}
-                  </h3>
+                  </p>
                 );
               }
             })}

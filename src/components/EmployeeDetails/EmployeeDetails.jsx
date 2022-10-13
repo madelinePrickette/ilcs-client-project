@@ -57,46 +57,74 @@ function EmployeeDetails() {
     // </div>
     <div>
       <Box>
-        <Paper elevation={1} style={{width: '800px', marginLeft: 'auto', marginRight: 'auto'}}>
-        <div style={{ textAlign: "center", backgroundColor: "#d3d3d3" }}>
+        <Paper
+          elevation={1}
+          style={{ width: "800px", marginLeft: "auto", marginRight: "auto" }}
+        >
+           <Button style={{margin: '10px', float: 'right'}} onClick={clickEdit} variant="contained">
+                Edit Employee
+              </Button>
+          <div style={{ textAlign: "center", backgroundColor: "#d3d3d3" }}>
             <h1 style={{ margin: "0px", padding: "10px" }}>Employee Info</h1>
           </div>
-          <div style={{display: 'flex', backgroundColor: '#ffffff'}}>
+          <div style={{ display: "flex", backgroundColor: "#ffffff" }}>
+            <img
+              className="profilePicDiv"
+              src={employeeInfo.pic}
+              style={{
+                width: "300px",
+                height: "300px",
+                borderRadius: "50%",
+                border: "10px solid #000000",
+                marginLeft: "40px",
+                marginRight: "40px",
+                marginTop: "20px",
+                marginBottom: "20px",
+                objectFit: "cover",
+              }}
+            />
+            <div
+              style={{
+                width: "50%",
+                float: "right",
+                padding: "20px",
+                backgroundColor: "#3768adce",
+              }}
+            >
+                           
+              <h1 style={{ margin: "0px", color: "white" }}>
+                {employeeInfo.first_name} {employeeInfo.last_name}
+              </h1>
 
-          <img
-            className="profilePicDiv"
-            src={employeeInfo.pic}
-            style={{
-              width: '300px',
-              height: '300px',
-              borderRadius: "50%",
-              border: "10px solid #000000",
-              marginLeft: "40px",
-              marginRight: '40px',
-              marginTop: '20px',
-              marginBottom: '20px',
-              objectFit: 'cover'
-            }}
-          />
-          <div style={{ width: "50%", float: "right", padding: "20px", backgroundColor: '#3768adce' }}>
-            <h1 style={{ margin: "0px", color: 'white' }}>
-              {employeeInfo.first_name} {employeeInfo.last_name}
-            </h1>
-            <a style={{color: 'white'}} href={`mailto:${employeeInfo.email}`}>{employeeInfo.email}</a>
-                        {/* <Paper style={{marginTop: '50px', padding: '10px'}}>
+              <a
+                style={{ color: "white" }}
+                href={`mailto:${employeeInfo.email}`}
+              >
+                {employeeInfo.email}
+              </a>
+              {/* <Paper style={{marginTop: '50px', padding: '10px'}}>
 
             </Paper> */}
-            <div style={{height: '2px', backgroundColor: 'white', marginTop: '30px', marginBottom: '30px', width: '80%', marginLeft: 'auto', marginRight: 'auto'}}></div>
-            <h1 style={{color: 'white'}}>Clients</h1>
+              <div
+                style={{
+                  height: "2px",
+                  backgroundColor: "white",
+                  marginTop: "30px",
+                  marginBottom: "30px",
+                  width: "80%",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              ></div>
+              <h1 style={{ color: "white" }}>Clients</h1>
               {employeeClientList.map((client) => {
                 return (
-                  <h4 key={client.client_id} style={{color: 'white'}}>
+                  <h4 key={client.client_id} style={{ color: "white" }}>
                     {client.client_first_name} {client.client_last_name}
                   </h4>
                 );
               })}
-
-          </div>
+            </div>
           </div>
         </Paper>
       </Box>

@@ -263,7 +263,7 @@ function NewEmployee() {
                       assignClient(client.client_id);
                     }}
                   >
-                    {client.client_first_name}
+                    {client.client_first_name} {client.client_last_name}
                   </p>
                 );
               } else if (client.client_active === true) {
@@ -275,7 +275,7 @@ function NewEmployee() {
                       unassignClient(client.client_id);
                     }}
                   >
-                    {client.client_first_name}
+                    {client.client_first_name} {client.client_last_name}
                   </p>
                 );
               }

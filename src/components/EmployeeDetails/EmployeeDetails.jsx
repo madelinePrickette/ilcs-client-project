@@ -43,7 +43,6 @@ function EmployeeDetails() {
           <Button onClick={clickEdit} variant="contained">
             Edit Employee
           </Button>
-          <Button variant="contained">View All</Button>
         </div>
         <div className="clientListDiv">
           <h1>Clients</h1>

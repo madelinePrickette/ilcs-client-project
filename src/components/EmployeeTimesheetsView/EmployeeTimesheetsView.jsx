@@ -65,24 +65,24 @@ function EmployeeTimesheetsView() {
     return(
         <div>
             <div className="timesheet-filter-dropdown">
-                <form className={classes.container} noValidate onChange={handleDateFromSelection}>
+                <form className={classes.container} noValidate onChange={handleDateToSelection}>
                     <TextField
-                        id="dateFrom"
+                        id="dateTo"
                         label="Date From"
                         type="date"
-                        defaultValue={moment(Date.now()).format().split("T")[0]}
+                        defaultValue={moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0]}
                         className={classes.textField}
                         InputLabelProps={{
                         shrink: true,
                         }}
                     />
                 </form>
-                <form className={classes.container} noValidate onChange={handleDateToSelection}>
+                <form className={classes.container} noValidate onChange={handleDateFromSelection}>
                     <TextField
-                        id="dateTo"
+                        id="dateFrom"
                         label="Date To"
                         type="date"
-                        defaultValue={moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0]}
+                        defaultValue={moment(Date.now()).format().split("T")[0]}
                         className={classes.textField}
                         InputLabelProps={{
                         shrink: true,
@@ -106,11 +106,11 @@ function EmployeeTimesheetsView() {
                
                 return (
                     <div className="timesheet-listing-container" onClick={() => goToTimesheet(timesheet.timesheet_id, user.id)} key={timesheet.timesheet_id}>
-                        <p className="client-in-listing">Client: {timesheet.client_first_name} {timesheet.client_last_name}</p>
-                        <p className="date-in-listing">Date: {moment(timesheet.clock_in).format('LL')}</p>
+                        <p className="client-in-listing">{timesheet.client_first_name} {timesheet.client_last_name}</p>
+                        <p className="date-in-listing">{moment(timesheet.clock_in).format('LL')}</p>
                         {/* <p>Clock out: {moment(timesheet.clock_out).format('lll')}</p> */}
                         {timesheet.clock_out ? 
-                        <p className="time-in-listing">Time worked: <strong>{hours}:{minutes}</strong></p>
+                        <p className="time-in-listing">Hours: <strong>{hours}:{minutes}</strong></p>
                         :
                         <p className="time-in-listing">Pending</p>
                         }

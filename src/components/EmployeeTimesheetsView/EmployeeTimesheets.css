@@ -5,7 +5,7 @@
 
 .timesheet-listing-container {
     position: relative;
-    width: 95%;
+    width: 90%;
     height: 50px;
     color: white;
     background-color: #3768adce;
@@ -14,7 +14,7 @@
     margin-bottom: 10px;
     border-radius: 5px;
     text-align: left;
-     box-shadow: 3px 3px 3px #888888;
+    box-shadow: 1px 3px 3px #888888;
 }
 
 .timesheet-filter-dropdown {

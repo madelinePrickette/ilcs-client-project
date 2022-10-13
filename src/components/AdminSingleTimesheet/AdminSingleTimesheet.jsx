@@ -90,13 +90,9 @@ function AdminSingleTimesheet() {
     setClockOutValue(moment(newValue).format('YYYY-MM-DD HH:mm:00.000000'));
   }
 
-  const goBack = () => {
-    history.push('/adminAllTimesheets');
-  }
 
   return (
     <div className="single-timesheet-container" style={{ padding: "20px" }}>
-      <button onClick={() => goBack()}>Back</button>
       {editing ? (
         <div>
           <h3>Employee: {timesheet.first_name} {timesheet.last_name}</h3>
@@ -155,7 +151,7 @@ function AdminSingleTimesheet() {
           <h3>Employee: {timesheet.first_name} {timesheet.last_name}</h3>
           <h3>Client Name: {timesheet.client_first_name} {timesheet.client_last_name}</h3>
           <h3>Clock-in time: {moment(timesheet.clock_in).format('lll')}</h3>
-          <h3>Clock-out time: {moment(timesheet.clock_out).format('DD/MM/YYYY LT')}</h3>
+          <h3>Clock-out time: {moment(timesheet.clock_out).format('lll')}</h3>
           <h3>Time worked: {hours}:{minutes>9 ? minutes : '0'+minutes}</h3>
           <h3>Clock-in location: {location_1}</h3>
           <h3>Clock-out location: {location_2}</h3>

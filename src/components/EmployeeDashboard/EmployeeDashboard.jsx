@@ -33,8 +33,8 @@ function EmployeeDashboard() {
     <div className="container">
       <h2>Welcome, {user.first_name} {user.last_name}</h2>
         {employeesClientList.map((client) =>
-          <div className='client-listings'>
-            <p className='client-text' onClick={() => goToClockIn(client.client_id)} key={client.client_id}>{client.client_first_name} {client.client_last_name}</p>
+          <div className='client-listings' key={client.client_id}>
+            <p className='client-text' onClick={() => goToClockIn(client.client_id)}>{client.client_first_name} {client.client_last_name}</p>
           </div>
         )}
       {/* <LogOutButton className="btn" /> */}

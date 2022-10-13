@@ -20,7 +20,11 @@ function EmployeeTimesheetsView() {
     const user = useSelector(store => store.user)
     const history = useHistory();
     const dispatch = useDispatch();
-    const timesheets = useSelector( store => store.employeeAllTimesheets.employeeClockInStatus )
+    const timesheets = useSelector( store => store.employeeAllTimesheets.employeeClockInStatus );
+    let minutesSum = 0;
+    const [fromDate, setFromDate] = useState(moment(Date.now()).format().split("T")[0] + 'T23:59:59:000000');
+    const [toDate, setToDate] = useState(moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0] + 'T00:00:00.000000');
+
     const getTimesheets = () => {
         dispatch({
             type: 'GET_EMPLOYEE_TIMESHEETS'
@@ -30,11 +34,6 @@ function EmployeeTimesheetsView() {
     const goToTimesheet = (timesheet_id, user_id) => {
         history.push('/timesheet/' + user_id + '/' + timesheet_id);
     }
-
-    let minutesSum = 0;
-
-    const [fromDate, setFromDate] = useState(moment(Date.now()).format().split("T")[0] + 'T23:59:59:000000');
-    const [toDate, setToDate] = useState(moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0] + 'T00:00:00.000000');
 
     const handleDateFromSelection = (event) => {
         setFromDate(event.target.value + 'T23:59:59:000000')
@@ -56,11 +55,9 @@ function EmployeeTimesheetsView() {
             width: '95%',
         },
         }));
+
     const classes = useStyles();
     //END OF MUI CALENDAR STYLES
-
-    console.log(fromDate);
-    console.log(toDate);
 
     return(
         <div>
@@ -108,7 +105,6 @@ function EmployeeTimesheetsView() {
                     <div className="timesheet-listing-container" onClick={() => goToTimesheet(timesheet.timesheet_id, user.id)} key={timesheet.timesheet_id}>
                         <p className="client-in-listing">{timesheet.client_first_name} {timesheet.client_last_name}</p>
                         <p className="date-in-listing">{moment(timesheet.clock_in).format('LL')}</p>
-                        {/* <p>Clock out: {moment(timesheet.clock_out).format('lll')}</p> */}
                         {timesheet.clock_out ? 
                         <p className="time-in-listing">Hours: <strong>{hours}:{minutes}</strong></p>
                         :

@@ -151,8 +151,15 @@ function AdminSingleTimesheet() {
           <h3>Employee: {timesheet.first_name} {timesheet.last_name}</h3>
           <h3>Client Name: {timesheet.client_first_name} {timesheet.client_last_name}</h3>
           <h3>Clock-in time: {moment(timesheet.clock_in).format('lll')}</h3>
-          <h3>Clock-out time: {moment(timesheet.clock_out).format('lll')}</h3>
+          {timesheet.clock_out ? <h3>Clock-out time: {moment(timesheet.clock_out).format('lll')}</h3>
+          :
+          <h3>Clock-out time: Pending</h3>
+          }
+          {timesheet.clock_out ?
           <h3>Time worked: {hours}:{minutes>9 ? minutes : '0'+minutes}</h3>
+          :
+          <h3>Time worked: Pending</h3>
+          }
           <h3>Clock-in location: {location_1}</h3>
           <h3>Clock-out location: {location_2}</h3>
           <h3>Work type: {timesheet.work_type}</h3>

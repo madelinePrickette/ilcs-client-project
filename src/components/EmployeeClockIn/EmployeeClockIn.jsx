@@ -10,18 +10,18 @@ const moment = require('moment');
 
 function EmployeeClockIn() {
 
-    let {id} = useParams();
-    const history = useHistory();
-    const dispatch = useDispatch();
-    const [work_type, setWork_type] = useState('');
-    const [notes, setNotes] = useState('');
-    const clientInfo = useSelector( store => store.clientInfoClockIn);
-    const userInfo = useSelector( store => store.employeeClockInStatus);
-    const [isLoading, setIsLoading] = useState(false);
-
     useEffect( () => {
         getClientInfo(id);
     }, [])
+
+    let {id} = useParams();
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const clientInfo = useSelector( store => store.clientInfoClockIn);
+    const userInfo = useSelector( store => store.employeeClockInStatus);
+    const [work_type, setWork_type] = useState('');
+    const [notes, setNotes] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const getClientInfo = (client_id) => {
         console.log("client id", client_id);

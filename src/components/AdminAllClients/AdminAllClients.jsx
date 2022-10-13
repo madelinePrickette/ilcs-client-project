@@ -44,9 +44,9 @@ function AdminAllClients() {
     return(
         <div className={useStylesForClientTable.clientsContainer}>  
             <Paper className={tableClasses.root}>
-                <h1 style={{marginLeft:'10px'}}>Clients</h1>
+                <h1 style={{marginLeft:'10px'}}>Clients<AdminAddClient style={{float: 'right'}}/> </h1>
                 {/* This component contains the Add Client Dialog */}
-                <AdminAddClient/> 
+                
                 <TableContainer className={tableClasses.container}>   
                 <Table stickyHeader>
                     <TableHead>

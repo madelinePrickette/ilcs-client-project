@@ -270,7 +270,7 @@ function NewEmployee() {
                 return (
                   <p
                     key={client.client_id}
-                    style={{ backgroundColor: "#59CF76" }}
+                    style={{ borderRadius: '80px', backgroundColor: "#59CF76", paddingLeft: '8px' }}
                     onClick={() => {
                       unassignClient(client.client_id);
                     }}

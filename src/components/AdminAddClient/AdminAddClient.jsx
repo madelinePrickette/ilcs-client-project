@@ -48,6 +48,10 @@ function AdminAddClient () {
     const handleBio = (event) => {
         setNewClient({...newClient, bio: event.target.value})
     }
+    const handleDemoData = () => {
+        console.log('demo data clicked');
+        setNewClient({firstName: 'Jane', lastName:'Smith', address: '4990 Harriet Ave', city: 'Minneapolis', state:'MN', zip:'55414', bio:'Needs assistance with grocery shopping and light house work.'});
+    }
 
     //function that handles submitting the form
     const handleSubmit = () => {
@@ -84,7 +88,8 @@ function AdminAddClient () {
             
             {/* AddNewClient Dialog */}
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Add New Client</DialogTitle>
+                <DialogTitle
+                onClick={handleDemoData}>Add New Client</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         Please enter information to add new client.

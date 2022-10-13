@@ -237,7 +237,7 @@ function EditEmployee() {
           </div>
           <div
             className="activeClients"
-            style={{ border: "1px #C4C4C4 solid", padding: "10px", borderRadius: '5px' }}
+            style={{ border: "1px #C4C4C4 solid", padding: "10px", borderRadius: '5px', paddingLeft: '30px',  paddingRight: '30px'}}
           >
             <p>Working with:</p>
             {clientList.map((client) => {
@@ -245,13 +245,14 @@ function EditEmployee() {
                 employeeIDArrayActive.push(client.client_id);
                 return (
                   <p
+                    style={{borderRadius: '80px', paddingRight: '20px'}}
                     key={client.client_id}
                     style={{ backgroundColor: "#59CF76" }}
                     onClick={() => {
                       unassignClient(client.client_id);
                     }}
                   >
-                    {client.client_first_name}
+                    {client.client_first_name} {client.client_last_name}
                   </p>
                 );
               }
@@ -263,7 +264,9 @@ function EditEmployee() {
               border: "1px #C4C4C4 solid",
               padding: "10px",
               marginTop: "10px",
-              borderRadius: '5px'
+              borderRadius: '5px',
+              paddingLeft: '30px',
+              paddingRight: '30px'
             }}
           >
             <p>Not working with:</p>
@@ -275,12 +278,13 @@ function EditEmployee() {
                 employeeIDArrayInactive.push(client.client_id);
                 return (
                   <p
+                    style={{borderRadius: '80px',  paddingRight: '20px'}}
                     key={client.client_id}
                     onClick={() => {
                       assignClient(client.client_id);
                     }}
                   >
-                    {client.client_first_name}
+                    {client.client_first_name} {client.client_last_name}
                   </p>
                 );
               }

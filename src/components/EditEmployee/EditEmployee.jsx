@@ -245,9 +245,8 @@ function EditEmployee() {
                 employeeIDArrayActive.push(client.client_id);
                 return (
                   <p
-                    style={{borderRadius: '80px', paddingRight: '20px'}}
+                    style={{borderRadius: '80px', paddingRight: '20px', backgroundColor: "#59CF76" }}
                     key={client.client_id}
-                    style={{ backgroundColor: "#59CF76" }}
                     onClick={() => {
                       unassignClient(client.client_id);
                     }}

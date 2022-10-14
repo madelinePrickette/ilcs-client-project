@@ -13,6 +13,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 
+//This component contains code for the client table.
+//'FETCH_CLIENTS' is dispatched in the use effect to get all client information from the database and set in a reducer.
+//The client information is mapped over to return each individual client info in a new component called, AdminClientItem.
+
 function AdminAllClients() {
 
     //const variables
@@ -36,10 +40,6 @@ function AdminAllClients() {
             type: 'FETCH_CLIENTS'
         })
     }, []);
-
-    //This component contains code for the client table.
-    //'FETCH_CLIENTS' is dispatched in the use effect to get all client information from the database and set in a reducer.
-    //The client information is mapped over to return each individual client info in a new component called, AdminClientItem.
     
     return(
         <div className={useStylesForClientTable.clientsContainer}>  

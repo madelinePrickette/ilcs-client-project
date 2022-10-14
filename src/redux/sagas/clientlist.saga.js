@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
+//Fetches clients an employee is working with.
 function* fetchEmployeeClientList(action) {
   try {
     const response = yield axios.get(`/api/clientlist/emplist/${action.payload}`);
@@ -11,6 +11,7 @@ function* fetchEmployeeClientList(action) {
   }
 }
 
+//Fetches list of all active clients
 function* fetchClientList() {
   try {
     const response = yield axios.get(`/api/clientlist/`);
@@ -20,6 +21,7 @@ function* fetchClientList() {
   }
 }
 
+//Unassign a client from an employee in edit employee component
 function* unassignClient(action) {
   try {
     yield axios.post(`/api/clientlist/unassign/`, action.payload);
@@ -29,6 +31,7 @@ function* unassignClient(action) {
   }
 }
 
+//Assign a client to an employee in the edit employee component
 function* assignClient(action) {
   try {
     yield axios.post(`/api/clientlist/assign/`, action.payload);

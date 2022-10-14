@@ -10,6 +10,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+//This component is reachable only by admins from the client list component. This is a floating dialogue with a form of fields, once filled, creates a new client and brings the admin back to the clients list.
+//The handle submit button sends the information captured by the input fields to the database. 
+
 function AdminAddClient () {
 
     //const variables
@@ -49,7 +52,7 @@ function AdminAddClient () {
         setNewClient({...newClient, bio: event.target.value})
     }
     const handleDemoData = () => {
-        console.log('demo data clicked');
+
         setNewClient({firstName: 'Jane', lastName:'Smith', address: '4990 Harriet Ave', city: 'Minneapolis', state:'MN', zip:'55414', bio:'Needs assistance with grocery shopping and light house work.'});
     }
 
@@ -70,10 +73,6 @@ function AdminAddClient () {
             setOpen(false);
         }
     }//end of handleSubmit
-
-    //This component contains code that allows the admin to add a new client to the database.
-    //The component contains input fields to capture the new client information.
-    //The handle submit button sends the information captured by the input fields to the database. 
 
     return(
         <>

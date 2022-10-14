@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import { Button, Link, Box, Paper, Typography } from "@material-ui/core";
 import MaterialReactTable from "material-react-table";
 
+//This component is reachable only by admins after logging in and clicking on the employees link from the drawer. The admin can view all current employees and can click on an individual employee row to view more information. Clicking on the 'add new employee' button will bring the admin to a new component to register a new employee.
+
 function AdminEmployeesView() {
   useEffect(() => {
     dispatch({ type: "FETCH_EMPLOYEES_LIST" });
@@ -63,31 +65,8 @@ function AdminEmployeesView() {
   );
 
   return (
-    // <div className='adminEmployeesView'>
-    //   <div className='employeeListTitle' style={{textAlign: 'center', width: '100%'}}>
-    //     <h2>Employees</h2>
-    //     <Button
-    //       variant='contained'
-    //       style={{float: 'right', marginBottom: '10px'}}
-    //       onClick={() => {history.push('/registration')}}
-    //     >Add New Employee</Button>
-    //   </div>
-    // {employeesList.map(employee => {
-    //   return (
-    //     <div  style={{marginLeft: 'auto', marginRight: 'auto'}} key={employee.id}>
-    //     <div style={{margin: '20px', borderRadius: '50%'}} className="adminEmployeeDiv">
-    //     <img src={employee.pic} style={{height: '250px', width: '250px', border: '10px solid #D3D3D3', borderRadius: '50%', objectFit: 'cover'}} onClick={() => {clickEmployee(employee.id)}}/><p></p>
-    //     </div>
-    //     <div style={{textAlign: 'center'}}>
-    //     <Link onClick={() => {clickEmployee(employee.id)}} style={{color: '#000000'}}>{employee.first_name} {employee.last_name}</Link>
-    //     </div>
-    //     </div>
-    //   )
-    // })}
-    // </div>
-
     <div>
-      <div style={{ textAlign: "left", marginLeft: '10px' }}>
+      <div style={{ textAlign: "left", marginLeft: "10px" }}>
         <h1>Employees</h1>
       </div>
       <div>

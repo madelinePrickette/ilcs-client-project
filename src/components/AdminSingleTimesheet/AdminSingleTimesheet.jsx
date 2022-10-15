@@ -45,6 +45,7 @@ function AdminSingleTimesheet() {
   let hours =  Math.floor(total / 60)
   let minutes = Math.floor(total % 60);
 
+  // We set the value of all editable fields to the current value of a timesheet.
   const clickEdit = () => {
     setClockInValue(moment(timesheet.clock_in).format('YYYY-MM-DD HH:mm:00.000000'));setClockOutValue(moment(timesheet.clock_out).format('YYYY-MM-DD HH:mm:00.000000'));
     setEditing(!editing);
@@ -53,21 +54,21 @@ function AdminSingleTimesheet() {
     setClientSelect(timesheet.t_client_id);
     setNewWorkType(timesheet.work_type);
   };
-
+  // deletes a specific timesheet
   const clickDelete = () => {
     dispatch({ type: 'DELETE_TIMESHEET', payload: {timesheet: params.timesheetid}})
     history.push('/adminAllTimesheets');
   };
-
+  // sends updated info of a timesheet to the database
   const clickSave = () => {
     dispatch({ type: 'ADMIN_UPDATE_TIMESHEET', payload: { timesheet: params.timesheetid, client: clientSelect, notes: newNotes, work_type: newWorkType, clock_in: clockInValue, clock_out: clockOutValue } })
     setEditing(!editing);
   };
-
+  // this marks a notification as read
   const clickRead = () => {
     dispatch({type: 'MARK_AS_READ', payload: {timesheetid: params.timesheetid, history: history} })
   }
-
+  // below functions set the values of editable fields when edited
   const changeClient = (event) => {
     setClientSelect(event.target.value)
   }
@@ -81,18 +82,17 @@ function AdminSingleTimesheet() {
   }
 
   const changeClockIn = (newValue) => {
-    console.log(moment(newValue).format('YYYY-MM-DD HH:mm:00.000000'));
     setClockInValue(moment(newValue).format('YYYY-MM-DD HH:mm:00.000000'));
   }
 
   const changeClockOut = (newValue) => {
-    console.log(moment(newValue).format('YYYY-MM-DD HH:mm:00.000000'));
     setClockOutValue(moment(newValue).format('YYYY-MM-DD HH:mm:00.000000'));
   }
 
 
   return (
     <div className="single-timesheet-container" style={{ padding: "20px" }}>
+      {/* we display the below when editing is set to true */}
       {editing ? (
         <div>
           <h3>Employee: {timesheet.first_name} {timesheet.last_name}</h3>
@@ -147,6 +147,7 @@ function AdminSingleTimesheet() {
           />
         </div>
       ) : (
+        // We display the below when editing is set to false
         <div className="singleTimeSheetInfoDiv">
           <h3>Employee: {timesheet.first_name} {timesheet.last_name}</h3>
           <h3>Client Name: {timesheet.client_first_name} {timesheet.client_last_name}</h3>
@@ -166,6 +167,7 @@ function AdminSingleTimesheet() {
           <h3>Notes: {timesheet.notes}</h3>
         </div>
       )}
+      {/* We display the below buttons when editing is set to true */}
       {editing ? (
         <div>
         <Button variant='contained' onClick={() => {setEditing(!editing)}}>Cancel</Button> 
@@ -175,6 +177,7 @@ function AdminSingleTimesheet() {
         </Button>
         </div>
       ) : (
+        // We display the below buttons when editing is set to false
         <div>
             <Button onClick={clickEdit} variant="contained">
             Edit
@@ -182,6 +185,7 @@ function AdminSingleTimesheet() {
             <Button onClick={clickDelete} variant="contained">
             Delete
             </Button>
+            {/* We display the below button only when there is a notification for the timesheet */}
             {timesheet.notification ? 
             <Button onClick={clickRead} style={{border: '2px solid #57C148'}} variant="contained">
             Mark as read

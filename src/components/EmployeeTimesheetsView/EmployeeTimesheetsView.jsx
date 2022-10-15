@@ -25,20 +25,21 @@ function EmployeeTimesheetsView() {
     const [fromDate, setFromDate] = useState(moment(Date.now()).format().split("T")[0] + 'T23:59:59:000000');
     const [toDate, setToDate] = useState(moment(moment(moment(Date.now()).format()).subtract(7, 'days')).format().split("T")[0] + 'T00:00:00.000000');
 
+    // This gets all of the timesheets for an employee
     const getTimesheets = () => {
         dispatch({
             type: 'GET_EMPLOYEE_TIMESHEETS'
         })
     }
-
+    // This routes users to a specific timesheet when a timesheet is clicked on
     const goToTimesheet = (timesheet_id, user_id) => {
         history.push('/timesheet/' + user_id + '/' + timesheet_id);
     }
-
+    // this sets the most recent date of the filter
     const handleDateFromSelection = (event) => {
         setFromDate(event.target.value + 'T23:59:59:000000')
     }
-
+    // this sets the older date of the filter
     const handleDateToSelection = (event) => {
         setToDate(event.target.value + 'T00:00:00.000000')
     }
@@ -90,14 +91,17 @@ function EmployeeTimesheetsView() {
             {timesheets && timesheets.map(timesheet => {
                 let outTime = moment(timesheet.clock_out);
                 let inTime = moment(timesheet.clock_in);
+                // we calculate the time worked for each timesheet
                 let total = moment.duration(outTime.diff(inTime)).asMinutes();
                 let hours =  Math.floor(total / 60)
                 let minutes = Math.floor(total % 60);
-
+                // We check if the date of each timesheet is between the dates set in the filter
             if (moment(timesheet.clock_in).format() > toDate && moment(timesheet.clock_in).format() < fromDate) {
+                // We check how the date is formatted to add them up
                 if (minutes < 10){minutes = "0"+minutes};
 
                 if (total > 0) {
+                    // We calculate the total of time worked by converting the time worked to minutes and adding the minutes of the timesheets being displayed.
                     minutesSum = minutesSum + total;
                 }
                
@@ -115,6 +119,7 @@ function EmployeeTimesheetsView() {
             })}
 
         <div className="total-hours-footer ">
+            {/* We format the time to match if there is less than 10 minutes we add a zero */}
             {Math.floor(minutesSum % 60) < 10 ? 
             <h1 className="total-text">Total = {Math.floor(minutesSum / 60)}:0{Math.floor(minutesSum % 60)}</h1>
             :

@@ -11,26 +11,26 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 //mui for table
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { makeStyles } from '@material-ui/core/styles';
+
+//This component is reachable only by admins. AdminAllClients maps over the client list and returns this component. 
+//In the mapping, AdminAllClients passes the individual client data as a prop. 
+//This component contains the information on a single client from the database.
+//This component also contains buttons to edit and delete the individual client info.
 
 function AdminClientItem ({client}) {
 
-        const dispatch = useDispatch();    
-        //use states to control dialog open/close
+        //const variables
+        const dispatch = useDispatch(); 
+        const clientId = client.client_id;
+        const [editClient, setEditClient] = useState({firstName: client.client_first_name, lastName: client.client_last_name, address: client.address, city: client.city, state: client.state, zip: client.zip, bio: client.bio, clientId: client.client_id});
+
+        //useStates to control Dialogs open/close functionality
         const [deleteOpen, setDeleteOpen] = useState(false);
         const [editOpen, setEditOpen] = useState(false);
-        //Updated Client Info Object
-        const [editClient, setEditClient] = useState({firstName: client.client_first_name, lastName: client.client_last_name, address: client.address, city: client.city, state: client.state, zip: client.zip, bio: client.bio, clientId: client.client_id});
-        const clientId = client.client_id;
 
-        //setting user input functions:
+        //Setting user input functions:
         const handleFirstName = (event) => {
             setEditClient({...editClient, firstName: event.target.value})
         }
@@ -52,36 +52,35 @@ function AdminClientItem ({client}) {
         const handleBio = (event) => {
             setEditClient({...editClient, bio: event.target.value})
         }
+
         //functions to handle delete dialog open/close
         const handleDeleteClickOpen = () => {
             setDeleteOpen(true);
-            console.log('handle click clicked');
           };
         const handleDeleteClose = () => {
             setDeleteOpen(false);
-            console.log('handle close');
           };
+        
+        //function to handle delete button action
         const handleDelete = () => {
             setDeleteOpen(false);
-            console.log('close');
             dispatch({
                 type: 'DELETE_CLIENT',
                 payload: clientId
             })
         }//end of handleDelete function
+
         //functions to handle edit dialog open/close
         const handleEditClickOpen = () => {
             setEditOpen(true);
             setEditClient({firstName: client.client_first_name, lastName: client.client_last_name, address: client.address, city: client.city, state: client.state, zip: client.zip, bio: client.bio, clientId: client.client_id});
-            console.log('this is edit client', editClient);
         }//end of handleEditClickOpen
         const handleEditClose = () => {
             setEditOpen(false);
         }//end of handleEditClose
+
+        //function to handle edit client action.
         const handleEdit = () => {
-            // console.log('in the edit');
-            // console.log('this is edit client', editClient);
-            
             dispatch({
                 type: 'EDIT_CLIENT',
                 payload: editClient
@@ -91,6 +90,9 @@ function AdminClientItem ({client}) {
         
     return(
         <>
+            {/* Checking if the client is active in the system. */}
+            {/* If active, the client will render in the DOM */}
+            {/* If not active, the client will be assigned a 'hide-class' class and will be hidden from render in DOM */}
             {client.client_active ?
 
                 <TableRow hover >
@@ -150,7 +152,6 @@ function AdminClientItem ({client}) {
             }
 
             {/* Delete Client Modal Code: */}
-
             <Dialog
             open={deleteOpen}
             onClose={handleDeleteClose}
@@ -181,7 +182,6 @@ function AdminClientItem ({client}) {
             </Dialog>
 
             {/* Edit Client Modal Code: */}
-
             <Dialog open={editOpen} onClose={handleEditClose}>
                 <DialogTitle>Edit Client</DialogTitle>
                 <DialogContent>
@@ -278,7 +278,6 @@ function AdminClientItem ({client}) {
             </Dialog>
         </>
     );
-
 } //end of Admin Client Item
 
 export default AdminClientItem;

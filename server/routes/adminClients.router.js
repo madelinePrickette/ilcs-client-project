@@ -7,6 +7,7 @@ const {
 
 /**
  * GET route 
+ * //this GET route gets all client data from clients table.
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM "client" ORDER BY "client".client_id; `;
@@ -22,7 +23,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * POST route 
+ * POST route
+ * //this post route adds a new client to client table 
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
     // console.log('req.body in post', req.body);
@@ -51,9 +53,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * Put route 
+ * Put route
+ * //This Put route takes care of the client soft delete 
  */
-//This Put route takes care of the client soft delete
  router.put('/delete/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id
   console.log('here is params in put, aka soft delete:', id)
@@ -123,7 +125,5 @@ router.put('/edit/client', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500)
     })
 });
-
-
 
 module.exports = router;

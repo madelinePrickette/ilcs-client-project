@@ -14,7 +14,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
   pool.query(queryText)
     .then(response => {
-      // console.log('get client data from server is', response.rows)
       res.send(response.rows)
     }).catch(err => {
       console.log(err)
@@ -27,8 +26,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * //this post route adds a new client to client table 
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
-    // console.log('req.body in post', req.body);
-    //make new client active by passing them 
+    //const active makes new client active by passing them true boolean. 
     const active = true;
   queryText=`INSERT INTO "client" ("client_first_name", "client_last_name", "address", "city", "state", "zip", "bio", "client_active")
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;

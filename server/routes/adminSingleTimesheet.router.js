@@ -8,6 +8,7 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
+// gets a specific timesheet by timesheet id
 router.get('/:timesheetid', rejectUnauthenticated, (req, res)=> {
     const queryText=`
     SELECT * FROM "timesheet"
@@ -27,6 +28,7 @@ router.get('/:timesheetid', rejectUnauthenticated, (req, res)=> {
         })
 })
 
+// updates a specific timesheet by timesheet id
 router.put('/:timesheetid', rejectUnauthenticated, (req, res) => {
     const id = req.params.timesheetid
     const queryText = `
@@ -48,6 +50,7 @@ router.put('/:timesheetid', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// deletes a specific timesheet by timesheet id
 router.delete('/:timesheetid', rejectUnauthenticated, (req, res) => {
     const id = req.params.timesheetid
     const queryText = `

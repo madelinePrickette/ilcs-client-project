@@ -1,7 +1,7 @@
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-// import EmployeeTimesheetsView from '../../components/EmployeeTimesheetsView/EmployeeTimesheetsView';
 
+// posts new timesheet to the database on clock in
 function* employeeClockIn(action) {
     try {
         yield axios.post('/api/employeeClockIn', action.payload);
@@ -11,6 +11,7 @@ function* employeeClockIn(action) {
     }
 }
 
+// gets client info to display on clock in view
 function* clientInfoClockIn(action) {
     try {
         const response = yield axios.get(`/api/employeeClockIn/client/${action.payload}`);
@@ -20,6 +21,7 @@ function* clientInfoClockIn(action) {
     }
 }
 
+// gets status of users if they are clocked in.
 function* checkClockedIn(action) {
     try {
         const response = yield axios.get(`/api/employeeClockIn/user`);
@@ -29,6 +31,7 @@ function* checkClockedIn(action) {
     }
 }
 
+// updates a timesheet with clock out data
 function* employeeClockOut(action) {
     try {
         yield axios.put('/api/employeeClockIn', action.payload);
@@ -39,6 +42,7 @@ function* employeeClockOut(action) {
     }
 }
 
+// sends email for clock out update
 function* sendClockOutEmail (action) {
     try {
         const response = yield axios.get(`/api/email/timesheet/${action.payload}`);

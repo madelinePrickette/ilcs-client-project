@@ -8,11 +8,11 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
+// posts a new timesheet
 router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText = `INSERT INTO "timesheet" ( "t_user_id", "t_client_id", "clock_in", "loc_1", "is_clocked_in", "notification")
     VALUES ($1, $2, current_timestamp, $3, true, false);`;
     const queryValues = [req.user.id, req.body.clientId, req.body.location];
-    // 27 needs to be emnployee id
     pool.query(queryText, queryValues)
         .then( result => {
             res.sendStatus(201);
@@ -22,6 +22,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// updates a specific timesheet by timesheet id
 router.put('/', rejectUnauthenticated, (req, res) => {
     const queryText = `UPDATE "timesheet"
     SET "clock_out" = current_timestamp,
@@ -31,7 +32,6 @@ router.put('/', rejectUnauthenticated, (req, res) => {
     "notes" = $3
     WHERE "timesheet".timesheet_id = $4;`;
     const queryValues = [ req.body.loc_2, req.body.work_type, req.body.notes, req.body.timesheet_id ];
-    // 27 needs to be emnployee id
     pool.query(queryText, queryValues)
         .then( result => {
             res.sendStatus(201);
@@ -41,6 +41,7 @@ router.put('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// gets specific client info by client id
 router.get('/client/:id', rejectUnauthenticated, (req, res) => {
     console.log(req.params);
     console.log('server client id', req.params.id);
@@ -51,14 +52,13 @@ router.get('/client/:id', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, queryValues)
     .then( result => {
         res.send(result.rows[0]);
-        // console.log('results!', result.rows[0]);
-        // res.sendStatus(201);
     }).catch( err => {
         console.log( err );
         res.sendStatus(500);
     })
 })
 
+// gets all timesheets for a specific user
 router.get('/user', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "timesheet"
     JOIN "client"
@@ -70,7 +70,6 @@ router.get('/user', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, queryValues)
     .then( result => {
         res.send(result.rows[0]);
-        // console.log('results!', result.rows[0]);
     }).catch( err => {
         console.log( err );
         res.sendStatus(500);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
+// gets all employee timesheets
 function* getEmployeeTimesheets() {
     try {
         let response = yield axios.get('/api/timesheets/employeeView');
@@ -9,7 +10,7 @@ function* getEmployeeTimesheets() {
         console.log('Error with user clock in', error);
     }
 }
-
+// gets a specific employee timesheet
 function* getSingleEmployeeTimeSheet(action){
     try {
         const response = yield axios.get(`/api/timesheets/employeeView/${action.payload.timesheet}`);
@@ -18,7 +19,7 @@ function* getSingleEmployeeTimeSheet(action){
         console.log('Error in getSingleEmployeeTimeSheet', error)
     }
 }
-
+// updates a specific employee timesheet
 function* employeeTimesheetChanges(action){
     try{
         yield axios.put(`api/timesheets/employeeView/${action.payload.timesheet}`, action.payload)
@@ -28,7 +29,7 @@ function* employeeTimesheetChanges(action){
         console.log('Error in employeeTimesheetChanges', error)
     }
 }
-
+// sends email for submitted timesheet update
 function* sendEmailEditedTimesheet(action){
     try{
         const response = yield axios.get(`/api/email/timesheet/edit/${action.payload.timesheet}`);

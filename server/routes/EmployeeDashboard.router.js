@@ -20,7 +20,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
   pool.query(queryText, [req.user.id])
   .then( (result) => {
-    console.log('Getting this employee clients...', result.rows)
     res.send(result.rows)
   }).then( (err) => {
     console.log('error in EmployeeDashboard.jsx', err);

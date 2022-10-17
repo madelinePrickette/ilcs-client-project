@@ -14,7 +14,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
   pool.query(queryText, [id])
     .then(response => {
-      console.log(response.rows);
       res.send(response.rows);
     }).catch(err => {
       res.sendStatus(500)
@@ -23,7 +22,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 router.put('/:id', rejectUnauthenticated, (req, res) =>{
-  console.log(req.body.info.firstname)
   const id = req.params.id;
   const queryText = `
     UPDATE "user" 

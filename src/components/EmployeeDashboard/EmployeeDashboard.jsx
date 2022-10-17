@@ -18,7 +18,6 @@ function EmployeeDashboard() {
 
   // this gets the clients assigned to a user
   const fetchEmployeeClients = () => {
-    console.log('fetching clients for this employee...');
     dispatch({
       type: 'FETCH_EMPLOYEE_CLIENTS'
     })

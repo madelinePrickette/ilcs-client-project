@@ -14,7 +14,6 @@ const employeeClockInStatus = (state = [], action) => {
   const employeeSingleTimesheet = (state = {}, action) => {
     switch (action.type) {
       case 'SET_EMPLOYEE_SINGLE_TIMESHEET':
-        // console.log('payload is', action.payload)
         return action.payload;
       case 'UNSET_EMPLOYEE_SINGLE_TIMESHEET':
         return {};

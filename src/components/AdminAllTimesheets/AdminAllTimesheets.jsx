@@ -92,7 +92,6 @@ function AdminAllTimesheets() {
     });
   };
   const fetchEmployeeList = () => {
-    console.log("fetching employee list...");
     dispatch({
       type: "FETCH_EMPLOYEES_LIST",
     });

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
-// gets all of the clients that are assigned to an employee to display on the employee dashboard
+//Handles grabbing the clients for the currently logged in employee. Each client will be displayed as a clickable object on the employee dashboard.
 function* fetchEmployeeClients() {
     try {
         console.log('in fetchEmployeeClients saga')
@@ -14,7 +14,7 @@ function* fetchEmployeeClients() {
 }
 
 function* EmployeeClientsSaga() {
-    yield takeEvery ('FETCH_CLIENT_EMPLOYEES', fetchEmployeeClients);
+    yield takeEvery ('FETCH_EMPLOYEE_CLIENTS', fetchEmployeeClients);
 }
 
 export default EmployeeClientsSaga;

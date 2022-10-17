@@ -20,7 +20,7 @@ function EmployeeDashboard() {
   const fetchEmployeeClients = () => {
     console.log('fetching clients for this employee...');
     dispatch({
-      type: 'FETCH_CLIENT_EMPLOYEES'
+      type: 'FETCH_EMPLOYEE_CLIENTS'
     })
   }
 

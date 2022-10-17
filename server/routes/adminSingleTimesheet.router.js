@@ -64,6 +64,10 @@ router.delete('/:timesheetid', rejectUnauthenticated, (req, res) => {
     })
 })
 
+/**
+ * PUT route 
+ */
+//This route sets a timesheet's notification column to be true, happens when an employee modifies an existing timesheet.
 router.put('/notification/:timesheetid', rejectUnauthenticated, (req, res) => {
     const id = req.params.timesheetid;
     const queryText = `

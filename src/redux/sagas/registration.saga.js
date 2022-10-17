@@ -1,6 +1,7 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
+//The registration.saga handles employee creation by an admin. Once the employee is created, it takes the array of employees selected from the creation form and assigns them to the newly created employee.
 function* createNewUser(action) {
   try { 
     const response = yield axios.post('/api/user/register/newuser', action.payload);
@@ -14,7 +15,7 @@ function* createNewUser(action) {
         },
       });
     }
-
+    //Once clients are assigned to the new employee, route the admin to the next page.
     yield action.payload.history.push(`/employee/${response.data.id}`)
   } catch (error) {
     console.log('Error with user registration:', error);
@@ -23,9 +24,7 @@ function* createNewUser(action) {
 }
 
 function* registrationSaga() {
-  // yield takeLatest('REGISTER', registerUser);
   yield takeLatest('CREATE_NEW_USER', createNewUser)
-  // yield takeEvery('FETCH_NEW_EMPLOYEE', fetchNewEmployee)
 }
 
 export default registrationSaga;

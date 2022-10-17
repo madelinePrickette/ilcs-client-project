@@ -26,7 +26,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * //this post route adds a new client to client table 
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
+
+    //make new client active by passing them 
     //const active makes new client active by passing them true boolean. 
+
     const active = true;
   queryText=`INSERT INTO "client" ("client_first_name", "client_last_name", "address", "city", "state", "zip", "bio", "client_active")
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;

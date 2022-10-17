@@ -16,6 +16,7 @@ function EmployeeDashboard() {
   const employeesClientList =  useSelector( (store) => store.employeeClientsReducer)
   const history = useHistory();
 
+  // this gets the clients assigned to a user
   const fetchEmployeeClients = () => {
     console.log('fetching clients for this employee...');
     dispatch({
@@ -23,12 +24,11 @@ function EmployeeDashboard() {
     })
   }
 
+  // this routes the client to the clock in screen for a client when a client is clicked on
   const goToClockIn = (clientId) => {
     history.push(`/employeeClockIn/${clientId}`)
   }
 
-  console.log(employeesClientList);
-  console.log(user);
   return (
     <div className="container">
       <h2>Welcome, {user.first_name} {user.last_name}</h2>
@@ -41,5 +41,4 @@ function EmployeeDashboard() {
   );
 }
 
-// this allows us to use <App /> in index.js
 export default EmployeeDashboard;

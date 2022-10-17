@@ -23,6 +23,7 @@ function EmployeeClockIn() {
     const [notes, setNotes] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    // This gets the client infor that an employee is clocking into and checks if an employee is already clocked in.
     const getClientInfo = (client_id) => {
         console.log("client id", client_id);
         dispatch({
@@ -33,11 +34,11 @@ function EmployeeClockIn() {
             type: 'GET_USER_STATUS'
         })
     }
-
+    // this hols selection of work type of PCA or HSA
     const workType = (type) => {
         setWork_type(type);
     }
-
+    // This keeps track of the notes
     const notesSection = (event) => {
         setNotes(event.target.value)
     }
@@ -55,7 +56,7 @@ function EmployeeClockIn() {
             });
           });
     }
-
+    // this function updates the clocked in timesheet with the clock out location, time, notes, and work type
     const clockOut = (timesheet_id) => {
         if (work_type == '') {
             alert('Please select the type of work before submitting');
@@ -70,7 +71,7 @@ function EmployeeClockIn() {
           });
         }
     }
-
+    // This returns the loading spinner if isLoading is set tyo true
     if (isLoading) {
         return(
             <div className="loading-spinner-container">
@@ -81,7 +82,7 @@ function EmployeeClockIn() {
             </div>
         )
     }
-
+    // this returns the the clock out screen if a user is clocked into the client seleceted.
     if (userInfo.client_id == clientInfo.client_id) {
         return (
             <div className="clock-in-body-container">
@@ -107,6 +108,7 @@ function EmployeeClockIn() {
                 </div>
             </div>
         )
+        // This returns the clock in screen if a user is not clocked into a client
     } else if (userInfo == '') {
         return (
             <div className="clock-in-body-container">
@@ -118,6 +120,7 @@ function EmployeeClockIn() {
                 </div>
             </div>
         )
+        // This returns only the client info if a user is clocked into a differnt client than the one selected.
     } else {
         return (
             <div className="clock-in-body-container">

@@ -45,7 +45,6 @@ function EmployeeClockIn() {
 
     // this function get location data from a users browser and sends it to the employeeClockIn Reducer.
     const clockIn = () => {
-        console.log('clicked');
         setIsLoading(true);
         navigator.geolocation.getCurrentPosition(function(position) {
             console.log("Latitude is :", position.coords.latitude);

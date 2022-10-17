@@ -68,7 +68,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
   pool.query(queryText, [id] )
     .then(response => {
-      // console.log(response)
       res.sendStatus(200)})
     .catch(err => {
       console.log(err)
@@ -97,7 +96,6 @@ router.put('/edit/client', rejectUnauthenticated, (req, res) => {
 
   pool.query(queryText, values )
     .then(response => {
-      // console.log(response)
       res.sendStatus(200)})
     .catch(err => {
       console.log(err)

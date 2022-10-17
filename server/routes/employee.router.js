@@ -43,8 +43,6 @@ router.put('/', rejectUnauthenticated, (req, res) => {
 
 // gets specific client info by client id
 router.get('/client/:id', rejectUnauthenticated, (req, res) => {
-    console.log(req.params);
-    console.log('server client id', req.params.id);
     const queryText = `SELECT * FROM "client"
     WHERE client_id = $1;`;
     const queryValues = [ req.params.id ];

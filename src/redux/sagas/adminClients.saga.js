@@ -6,7 +6,6 @@ function* addClient (action) {
     try {
     const response = yield axios.post('api/adminClients', action.payload);
     yield put({ type: 'FETCH_CLIENTS', payload: response.data });
-
     } catch (error) {
          console.log('Add client post failed', error);
     }
@@ -17,7 +16,6 @@ function* addClient (action) {
 //Lastly, fetches all clients from database.
 function* deleteClient (action) {
     try{
-        console.log('this is delete payload:', action.payload);
         yield axios.put( `/api/adminClients/delete/${action.payload}`);
         yield axios.delete(`/api/adminClients/${action.payload}`);
         yield put({ type: 'FETCH_CLIENTS' });

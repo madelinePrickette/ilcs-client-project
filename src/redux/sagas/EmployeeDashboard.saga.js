@@ -13,7 +13,7 @@ function* fetchEmployeeClients() {
 }
 
 function* EmployeeClientsSaga() {
-    yield takeEvery ('FETCH_CLIENT_EMPLOYEES', fetchEmployeeClients);
+    yield takeEvery ('FETCH_EMPLOYEE_CLIENTS', fetchEmployeeClients);
 }
 
 export default EmployeeClientsSaga;

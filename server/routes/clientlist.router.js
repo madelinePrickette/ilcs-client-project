@@ -6,7 +6,7 @@ const {
 } = require('../modules/authentication-middleware');
 
 /**
- * GET route template
+ * GET route
  */
 router.get('/emplist/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;

@@ -22,12 +22,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     })
 });
 
-
-router.post('/',  rejectUnauthenticated, (req, res) => {
-  
-});
-
-router.put('/:id', rejectUnauthenticated, (req, res) =>{ //finish this
+router.put('/:id', rejectUnauthenticated, (req, res) =>{
   console.log(req.body.info.firstname)
   const id = req.params.id;
   const queryText = `

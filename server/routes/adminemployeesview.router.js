@@ -5,6 +5,10 @@ const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 
+/**
+ * GET route 
+ */
+//Serves as the main route to retrieve all active employees that are not admins. This data populates the admin employees view.
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `
   SELECT * FROM "user"

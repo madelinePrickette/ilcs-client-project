@@ -19,7 +19,7 @@ function EmployeeDashboard() {
   const fetchEmployeeClients = () => {
     console.log('fetching clients for this employee...');
     dispatch({
-      type: 'FETCH_CLIENT_EMPLOYEES'
+      type: 'FETCH_EMPLOYEE_CLIENTS'
     })
   }
 
@@ -37,8 +37,6 @@ function EmployeeDashboard() {
             <p className='client-text' onClick={() => goToClockIn(client.client_id)}>{client.client_first_name} {client.client_last_name}</p>
           </div>
         )}
-      {/* <LogOutButton className="btn" /> */}
-      {/* {JSON.stringify(employeesClientList)} */}
     </div>
   );
 }

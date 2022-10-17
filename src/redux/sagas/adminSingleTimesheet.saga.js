@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
-
+// will get a single timesheet to view on admin side.
 function* getAdminSingleTimeSheet(action){
     try {
         const response = yield axios.get(`/api/admin/timesheet/${action.payload.timesheet}`);
@@ -12,6 +12,7 @@ function* getAdminSingleTimeSheet(action){
     }
 }
 
+// updates a specific timesheet on edit submission of admin side
 function* adminTimesheetChanges(action){
     try{
         yield axios.put(`api/admin/timesheet/${action.payload.timesheet}`, action.payload)
@@ -21,6 +22,7 @@ function* adminTimesheetChanges(action){
     }
 }
 
+// deletes a specific timesheet in admin view
 function* adminDeleteTimesheet(action){
     try{
         yield axios.delete(`api/admin/timesheet/${action.payload.timesheet}`)
@@ -29,6 +31,7 @@ function* adminDeleteTimesheet(action){
     }
 }
 
+// updates timesheet in the notification section by making it false
 function* markAsRead(action){
     try{
         yield axios.put(`api/admin/timesheet/notification/${action.payload.timesheetid}`)

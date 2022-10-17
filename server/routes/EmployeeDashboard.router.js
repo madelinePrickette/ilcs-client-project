@@ -6,7 +6,7 @@ const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 
-
+// Gets all of the clients that are assigned to a user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText =
   `

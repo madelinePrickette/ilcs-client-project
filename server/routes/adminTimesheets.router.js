@@ -6,6 +6,12 @@ const {
     rejectUnauthenticated,
 } = require('../modules/authentication-middleware');  
 
+
+//this post does a selection with the requirements that are givent to it in the req.body
+//this includes the begin date, the end date, and the employee if selected.
+
+//all employee selection is set to a value of 0, if selected the first query is ran.
+//if any other value than 0, that employees timesheets will display due to the second query running.
 router.post('/', rejectUnauthenticated, (req, res) => {
     
     const dateFrom = req.body.dateFrom;

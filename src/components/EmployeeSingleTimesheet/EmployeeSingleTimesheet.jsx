@@ -44,12 +44,13 @@ function EmployeeSingleTimesheet() {
   let minutes = Math.floor(total % 60);
 
   //Const functions
-
+  // this sets the values of the inputs to the current values when the edit button is clicked
   const clickEdit = () => {
     setClientSelect(timesheet.t_client_id);
     setEditing(!editing);
   };
 
+  // this send the updated info to the database when the save button is clicked
   const clickSave = () => {
     dispatch({
       type: "EMPLOYEE_TIMESHEET_CHANGES",
@@ -62,10 +63,12 @@ function EmployeeSingleTimesheet() {
     setEditing(!editing);
   };
 
+  // this holds the client that is seleced in the edit view
   const changeClient = (event) => {
     setClientSelect(event.target.value);
   };
 
+  // this holds the notes entered in the edit view
   const changeNotes = (event) => {
     setNewNotes(event.target.value);
   };
@@ -75,6 +78,7 @@ function EmployeeSingleTimesheet() {
       className="mobile-single-timesheet-container"
       style={{ padding: "20px" }}
     >
+      {/* This section is returned when editing is set to true */}
       {editing ? (
         <div>
           <Select
@@ -97,6 +101,7 @@ function EmployeeSingleTimesheet() {
           <h3>
             Clock-out: {moment(timesheet.clock_out).format("DD/MM/YYYY LT")}
           </h3>
+          {/* This section checks if the number of minutes is greater than 9. if not we add a 0 in front to keep time structure consistent */}
           <h3>
             Time worked: {hours}:{minutes > 9 ? minutes : "0" + minutes}
           </h3>
@@ -111,6 +116,7 @@ function EmployeeSingleTimesheet() {
           />
         </div>
       ) : (
+      // This section is displayed when a single timesheet is selected but edit has not been clicked.
         <div className="singleTimeSheetInfoDiv">
           <h3>
             Client: {timesheet.client_first_name} {timesheet.client_last_name}
@@ -123,6 +129,7 @@ function EmployeeSingleTimesheet() {
             <h3>
               Clock-out: {moment(timesheet.clock_out).format("DD/MM/YYYY LT")}
             </h3>
+            {/* This section checks if the number of minutes is greater than 9. if not we add a 0 in front to keep time structure consistent */}
             <h3>
               Time worked: {hours}:{minutes > 9 ? minutes : "0" + minutes}
             </h3>
@@ -141,6 +148,7 @@ function EmployeeSingleTimesheet() {
           <h3>Notes: {timesheet.notes}</h3>
         </div>
       )}
+      {/* These buttons are returned when editing is set to true */}
       {editing ? (
         <div>
           <Button

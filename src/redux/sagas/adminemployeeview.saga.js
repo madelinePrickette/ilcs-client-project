@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
+// worker Saga: will be fired on "FETCH_EMPLOYEES_LIST", grabs all current employees that are active and not admins.
 function* fetchEmployeesList() {
   try {
     const response = yield axios.get('/api/adminemployeesview');

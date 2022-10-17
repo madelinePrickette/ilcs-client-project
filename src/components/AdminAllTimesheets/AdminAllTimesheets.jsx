@@ -38,6 +38,15 @@ import { makeStyles } from "@material-ui/core/styles";
 const Papa = require("papaparse");
 
 function AdminAllTimesheets() {
+
+  useEffect(() => {
+    fetchEmployeeList(); //populates employee list dropdown
+    handleFilterSubmit(); //runs right away to get the current date and 14 days prior.
+  }, []);
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   //SUBTRACTING 14 DAYS
   //These are all global so they can be accessed by the useState right away.
   //When they were in a function, they were locked by their scope and useState could not access them.
@@ -50,7 +59,7 @@ function AdminAllTimesheets() {
   const nowFormatSplit = nowFormat.split("T");
   //take the first value in the array
   const sqlNow = nowFormatSplit[0];
-  console.log("DATE TO", sqlNow);
+  // console.log("DATE TO", sqlNow);
 
   //getting 14 days ago
   const minus14Days = moment(nowFormat).subtract(14, "days");
@@ -60,54 +69,151 @@ function AdminAllTimesheets() {
   const minus14DaysFormatSplit = minus14DaysFormat.split("T");
   //take the first value in the array
   const sql14DaysAgo = minus14DaysFormatSplit[0];
-  console.log("DATE FROM", sql14DaysAgo);
-
-  //hours worked variables:
-  const minutesSum = 0;
-
-  useEffect(() => {
-    fetchEmployeeList(); //populates employee list dropdown
-    handleFilterSubmit(); //runs right away to get the current date and 14 days prior.
-  }, []);
-
-  const history = useHistory();
-  const dispatch = useDispatch();
+  // console.log("DATE FROM", sql14DaysAgo);
+  
   const employeeList = useSelector((store) => store.adminemployeesview); //getting employees to populate the dropdown
   const timesheetList = useSelector((store) => store.adminTimesheetsReducer); //getting specific timesheets to display.
+  const [beginDate, setBeginDate] = useState(`${sqlNow}T23:59:59.000000`);
+  const [endDate, setEndDate] = useState(`${sql14DaysAgo}T00:00:00.000000`);
+  //this useState is what is quickly sent into a query in order to show all timesheets within the last 14 days on load.
+
+  //routing to single timesheet page based on that employee id and timesheet id
+  const goToTimesheet = (t_id, e_id) => {
+    history.push(`/admin/timesheet/${e_id}/${t_id}`);
+  };
+
+  //setting silter for the past 2 weeks
   const [filter, setFilter] = useState({
     dateFrom: `${sql14DaysAgo} 00:00:00.000000`,
     dateTo: `${sqlNow} 23:59:59.000000`,
     userId: 0,
   });
-  const [beginDate, setBeginDate] = useState(`${sqlNow}T23:59:59.000000`);
-  const [endDate, setEndDate] = useState(`${sql14DaysAgo}T00:00:00.000000`);
-  //this useState is what is quickly sent into a query in order to show all timesheets within the last 14 days on load.
-
+  
   const handleFilterSubmit = () => {
     //this handles all timesheet displaying by dates. Wether it be by onLoad or by the user.
-    console.log("getting timesheets...");
     dispatch({
       type: "FETCH_FILTER",
       payload: filter,
     });
   };
+
+  //populates the dropdown for new employees
   const fetchEmployeeList = () => {
     dispatch({
       type: "FETCH_EMPLOYEES_LIST",
     });
   };
 
+  //captures the beginning date selection
   const handleDateFromSelection = (event) => {
     setFilter({ ...filter, dateFrom: `${event.target.value} 00:00:00.000000` });
     setEndDate(`${event.target.value}T00:00:00.000000`);
   };
+
+  //captures the end date selection
   const handleDateToSelection = (event) => {
     setFilter({ ...filter, dateTo: `${event.target.value} 23:59:59.000000` });
     setBeginDate(`${event.target.value}T23:59:59.000000`);
   };
+
+  //captures the employee selection
   const handleEmployeeSelection = (event) => {
-    console.log("employee id chosen:", event.target.value);
     setFilter({ ...filter, userId: event.target.value });
+  };
+
+  //handling the export
+  const handleExportCsv = () => {
+
+    let data = [];
+    let workValue = 0;
+    //map over timesheetList array
+    //for every timesheet, make new array and add it into data
+    for (let timesheet of timesheetList) {
+      //marking the value of their work, PCA is 15 dollars and HSA is 20 dollars
+      if (timesheet.work_type === "PCA") {
+        workValue = 15;
+      } else {
+        workValue = 20;
+      }
+
+      //math is dont here to calculate the total hours worked
+      let outTime = moment(timesheet.clock_out);
+      let inTime = moment(timesheet.clock_in);
+      let total = moment.duration(outTime.diff(inTime)).asMinutes();
+      let hours = Math.floor(total / 60);
+      let minutes = Math.floor(total % 60);
+
+      //if the time is between the end and begin date, move to next if statement.
+      if (
+        moment(timesheet.clock_in).format() > endDate &&
+        moment(timesheet.clock_in).format() < beginDate
+      ) {
+        //id the minutes that were divided is smaller than 10, concatinate a 0 in front
+        //so it is is 1 hour and 9 minutes, looks like 1:09 instead of 1:9 which would cause trouble
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+          data.push([
+            timesheet.timesheet_id,
+            timesheet.first_name,
+            timesheet.last_name,
+            workValue,
+            hours + ":" + minutes,
+            moment(timesheet.clock_in).format("lll"), //moment formatting
+            moment(timesheet.clock_out).format("lll"),
+          ]);
+        } else {
+          data.push([
+            timesheet.timesheet_id,
+            timesheet.first_name,
+            timesheet.last_name,
+            workValue,
+            hours + ":" + minutes,
+            moment(timesheet.clock_in).format("lll"), //moment formatting
+            moment(timesheet.clock_out).format("lll"),
+          ]);
+        }
+      }
+    }
+    
+    //this unparsing is what takes JSON and converts it to CSV formatting.
+    //Find papaparse on npm, that is what formats it for exporting BUT DOES NOT DO THE EXPORTING
+    let csv = Papa.unparse({
+      fields: [
+        "ID",
+        "Employee First",
+        "Employee Last",
+        "Work Type",
+        "Hours Worked",
+        "Clock In",
+        "Clock Out",
+      ],
+      data: data,
+    });
+
+    //Filenaming convention
+    var exportedFilenmae = `ILCS_Timesheets_Export_${sqlNow}.csv`;
+
+    //This blob was taken from a different npm package called react-export-json-csv BUT the package
+    //was NEVER INSTALLED, just copy pasted. Please go to https://github.com/jkpz10/react-export-json-csv 
+    //to look at the documentation.
+    let blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    if (navigator.msSaveBlob) {
+      // IE 10+
+      navigator.msSaveBlob(blob, exportedFilenmae);
+    } else {
+      let link = document.createElement("a");
+      if (link.download !== undefined) {
+        // feature detection
+        // Browsers that support HTML5 download attribute
+        let url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", exportedFilenmae);
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
   };
 
   //MUI CALENDAR NECESSARY STYLES
@@ -135,102 +241,8 @@ function AdminAllTimesheets() {
     },
   });
   const tableClasses = useStylesForTable();
-
   //END MUI TABLE STYLES
 
-  const goToTimesheet = (t_id, e_id) => {
-    history.push(`/admin/timesheet/${e_id}/${t_id}`);
-  };
-
-  //handling the export -----------------------------------------
-  const handleExportCsv = () => {
-    console.log("clicked export csv");
-
-    let data = [];
-    let workValue = 0;
-    //map over timesheetList array
-    //for every timesheet, make new array and add it into data
-    for (let timesheet of timesheetList) {
-      //marking the value of their work, PCA is 15 dollars and HSA is 20 dollars
-      if (timesheet.work_type === "PCA") {
-        workValue = 15;
-      } else {
-        workValue = 20;
-      }
-
-      let outTime = moment(timesheet.clock_out);
-      let inTime = moment(timesheet.clock_in);
-      let total = moment.duration(outTime.diff(inTime)).asMinutes();
-      let hours = Math.floor(total / 60);
-      let minutes = Math.floor(total % 60);
-
-      if (
-        moment(timesheet.clock_in).format() > endDate &&
-        moment(timesheet.clock_in).format() < beginDate
-      ) {
-        if (minutes < 10) {
-          minutes = "0" + minutes;
-          data.push([
-            timesheet.timesheet_id,
-            timesheet.first_name,
-            timesheet.last_name,
-            workValue,
-            hours + ":" + minutes,
-            moment(timesheet.clock_in).format("lll"),
-            moment(timesheet.clock_out).format("lll"),
-          ]);
-        } else {
-          data.push([
-            timesheet.timesheet_id,
-            timesheet.first_name,
-            timesheet.last_name,
-            workValue,
-            hours + ":" + minutes,
-            moment(timesheet.clock_in).format("lll"),
-            moment(timesheet.clock_out).format("lll"),
-          ]);
-        }
-      }
-    }
-
-    let csv = Papa.unparse({
-      fields: [
-        "ID",
-        "Employee First",
-        "Employee Last",
-        "Work Type",
-        "Hours Worked",
-        "Clock In",
-        "Clock Out",
-      ],
-      data: data,
-    });
-
-    console.log(csv);
-
-    var exportedFilenmae = "export.csv";
-
-    let blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    if (navigator.msSaveBlob) {
-      // IE 10+
-      navigator.msSaveBlob(blob, exportedFilenmae);
-    } else {
-      let link = document.createElement("a");
-      if (link.download !== undefined) {
-        // feature detection
-        // Browsers that support HTML5 download attribute
-        let url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", exportedFilenmae);
-        link.style.visibility = "hidden";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    }
-  };
-
-  console.log(filter); // just to check what is in our payload
   return (
     <div>
       <h1 style={{ marginLeft: "10px" }}>Employee Timesheets</h1>
@@ -336,11 +348,8 @@ function AdminAllTimesheets() {
                 let total = moment.duration(outTime.diff(inTime)).asMinutes();
                 let hours = Math.floor(total / 60);
                 let minutes = Math.floor(total % 60);
-                // minutesSum = minutesSum + total;
-                {
-                  /* {timesheetList && timesheetList.map(timesheet => { */
-                }
-                // if (moment(timesheet.clock_in).format() > endDate && moment(timesheet.clock_in).format() < beginDate) {
+                
+                // checking if the minutes are smaller than 0 in order to know if a 0 should be concatinated. ie 4:09
                 if (minutes < 10) {
                   minutes = "0" + minutes;
                   return (
@@ -386,6 +395,8 @@ function AdminAllTimesheets() {
                     </TableRow>
                   );
                 } else {
+                  
+                  //returning normally if the minutes are not less than 10, therefore a 0 does not need to be concatinated. ie. 4:15
                   return (
                     <TableRow
                       onClick={() =>
@@ -437,9 +448,6 @@ function AdminAllTimesheets() {
                     </TableRow>
                   );
                 }
-                // } else {
-                //     console.log(moment(timesheet.clock_in).format());
-                // }
               })}
             </TableBody>
           </Table>

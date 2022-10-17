@@ -9,4 +9,6 @@ const adminTimesheetsReducer = (state = [], action) => {
     }
   };
 
+  //filtering reducer for the Admins view of the Employee timesheets
+
   export default adminTimesheetsReducer;

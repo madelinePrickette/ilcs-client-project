@@ -11,7 +11,7 @@
 
 ## Description
 
-Star Pet is a searchable database that seemlessly links animal actors, their owners, other contacts, and current and former animal acting jobs. This was developed to be used internally by The Animal Connection, which is a full service animal actor casting company that has providing trained animal actors to the Midwest's film, television, and advertising communities since 1984.
+ILCS App is a digital time tracking application that has an online dashboard for employees and for management. The app allows employees to submit or edit their work time sheets. It also includes organization tools for management to use to view, edit and filter employees time sheets. This was developed to be used internally by Independent Living Care Services (ILCS), which is a small company that provides in-home personal care at multiple locations across the Twin Cities.
 
 ## Built With
 

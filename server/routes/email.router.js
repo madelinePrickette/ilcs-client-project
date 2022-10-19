@@ -30,6 +30,7 @@ const router = express.Router();
         const employeeName = `${req.user.first_name} ${req.user.last_name}`;
         const hours =  moment(result.rows[0].clock_out).diff(result.rows[0].clock_in, 'hours');
         const minutes = moment(result.rows[0].clock_out).diff(result.rows[0].clock_in, 'minutes') % 60;
+        const adminEmail = process.env.SENDGRID_EMAIL;
 
         //This is the email body for employee
         const employeeMessage = `Time Sheet Submitted:
@@ -57,13 +58,13 @@ const router = express.Router();
         const emails = [ 
             { //Employee Email Version
             to: employeeEmail,
-            from: 'ilcsdevs@gmail.com',
+            from: adminEmail,
             subject: 'Time Sheet Submitted',
             text: employeeMessage,
             },
             { //Admin Email Version
-                to: 'ilcsdevs@gmail.com',
-                from: 'ilcsdevs@gmail.com',
+                to: adminEmail,
+                from: adminEmail,
                 subject: 'Employee Time Sheet Submitted',
                 text: adminMessage,
                 },
@@ -101,6 +102,7 @@ const router = express.Router();
         const employeeName = `${req.user.first_name} ${req.user.last_name}`;
         const hours =  moment(result.rows[0].clock_out).diff(result.rows[0].clock_in, 'hours');
         const minutes = moment(result.rows[0].clock_out).diff(result.rows[0].clock_in, 'minutes') % 60;
+        const adminEmail = process.env.SENDGRID_EMAIL
 
         //These are the email bodies for employee and admin;
         //employee email body
@@ -129,13 +131,13 @@ const router = express.Router();
         const emails = [ 
             { //Employee Email Version
             to: employeeEmail,
-            from: 'ilcsdevs@gmail.com',
+            from: adminEmail,
             subject: 'Updated Time Sheet Submitted',
             text: employeeMessage,
             },
             { //Admin Email Version
-                to: 'ilcsdevs@gmail.com',
-                from: 'ilcsdevs@gmail.com',
+                to: adminEmail,
+                from: adminEmail,
                 subject: 'Updated Employee Time Sheet Submitted',
                 text: adminMessage,
                 },

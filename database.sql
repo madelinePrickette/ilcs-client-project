@@ -35,10 +35,10 @@ CREATE TABLE "timesheet" (
 	"t_user_id" int NOT NULL,
 	"t_client_id" int NOT NULL,
 	"clock_in" TIMESTAMP NOT NULL,
-	"loc_1" point NOT NULL,
+	"loc_1" varchar(255) NOT NULL,
 	"work_type" varchar(255) NOT NULL,
 	"clock_out" TIMESTAMP,
-	"loc_2" point,
+	"loc_2" varchar(255),
 	"notes" TEXT,
 	"is_clocked_in" BOOLEAN NOT NULL,
 	"notification" BOOLEAN NOT NULL

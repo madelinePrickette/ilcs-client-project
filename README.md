@@ -67,4 +67,4 @@ Video walkthrough of application usage: https://youtu.be/19Gy76iGe44
   INSERT INTO "user" ("first_name", "last_name", "username", "password", "clearance_level", "email", "pic", "user_active")
     VALUES ('admin', 'admin', 'admin', '$2a$10$npLEwUF31FvznQ31BJhcP.93tCLQfY2SwfJy8/Mp.AkNvq57B9vGW', 1, '', 'https://img1.wsimg.com/isteam/ip/f5ad5135-b36c-45d3-9295-11605642e560/ILClogo.PNG/:/rs=w:248,h:208,cg:true,m/cr=w:248,h:208/qt=q:95', true);
 
-  This will create the first admin account used for creating clients, employees, and other admins.
+  This will create the first admin account used for creating clients, employees, and other admins. Username: admin, Password: password.

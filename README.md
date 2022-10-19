@@ -21,7 +21,6 @@ ILCS App is a digital time tracking application that has an online dashboard for
 <a href="https://www.postgresql.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" height="40px" width="40px" /></a>
 <a href="https://reactjs.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="40px" width="40px" /></a>
 <a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="40px" width="40px" /></a>
-<a href="https://www.figma.com/?fuid="><img src="https://github.com/devicons/devicon/blob/master/icons/figma/figma-original.svg" height="40px" width="40px" /></a>
 <a href="https://material-ui.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" height="40px" width="40px" /></a>
 <a href="https://nodejs.org/en/"><img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-plain.svg" height="40px" width="40px" /></a>
 ## Getting Started
@@ -59,19 +58,13 @@ If you would like to name your database something else, you will need to change 
 
 Once everything is installed and running it should open in your default browser - if not, navigate to http://localhost:3000/#/.
 
-Video walkthrough of application usage: https://www.youtube.com/watch?v=HRonNTkScl0
+Video walkthrough of application usage: https://youtu.be/19Gy76iGe44
 
 ## Deployment
 - Login Credentials for Heroku have been provided in the hand off document.
-- If you need make changes you wish to push to the deployed app, you must login, go into the pet-star section, go to the deploy tab, and then manually deploy. You can reconfigure this to redeploy automatically if you wish, which is on the same page.
-- Environment variables are kept on Heroku in the Settings tab, just click the Reveal Config Vars button
-- To set up the DB, we used Postico, just plug the information from Heroku into a new favorite. The Information for this can be found in the Resources tab, by clicking the Postgres add on. From there it will bring you to a new page where you will go into the settings tab and click view credentials. 
+- In the case that you do not have the first admin account already made, you can run a sql statement to create a default admin account with the following code:
 
-- If you'd like to create new users (also a hacky way to change password) you must:
-1. Go into the user router
-1. Uncomment the route
-1. Push changes and redeploy app
-1. Register User
-1. Comment out the route back in VSCode
-1. Push changes
-1. Redeploy
+  INSERT INTO "user" ("first_name", "last_name", "username", "password", "clearance_level", "email", "pic", "user_active")
+    VALUES ('admin', 'admin', 'admin', '$2a$10$npLEwUF31FvznQ31BJhcP.93tCLQfY2SwfJy8/Mp.AkNvq57B9vGW', 1, '', 'https://img1.wsimg.com/isteam/ip/f5ad5135-b36c-45d3-9295-11605642e560/ILClogo.PNG/:/rs=w:248,h:208,cg:true,m/cr=w:248,h:208/qt=q:95', true);
+
+  This will create the first admin account used for creating clients, employees, and other admins.
